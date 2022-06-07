@@ -1,0 +1,21 @@
+.textSection{
+  margin-top: 2%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.card-title{
+  display: flex;
+  justify-content: space-between;
+}
+.card-text{
+  display: flex;
+  justify-content: space-between;
+}
+.card-control{
+  display:flex;
+}
+
+
+

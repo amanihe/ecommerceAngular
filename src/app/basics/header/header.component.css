@@ -1,0 +1,65 @@
+.entete{
+    display: flex;
+    justify-content: space-between;
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    border-color: #D7CEC7;
+
+}
+.contact{
+    margin-left: 10%;
+    display: flex;
+}
+.info{
+    margin-right: 10%;
+    display: flex;
+}
+a{
+    color:#286DA8;
+
+}
+
+.item{
+    display: flex;
+    margin-left: 8px;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
+#cercle {
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #286ca86c;
+    padding: 2px 2px 0 3px ;
+    margin-right: 5px;
+}
+svg{color:#286DA8 ;}
+.headercontainer{
+    margin-top: 10px;
+    margin-right: 10%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+.search{
+    margin-top: 8px;
+}
+#inputsearsh{
+    border-width: 2px;
+    border-radius: 20px;
+    border-color: #D7CEC7;
+    width: 350px;
+    height: 30px;
+}
+
+.controle{
+    margin-top: 10px;
+    display: flex;
+    justify-content:flex-end;
+}
+.signin{margin-left: 45px;}
+.container{
+  max-width: 100%;
+}

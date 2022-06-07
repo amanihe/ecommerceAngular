@@ -1,0 +1,136 @@
+<div class="textSection">
+  <h1>Profile</h1>
+</div>
+<div class="card text-center" style="width:40%; margin: auto; padding:2% ">
+  <a href="#" data-toggle="modal" class="text-right" data-target="#exampleModal"  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-pencil"
+      viewBox="0 0 16 16"
+    >
+      <path
+        d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+      />
+    </svg>
+    Modifier</a
+  >
+
+
+  <div class="card-body">
+    <h5 class="card-title">Nom:<span >{{UserNom}}</span></h5>
+      <p class="card-text ">Prenom:<span>{{UserPrenom}}</span></p>
+      <p class="card-text">Email:<span>{{UserEmail}}</span></p>
+      <p class="card-text">Numéro:<span>{{UserTel}}</span></p>
+    <p class="card-text">Mon compte:</p>
+    <a href=""  *ngIf="isAdmin==false&&isFnx==false" >c'est un simple compte client</a>
+    <a href="#" *ngIf="isAdmin==true" >Admin</a>
+    <br>
+    <a href="#" *ngIf="isFnx==true" >Fournisseur</a>
+  </div>
+</div>
+<br>
+<table class="table align-middle mb-0 bg-white" style="width: 40%; margin:auto;" *ngIf="!isAdmin">
+  <h4>
+    Mes demandes
+  </h4>
+  <tbody>
+    <tr *ngIf="!hideAdmin">
+      <td>
+        <p class="fw-normal mb-2">Admin</p>
+      </td>
+      <td>
+        <span class="badge badge-success rounded-pill d-inline" *ngIf="adminAccept==true" >Accepté</span>
+        <span class="badge badge-danger rounded-pill d-inline" *ngIf="adminRefus==true">Refusé</span>
+        <span class="badge badge badge-primary rounded-pill d-inline" *ngIf="adminAttente==true" >En attente</span>
+
+      </td>
+      <td>
+        <button type="button" class="btn btn-outline-secondary"  (click)="Demande('admin')"*ngIf="(adminAttente==false&&adminRefus==false&&adminAccept==false)">Demander</button>
+      </td>
+    </tr>
+    <tr *ngIf="!hideFnx">
+      <td>
+        <p class="fw-normal mb-1">Fournisseur</p>
+      </td>
+      <td>
+        <span class="badge badge-success rounded-pill d-inline"*ngIf="fnxAccept==true">Accepté</span>
+        <span class="badge badge-danger rounded-pill d-inline"*ngIf="fnxRefus==true">Refusé</span>
+        <span class="badge badge badge-primary rounded-pill d-inline"*ngIf="fnxAttente==true">En attente</span>
+
+      </td>
+      <td>
+        <button type="button" class="btn btn-outline-secondary"(click)="Demande('supplier')"*ngIf="(fnxAttente==false&&fnxAccept==false&&fnxRefus==false)">Demander</button>
+      </td>
+
+
+    </tr>
+
+  </tbody>
+
+</table>
+<div class="controle">
+
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modifier l'adresse</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="edit" (ngSubmit)="onSubmit()" >
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Nom:</label>
+              <input type="text" class="form-control" id="recipient-name"  formControlName="nom" [ngClass]="{ 'is-invalid': submitted && f.nom.errors }">
+              <div *ngIf="submitted && f.nom.errors">
+                  <div *ngIf="f.nom.errors.required" class="error">Nom is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Prenom:</label>
+              <input type="text" class="form-control" id="recipient-name"  formControlName="prenom" [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }">
+              <div *ngIf="submitted && f.prenom.errors">
+                  <div *ngIf="f.prenom.errors.required" class="error">prenom is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Email:</label>
+              <input type="email" class="form-control" id="recipient-name" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+              <div *ngIf="submitted && f.email.errors">
+                  <div *ngIf="f.email.errors.required" class="error">email is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Telphone:</label>
+              <input type="tel" class="form-control" id="recipient-name" formControlName="tel" [ngClass]="{ 'is-invalid': submitted && f.tel.errors }">
+              <div *ngIf="submitted && f.tel.errors">
+                  <div *ngIf="f.tel.errors.required" class="error">phone is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Mot de passe:</label>
+              <input type="password" class="form-control" id="recipient-name" formControlName="pwd" [ngClass]="{ 'is-invalid': submitted && f.pwd.errors }">
+              <div *ngIf="submitted && f.pwd.errors">
+                  <div *ngIf="f.pwd.errors.required" class="error">phone is required</div>
+              </div>
+            </div>
+
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary" >
+        </div>
+      </form>
+    </div>
+      </div>
+    </div>
+  </div>
+
+</div>

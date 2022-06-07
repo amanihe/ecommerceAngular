@@ -1,0 +1,64 @@
+<div class="container">
+  <nav>
+    <a class="Nav_Item" routerLink="P_Home">Home</a>
+
+    <div class="dropdown">
+      <a class="Nav_Item" routerLink="product/all/-1">All products</a>
+
+      <!--liste deroulante-->
+      <div class="dropdown-content">
+        <div *ngFor="let c of CategList" style="display: flex" cdkDrag>
+          <div *ngIf="c.Categ_Parent == null" style="display: flex">
+            <a Classe="name" (click)="openProduct(c.Categ_Id)">{{
+              c.Categ_Name
+            }}</a>
+            <div class="down" *ngIf="isAdmin">
+              <button class="btn">...</button>
+              <div class="down-content">
+                <a type="button" class="list" (click)="deleteClick(c.Categ_Id)"
+                  >delete</a
+                >
+
+                <div style="display: flex" class="list">
+                  <input type="text" [(ngModel)]="Categ_Namee" />
+                  <a href="#" type="button" (click)="updateCateg(c)">edit</a>
+                </div>
+
+                <div style="display: flex" class="list">
+                  <input type="text" [(ngModel)]="V_Category_Name" />
+                  <a
+                    type="button"
+                    href="#"
+                    (click)="Add_Sous_Category(c.Categ_Id)"
+                    >add
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngFor="let x of CategList" style="display: flex" cdkDrag>
+            <div *ngIf="x.Categ_Parent == c.Categ_Id">
+              <a style="width: 60%" href="#">{{ x.Categ_Name }}</a>
+              <a type="button" (click)="deleteClick(x.Categ_Id)" *ngIf="isAdmin"
+                >delete</a
+              >
+
+              <div style="display: flex" class="" *ngIf="isAdmin">
+                <input type="text" [(ngModel)]="Categ_Namee" />
+                <a href="#" type="button" (click)="updateCateg(x)">edit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex" *ngIf="isAdmin">
+          <input type="text" [(ngModel)]="V_Category_Namea" />
+          <a type="button" href="#" (click)="Add_Category()">add </a>
+        </div>
+      </div>
+    </div>
+
+    <a class="Nav_Item" href="">Contact</a>
+  </nav>
+</div>

@@ -1,0 +1,43 @@
+<div class="homeContainer">
+    <div class="homeHeader">
+        <div class="leftContainer">
+            <h2>Show the best seller Category </h2>
+            <p>a short description of this category</p>
+            <button> <a class="buttonText">show more </a> </button>
+        </div>
+        <img src="../../assets/shop.png" class="imgheader">
+    </div>
+    <br><br><br><br>
+    <div class="textSection">
+        <h3>Popular product </h3>
+        a short description of this product
+    </div>
+    <div class="allcard">
+        <div class="card" *ngFor="let list of liste">
+            <img src="../../{{list.image}}" style="width:100%" class="cardimg">
+            <h3>{{ list.nom }}</h3>
+            <p class="price">{{list.prix}} $</p>
+            <a href="">show more</a>
+            <p><button>Add to Cart</button></p>
+        </div>
+    </div>
+    <br><br><br>
+    <div class="textSection">
+        <h3>Categories </h3>
+        a short description of the categories
+    </div>
+    <div class="listcateg">
+        hello
+    </div>
+    <br><br><br>
+
+    <div class="allcard">
+        <div class="card" *ngFor="let list of liste2">
+            <img src="../../{{list.image}}" style="width:100%" class="cardimg">
+            <h3>{{ list.nom }}</h3>
+            <p class="price">{{list.prix}} $</p>
+            <a href="">show more</a>
+            <p><button>Add to Cart</button></p>
+        </div>
+    </div>
+</div>

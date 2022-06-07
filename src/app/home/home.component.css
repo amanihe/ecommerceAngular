@@ -1,0 +1,87 @@
+.homeContainer{
+    padding: 4%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.homeHeader{
+    background-color: #286DA8;
+    width: 600px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    border-radius: 15px;
+}
+.leftContainer{
+    
+    margin-left: 5%;
+}
+
+.imgheader{
+    width: 60%;
+    height: 100%;
+    border-radius: 355px 15px 15px 0;
+
+}
+.leftContainer button{
+    width: auto;
+    padding: 2px 15px ;
+    margin-top: 20px;
+}
+.buttonText{
+    text-decoration: none;
+    color: #286DA8;
+}
+.leftContainer h2, p{ color: #D7CEC7;}
+.textSection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.card {
+    max-width: 250px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+    margin: 4%;
+  }
+  
+  .price {
+    color:#286DA8;
+    font-size: 14px;
+  }
+  
+  .card button {
+    border: none;
+    outline: 0;
+    padding: 10px;
+    color: white;
+    background-color: #286DA8;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 14px;
+  }
+  
+  .card button:hover {
+    opacity: 0.7;
+  }
+  .allcard{
+    display: flex;
+  }
+  .cardimg{
+      border-radius: 15px ;
+      height: 50%;
+  }
+  .card a ,p,h3 {
+      color:#286DA8;
+  }
+.listcateg{
+    color: white;
+width: 500px;
+height: 500px;
+
+}

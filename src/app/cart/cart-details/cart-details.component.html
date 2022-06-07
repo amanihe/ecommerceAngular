@@ -1,0 +1,47 @@
+<div class="textSection">
+  <h1>Cart</h1>
+</div>
+<div class="container">
+  <div class="col-lg-7" >
+    <app-cart-item></app-cart-item>
+    </div>
+   <div class="col-lg-3" >
+  <div class="card position-sticky top-0">
+    <div class="p-3 bg-white bg-opacity-10">
+      <h6 class="card-title mb-3">Récapitulatif</h6>
+      <div class="d-flex justify-content-between mb-1 small">
+        <span>Cammande</span> <span>${{total}}</span>
+      </div>
+      <div class="d-flex justify-content-between mb-1 small">
+        <span>Livraison</span> <span>Gratuit</span>
+      </div>
+      <div class="d-flex justify-content-between mb-1 small">
+        <span>Tax</span> <span class="text-success">+${{tax}}</span>
+      </div>
+      <hr>
+      <div class="d-flex justify-content-between mb-4 small">
+        <span>TOTAL</span> <strong class="text-dark">${{total+tax}}</strong>
+      </div>
+
+      <button class="btn btn-outline-info w-100 mt-2" routerLink="/checkout/first" *ngIf="!vide">Valider commande</button>
+    </div>
+  </div>
+</div>
+  </div>
+  <div>
+    <div class="textSection">
+      <h1>Recently viewed </h1>
+
+    </div>
+    <div class="allcard2">
+      <div class="card2" *ngFor="let list of liste2">
+        <img src="../../{{list.image}}" style="width:100%" class="cardimg">
+        <h3>{{ list.nom }}</h3>
+        <p class="price2">{{list.prix}} $</p>
+        <a href="">show more</a>
+      </div>
+    </div>
+
+  </div>
+
+

@@ -1,0 +1,54 @@
+.pagecontainer{
+  padding-top: 4%;
+  padding-bottom: 12%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.carrecontainer{
+  background-color: #286DA8;
+  max-width: 700px;
+  max-height: 500px;
+  padding: 5%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+h3{
+  color: #286DA8;
+}
+p a{color:#D7CEC7;}
+.formItem{
+  display: flex;
+  flex-direction:column;
+  margin: 15px;
+}
+label{
+  color: #D7CEC7;
+  margin-bottom: 5px;
+}
+input, select{
+  width: 300px;
+  height: 25px;
+  border-radius: 5px;
+}
+.buttonsection{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+.button{
+  width: auto;
+  padding: 2px 25px ;
+  margin: 15px;
+  border-radius: 15px;
+}
+.buttonText{
+  text-decoration: none;
+  color: #286DA8;
+}
+.twoinputs{
+ display: flex;
+}

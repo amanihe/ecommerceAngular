@@ -1,0 +1,40 @@
+<div class="container" style="width: 60%;">
+  <article class="card">
+      <header class="card-header"> Mes commandes </header>
+      <div class="card-body" *ngFor="let item of orders">
+          <h6>Numero de commande: #2022{{item[0].Ord_Id}}</h6>
+          <article class="card">
+              <div class="card-body row">
+                  <div class="col"> <strong>Date de commande:</strong> <br>{{item[0].Ord_Date}} </div>
+                  <div class="col"> <strong>Date de livraison :</strong> <br>  </div>
+                  <div class="col"> <strong>Etat de commande:</strong> <br> {{item[0].Ord_Status}} </div>
+                  <div class="col"> <strong>Totale #:</strong> <br> {{item.total}} </div>
+              </div>
+          </article>
+          <div class="track">
+              <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
+              <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
+              <div class="step "> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
+              <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+          </div>
+          <a class="d-flex justify-content-end" (click)="open()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+            <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+          </svg>
+        </a>
+          <hr>
+          <ul class="row" *ngIf="isOpen==true">
+              <li class="col-md-4"*ngFor="let prod of item[1]">
+                  <figure class="itemside mb-3">
+                      <div class="aside"><img src="../../assets/{{prod.Prod_Img}}"class="img-sm border"></div>
+                      <figcaption class="info align-self-center">
+                          <p class="title">{{prod.Prod_Name}} <br> 8GB RAM</p> <span class="text-muted">{{prod.Prod_Price}}</span>
+                      </figcaption>
+                  </figure>
+              </li>
+          </ul>
+          <hr>
+          <a href="#" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Reacheter</a>
+      </div>
+  </article>
+</div>

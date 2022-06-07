@@ -1,0 +1,61 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 24%;
+  margin: 5%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 2%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+  padding: 2% 5%;
+}
+.bookContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+.textSection{
+  margin-top: 2%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.controle a{
+  color:#286DA8;
+  text-decoration: none;
+  cursor: default;
+  display: flex;
+}
+.cardAdd
+{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 24%;
+  margin: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: dashed;
+  border-width: 2px;
+  border-color:#286DA8;
+}
+.cardAdd:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.containerAdd {
+  color:#286DA8;
+}
+.containerAdd a{
+  color: #286DA8;
+  text-decoration: none;
+}
+

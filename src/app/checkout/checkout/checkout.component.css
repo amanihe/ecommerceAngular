@@ -1,0 +1,9 @@
+.textSection{
+  margin: 3%;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.card-text {
+  margin:2px
+}

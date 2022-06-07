@@ -1,0 +1,18 @@
+<div class="allcontainer ">
+
+  <app-sidebar></app-sidebar>
+
+
+  <div class="main" >
+    <div class="allcard">
+      <div class="card" *ngFor="let l of products">
+          <img  src="../../assets/{{l.Prod_Img}}" style="width:100%" class="cardimg">
+
+        <h3>{{ l.Prod_Name }}</h3>
+        <p class="price">{{l.Prod_Price}} $</p>
+        <a  (click)="details(l.Prod_Id)">show more</a>
+        <p><button (click)="Add_Order(l.Prod_Id)" >Add to Cart</button></p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+.container{
+    background-color: #286DA8;
+    padding:  0.5% 25% 0.5% 25%;
+    margin: 0;
+    max-width: 100%;
+}
+nav{
+    display: flex;
+    justify-content: space-evenly;
+    margin:0 50px 0 50px ;
+}
+
+.Nav_Item{
+    color:#D7CEC7;
+    text-decoration: none;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    background-color: rgb(246, 239, 239);
+    box-sizing: 0 5px 25px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a  {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  .dropdown-content .li {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content .li:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+
+.dropdown1 {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content1 {
+  background-color: rgb(246, 239, 239);
+  box-sizing: 0 5px 25px rgba(0,0,0,0.1);
+  border-radius: 15px;
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content1 a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content1 a:hover {background-color: #ddd;}
+
+.dropdown1:hover .dropdown-content {display: block;}
+
+.dropdown1:hover .dropbtn {background-color: #3e8e41;}
+
+
+
+.down {
+  float: left;
+  overflow: hidden;
+}
+
+.down-content {
+  background-color: rgb(246, 239, 239);
+  box-sizing: 0 5px 25px rgba(0,0,0,0.1);
+  border-radius: 15px;
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.down-content .list {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+.down:hover .down-content {
+  display: block;
+}
+.down .btn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: rgb(131, 43, 43);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+.name{
+  width: 60%;
+}
+input{width: auto;}
+input, select{
+  margin: 3%;
+  width: 150px;
+  height: 20px;
+  border-radius: 5px;
+}
