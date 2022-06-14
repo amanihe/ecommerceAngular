@@ -16,7 +16,7 @@
     border-radius: 15px;
 }
 .leftContainer{
-    
+
     margin-left: 5%;
 }
 
@@ -35,7 +35,7 @@
     text-decoration: none;
     color: #286DA8;
 }
-.leftContainer h2, p{ color: #D7CEC7;}
+.leftContainer h1, p{ color: #D7CEC7;}
 .textSection{
     display: flex;
     flex-direction: column;
@@ -48,12 +48,12 @@
     font-family: arial;
     margin: 4%;
   }
-  
+
   .price {
     color:#286DA8;
     font-size: 14px;
   }
-  
+
   .card button {
     border: none;
     outline: 0;
@@ -65,7 +65,7 @@
     width: 100%;
     font-size: 14px;
   }
-  
+
   .card button:hover {
     opacity: 0.7;
   }

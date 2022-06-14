@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/authservice';
 import { SharedService } from 'src/app/services/shared.service';
 
@@ -10,17 +11,21 @@ import { SharedService } from 'src/app/services/shared.service';
 export class RequestComponent implements OnInit {
   constructor(
     private service: SharedService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
   reqAdmin: any = [];
   reqFnx: any = [];
   nbAdmin: any = 0;
   nbFnx: any = 0;
   ngOnInit(): void {
+    if(!this.authService.isAdmin()){
+      this.router.navigate(['/P_Home']);
+    }
     this.getRequest();
   }
   getRequest() {
-    this.service.getRequest().subscribe((data) => {
+    this.authService.getAllRequest().subscribe((data) => {
       data.forEach((x: any) => {
         if (x.Req_Result == 1) {
           if (x.Req_Type === 'admin') {
@@ -58,8 +63,8 @@ export class RequestComponent implements OnInit {
           U_Tel: res[0].U_Tel,
           U_Pwd: res[0].U_Pwd,
           U_Admin: true,
-          U_Client: res[0].U_Client,
-          U_Supplier: res[0].U_Supplier,
+          U_Client: false,
+          U_Supplier: false,
         };
         this.authService.updateUser(val).subscribe((res: any) => {
           console.log(res);
@@ -80,8 +85,8 @@ export class RequestComponent implements OnInit {
           U_Email: res[0].U_Email,
           U_Tel: res[0].U_Tel,
           U_Pwd: res[0].U_Pwd,
-          U_Admin: res[0].U_Admin,
-          U_Client: res[0].U_Client,
+          U_Admin: false,
+          U_Client: false,
           U_Supplier: true,
         };
         this.authService.updateUser(val2).subscribe((res: any) => {
@@ -92,25 +97,26 @@ export class RequestComponent implements OnInit {
     });
   }
   refus(rep: any, id: any) {
-    this.authService.getUserById(id).subscribe((res: any) => {
-      if (rep === 'admin') {
-        var val1 = {
-          Req_Type: 'admin',
-          Req_Result: 0,
-        };
-        this.authService.updateRequest(val1, id).subscribe((res: any) => {
-          console.log(res);
-        });
-      } else {
-        var val3 = {
-          Req_Type: 'supplier',
-          Req_Result: 0,
-        };
-        this.authService.updateRequest(val3, id).subscribe((res: any) => {
-          console.log(res);
-        });
-      }
-    });
-    window.location.reload();
+    if (rep === 'admin') {
+      var val1 = {
+        Req_Type: 'admin',
+        Req_Result: 0,
+      };
+      this.authService.updateRequest(val1, id).subscribe((res: any) => {
+        console.log(res);
+      });
+
+      window.location.reload();
+    } else {
+      var val3 = {
+        Req_Type: 'supplier',
+        Req_Result: 0,
+      };
+      this.authService.updateRequest(val3, id).subscribe((res: any) => {
+        console.log(res);
+      });
+
+      window.location.reload();
+    }
   }
 }

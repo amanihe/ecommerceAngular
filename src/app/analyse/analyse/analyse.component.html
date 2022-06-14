@@ -1,0 +1,30 @@
+
+  <div class="textSection">
+    <h1>Statistiques de vente</h1>
+  </div>
+  <div class="container ">
+<div  class="card">
+  <h5 style="text-align: center; color:#286DA8;">Meilleur vente </h5>
+  <canvas
+    baseChart
+
+    [legend]="true"
+    [datasets]="chartData"
+    [labels]="chartLabels"
+    [options]="chartOptions"
+  >
+  </canvas>
+</div>
+<div  class="card">
+  <h5 style="text-align: center;color:#286DA8">Meilleur revenue en $ </h5>
+  <canvas
+    baseChart
+
+    [legend]="true"
+    [datasets]="chartData2"
+    [labels]="chartLabels"
+    [options]="chartOptions"
+  >
+  </canvas>
+</div>
+</div>

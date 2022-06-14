@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/authservice';
 import { CartService } from 'src/app/services/cart/cart.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-cart-item',
@@ -11,15 +12,24 @@ export class CartItemComponent implements OnInit {
   vide: boolean=false;
   constructor(
     private CartService: CartService,
+    private service: SharedService,
     private authService: AuthService
   ) {}
+  FnxList:any=[];
   cartItem: any = [];
   products: any = [];
   cart: any = [];
   id: any;
   qte: any;
   ngOnInit(): void {
+    this. refreshList();
     this.getCart();
+  }
+  refreshList() {
+    this.authService.getFnx().subscribe((data) => {
+      console.log(data)
+      this.FnxList = data;
+    });
   }
   getCart() {
 
@@ -62,10 +72,10 @@ export class CartItemComponent implements OnInit {
     if (ch == 'add') qte += 1;
     else if (ch == 'remove') qte -= 1;
     this.qte = qte;
-    this.edit();
+    this.editQte();
   //  console.log(this.qte);
   }
-  edit() {
+  editQte() {
     var val = {
       Ord_Qte: this.qte,
     };

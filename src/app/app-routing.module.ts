@@ -28,14 +28,25 @@ const routes: Routes = [
   {
     path: 'order',
     loadChildren: () =>
-      import('./order/order.module').then((m) => m.OrderModule),canActivate: [GuardGuard],
+      import('./order/order.module').then((m) => m.OrderModule),
+    canActivate: [GuardGuard],
   },
   {
     path: 'product',
     loadChildren: () =>
       import('./product/product.module').then((m) => m.ProductModule),
   },
-  { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule),canActivate: [GuardGuard], },
+  {
+    path: 'checkout',
+    loadChildren: () =>
+      import('./checkout/checkout.module').then((m) => m.CheckoutModule),
+    canActivate: [GuardGuard],
+  },
+  {
+    path: 'analyse',
+    loadChildren: () =>
+      import('./analyse/analyse.module').then((m) => m.AnalyseModule),
+  },
 ];
 
 @NgModule({

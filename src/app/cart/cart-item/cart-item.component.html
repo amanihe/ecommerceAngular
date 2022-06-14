@@ -1,5 +1,4 @@
-
-   <!-- <div  *ngFor="let i of products">
+<!-- <div  *ngFor="let i of products">
 
 <div class="card" >
     <img src="../../../assets/{{i[0].Prod_Img}}"  style="width:50%" class="cardimg">
@@ -22,49 +21,87 @@
 <div class="lign">
 </div>
 </div>-->
-<div class="cartContainer" >
-  <div class="text-center  align-items-center pt-5  " *ngIf="vide==true" >
+<div class="cartContainer">
+  <div class="text-center align-items-center pt-5" *ngIf="vide == true">
     <p>
-  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-emoji-frown  text-secondary " viewBox="0 0 16 16">
-    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-    <path d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
-  </svg></p>
- <p class="font-weight-bold  text-secondary"> votre panier est vide </p>
-</div>
-<div class="card rounded-3 mb-2" *ngFor="let i of products">
-  <div class="card-body p-3">
-    <div class="row d-flex justify-content-between align-items-center">
-      <div class="col-md-2 col-lg-2 col-xl-2">
-        <img
-          src="../../../assets/{{i[0].Prod_Img}}"
-          class="img-fluid rounded-3" alt="Cotton T-shirt">
-      </div>
-      <div class="col-md-3 col-lg-4 col-xl-3">
-        <p class="lead fw-normal mb-2">{{ i[0].Prod_Name }}</p>
-        <p><span class="text-muted">{{i[0].Prod_Price}} </span> $  </p>
-      </div>
-      <div class="col-md-3 col-lg-3 col-xl-3 d-flex">
-        <button class="btn btn-link px-2"
-        (click)="editclick(i.id,i.qte,'remove')" >
-          <i class="fas" >-</i>
-        </button>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="50"
+        height="50"
+        fill="currentColor"
+        class="bi bi-emoji-frown text-secondary"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+        />
+        <path
+          d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"
+        />
+      </svg>
+    </p>
+    <p class="font-weight-bold text-secondary">votre panier est vide</p>
+  </div>
+  <div class="card rounded-3 mb-2" *ngFor="let i of products">
+    <div class="card-body p-3">
+      <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-md-2 col-lg-2 col-xl-2">
+          <img
+            src="../../../assets/{{ i[0].Prod_Img }}"
+            class="img-fluid rounded-3"
+            alt="Cotton T-shirt"
+          />
+        </div>
+        <div class="col-md-3 col-lg-4 col-xl-3">
+          <p class="lead fw-normal mb-2">{{ i[0].Prod_Name }}</p>
+          <p>
+            <span class="text-muted">{{ i[0].Prod_Price }} </span> $
+          </p>
+          <select>
+            <option *ngFor="let u of FnxList" value="{{ u.U_Id }}">
+              {{ u.U_FirstName }} {{ u.U_LastName }}
+              <!--<input type="hidden" id="categid" value="{{c.Categ_Id}}">-->
+            </option>
+          </select>
+        </div>
+        <div class="col-md-2 col-lg-3 col-xl-3 d-flex">
+          <button
+            class="btn btn-link px-2"
+            (click)="editclick(i.id, i.qte, 'remove')"
+          >
+            <i class="fas">-</i>
+          </button>
 
-        <input id="form1" name="quantity" value="{{i.qte}}"
-          class="form-control form-control-sm px-2" />
+          <input
+            id="form1"
+            name="quantity"
+            value="{{ i.qte }}"
+            class="form-control form-control-sm px-2"
+          />
 
-        <button class="btn btn-link px-2"
-        (click)="editclick(i.id,i.qte,'add')">
-          <i class="fas ">+</i>
-        </button>
-      </div>
-      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-        <p><button type="button" class="btn btn-outline-secondary" (click)="remove(i.id)">remove</button></p>
-      </div>
-      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-        <a href="#!" class="text-danger"></a>
+          <button
+            class="btn btn-link px-2"
+            (click)="editclick(i.id, i.qte, 'add')"
+          >
+            <i class="fas">+</i>
+          </button>
+        </div>
+
+        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+          <p>
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              (click)="remove(i.id)"
+            >
+              remove
+            </button>
+          </p>
+        </div>
+        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+          <a href="#!" class="text-danger"></a>
+        </div>
       </div>
     </div>
   </div>
 </div>
-</div>
-

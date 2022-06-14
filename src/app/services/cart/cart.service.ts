@@ -35,4 +35,8 @@ export class CartService {
   getProduct(id: any) {
     return this.http.get(this.APIUrl + '/ProductById/' + id);
   }
+  getBest() {
+    return this.http.get(this.APIUrl + '/bestProduct' );
+  }
+
 }

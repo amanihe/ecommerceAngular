@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
   U_ville: string = '';
   U_province: string = '';
   U_pays: string = '';
+  U_statut: string = '';
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {
@@ -36,6 +37,7 @@ export class RegisterComponent implements OnInit {
       nom: ['', [Validators.required, Validators.maxLength(50)]],
       prenom: ['', [Validators.required, Validators.maxLength(50)]],
       phone: ['', [Validators.required, Validators.maxLength(50)]],
+      statut: ['', [Validators.required, Validators.maxLength(50)]],
       password: ['', [Validators.required, Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.maxLength(50)]],
       pwd: ['', [Validators.required, Validators.maxLength(50)]],
@@ -57,6 +59,7 @@ export class RegisterComponent implements OnInit {
       U_FirstName: this.U_nom,
       U_LastName: this.U_prenom,
       U_Tel: this.U_phone,
+      U_Statut: this.U_statut,
       U_Email: this.U_email,
       U_Pwd: this.U_pwd,
       U_Admin: false,

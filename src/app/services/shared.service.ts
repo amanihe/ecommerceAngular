@@ -78,10 +78,7 @@ export class SharedService {
     return this.http.delete(this.APIUrl + '/product/' + val);
   }
 
-  getFnxList(): Observable<any[]> {
-    return this.http.get<any[]>(this.APIUrl + '/supplier');
 
-  }
   getRequest(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/request');
 

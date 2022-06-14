@@ -1,50 +1,88 @@
 <div class="textSection">
   <h1>Demandes</h1>
 </div>
-<table class="table align-middle mb-0 bg-white" style="width: 40%; margin:auto;">
+<table
+  class="table align-middle mb-0 bg-white"
+  style="width: 40%; margin: auto"
+>
   <h4>Admin</h4>
-  <p *ngIf="nbAdmin==0">aucunes demandes d'être admin</p>
+  <tr>
+    <td>Nom et Prenom</td>
+    <td>Statut</td>
+    <td>Email</td>
+    <td>Resultat</td>
+  </tr>
+  <p *ngIf="nbAdmin == 0">aucunes demandes d'être admin</p>
   <tbody *ngFor="let item of reqAdmin">
-    <tr *ngFor="let i of item" >
-    <td>
-        <p class="fw-normal mb-1">{{i.U_FirstName}}</p>
-      </td>
-      <td>{{i.U_Email}}</td>
+
+
+    <tr *ngFor="let i of item">
       <td>
-        <button type="button" class="btn btn-outline-success" (click)="accept('admin',i.U_Id)">
+        <p class="fw-normal mb-1">{{ i.U_FirstName }} {{ i.U_LastName }}</p>
+      </td>
+      <td>{{ i.U_Statut }}</td>
+      <td>{{ i.U_Email }}</td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-outline-success"
+          (click)="accept('admin', i.U_Id)"
+        >
           Accepter
         </button>
       </td>
       <td>
-        <button type="button" class="btn btn-outline-danger" (click)="refus('admin',i.U_Id)">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          (click)="refus('admin', i.U_Id)"
+        >
           Refuser
         </button>
       </td>
-
+    </tr>
   </tbody>
 </table>
-<br>
-<br>
+<br />
+<br />
 
-<table class="table align-middle mb-0 bg-white" style="width: 40%; margin:auto;">
+<table
+  class="table align-middle mb-0 bg-white"
+  style="width: 40%; margin: auto"
+>
   <h4>Fournisseur</h4>
-  <p *ngIf="nbFnx==0">aucunes demandes d'être fournisseur</p>
+  <tr>
+    <td>Nom et Prenom</td>
+    <td>Statut</td>
+    <td>Email</td>
+    <td>Resultat</td>
+  </tr>
+  <p *ngIf="nbFnx == 0">aucunes demandes d'être fournisseur</p>
   <tbody *ngFor="let item of reqFnx">
-    <tr *ngFor="let i of item" >
-    <td>
-        <p class="fw-normal mb-1">{{i.U_FirstName}}</p>
-      </td>
-      <td>{{i.U_Email}}</td>
+    <tr *ngFor="let i of item">
       <td>
-        <button type="button" class="btn btn-outline-success"(click)="accept('fnx',i.U_Id)">
+        <p class="fw-normal mb-1">{{ i.U_FirstName }} {{ i.U_LastName }}</p>
+      </td>
+      <td>{{ i.U_Statut }}</td>
+      <td>{{ i.U_Email }}</td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-outline-success"
+          (click)="accept('fnx', i.U_Id)"
+        >
           Accepter
         </button>
       </td>
       <td>
-        <button type="button" class="btn btn-outline-danger"(click)="refus('fnx',i.U_Id)">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          (click)="refus('fnx', i.U_Id)"
+        >
           Refuser
         </button>
       </td>
-
+    </tr>
   </tbody>
 </table>

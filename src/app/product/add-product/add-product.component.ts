@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/authservice';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
@@ -16,7 +17,9 @@ export class AddProductComponent implements OnInit {
   constructor(
     private service: SharedService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+  
   ) {}
   PhotoFileName!: string;
   PhotoFilePath!: string;
@@ -31,6 +34,9 @@ export class AddProductComponent implements OnInit {
   P_quantity: any = 0;
   P_fnx: string = '';
   ngOnInit(): void {
+    if(!this.authService.isAdmin()){
+      this.router.navigate(['/P_Home']);
+    }
     this.refreshList();
     this.addP = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],

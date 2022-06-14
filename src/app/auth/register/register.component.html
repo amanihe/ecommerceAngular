@@ -21,14 +21,29 @@
                   </div>
                 </div>
               </div>
+              <div class="twoinputs">
               <div class="formItem">
                 <label>Téléphone</label>
-                <input type="tel" style="width:99%"required placehoder="unter phone" [(ngModel)]="U_phone"
+                <input type="tel" required placehoder="unter phone" [(ngModel)]="U_phone"
                     formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
                 <div *ngIf="submitted && f.phone.errors">
                     <div *ngIf="f.phone.errors.required" class="error">phone is required</div>
                 </div>
               </div>
+              <div class="formItem">
+                <label> Statut</label>
+                <select style="max-width:100%" required placehoder="unter statut " [(ngModel)]="U_statut"
+                formControlName="statut" [ngClass]="{ 'is-invalid': submitted && f.statut.errors }">
+                    <option value="autre" selected="selected">Autre </option>
+                    <option value="pro">Professionnel(le) </option>
+                    <option value="pers">Personnel(le) </option>
+
+                </select>
+                <div *ngIf="submitted && f.statut.errors">
+                  <div *ngIf="f.statut.errors.required" class="error">statut is required</div>
+              </div>
+            </div>
+            </div>
               <div class="twoinputs">
                 <div class="formItem">
                   <label>Email</label>

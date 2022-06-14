@@ -1,9 +1,9 @@
 <div class="container">
   <nav>
-    <a class="Nav_Item" routerLink="P_Home">Home</a>
+    <a class="Nav_Item" routerLink="P_Home">Accueil</a>
 
     <div class="dropdown">
-      <a class="Nav_Item" routerLink="product/all/-1">All products</a>
+      <a class="Nav_Item" routerLink="product/all/-1">Produits</a>
 
       <!--liste deroulante-->
       <div class="dropdown-content">
@@ -16,7 +16,7 @@
               <button class="btn">...</button>
               <div class="down-content">
                 <a type="button" class="list" (click)="deleteClick(c.Categ_Id)"
-                  >delete</a
+                  >effacer</a
                 >
 
                 <div style="display: flex" class="list">
@@ -30,7 +30,7 @@
                     type="button"
                     href="#"
                     (click)="Add_Sous_Category(c.Categ_Id)"
-                    >add
+                    >ajouter
                   </a>
                 </div>
               </div>
@@ -41,12 +41,12 @@
             <div *ngIf="x.Categ_Parent == c.Categ_Id">
               <a style="width: 60%" href="#">{{ x.Categ_Name }}</a>
               <a type="button" (click)="deleteClick(x.Categ_Id)" *ngIf="isAdmin"
-                >delete</a
+                >effacer</a
               >
 
               <div style="display: flex" class="" *ngIf="isAdmin">
                 <input type="text" [(ngModel)]="Categ_Namee" />
-                <a href="#" type="button" (click)="updateCateg(x)">edit</a>
+                <a href="#" type="button" (click)="updateCateg(x)">modifier</a>
               </div>
             </div>
           </div>
@@ -54,11 +54,13 @@
 
         <div style="display: flex" *ngIf="isAdmin">
           <input type="text" [(ngModel)]="V_Category_Namea" />
-          <a type="button" href="#" (click)="Add_Category()">add </a>
+          <a type="button" href="#" (click)="Add_Category()">ajouter </a>
         </div>
       </div>
     </div>
 
-    <a class="Nav_Item" href="">Contact</a>
+    <a class="Nav_Item" href="./"
+      >Contact</a
+    >
   </nav>
 </div>

@@ -30,6 +30,10 @@ export class AuthService {
   getUser(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/user');
   }
+  getFnx(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/supplier');
+
+  }
   getUserById(id:any)
   {
     return this.http.get(this.APIUrl + '/userById/' + id);
@@ -42,6 +46,10 @@ export class AuthService {
   }
   getRequest(id:any) {
     return this.http.get(this.APIUrl + '/userRequest/' + id);
+  }
+  getAllRequest(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/request');
+
   }
 
 

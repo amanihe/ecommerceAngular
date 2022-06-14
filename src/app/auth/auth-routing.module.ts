@@ -8,9 +8,10 @@ import { RequestComponent } from './request/request.component';
 
 const routes: Routes = [
   {
-    path: '',canActivateChild:[GuardGuard],
+    path: '',
+    canActivateChild: [GuardGuard],
     children: [
-      { path: 'profile', component: ProfileComponent},
+      { path: 'profile', component: ProfileComponent },
       { path: 'request', component: RequestComponent },
     ],
   },
