@@ -7,8 +7,8 @@
 }
 .carrecontainer{
   background-color: #286DA8;
-  max-width: 700px;
-  max-height: 500px;
+  max-width: 1000px;
+  max-height: 700px;
   padding: 5%;
   display: flex;
   align-items: center;
@@ -41,7 +41,7 @@ input, select{
 }
 .button{
   width: auto;
-  padding: 2px 25px ;
+  padding: 0 25px 25px 25px;
   margin: 15px;
   border-radius: 15px;
 }

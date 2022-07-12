@@ -1,0 +1,75 @@
+
+<div class="container" style="width: 60%">
+  <article class="card">
+    <header class="card-header">Mes commandes</header>
+    <div class="card-body" *ngFor="let item of products; let index = index">
+
+      <hr />
+      <ul class="row">
+        <li class="col-md-4" >
+          <figure class="itemside mb-3">
+            <div class="aside">
+              <img
+                src="../../assets/{{ item.Prod_Img }}"
+                class="img-sm border"
+              />
+            </div>
+            <figcaption class="info align-self-center">
+              <p class="title">
+                {{ item.Prod_Name }} <br />
+                8GB RAM
+              </p>
+              <span class="text-muted">{{ item.Prod_Price }} $</span>
+              <p class="title">
+                {{ item.Qte }}
+                Piece(s)
+              </p>
+
+            </figcaption>
+
+          </figure>
+
+        </li>
+        <li class="col-md-7" >
+          <div class="d-flex justify-content-between mt-4">
+            <select
+              class="form-select form-select-lg mb-3"
+              aria-label=".form-select-lg example"
+              id="C{{ index }}"
+            >
+              <option selected class="d-flex  text-center" value="" *ngIf="item.isPayed==true">
+                <p  >
+                le produit est livré et payé
+              </p>
+              </option>
+              <option selected value="" *ngIf="!item.isPayed">
+                Changer l'état de la commande
+              </option>
+              <option
+                value="en livraison,{{ item.LignId }}"
+                *ngIf="!item.isPayed"
+              >
+                en livraison
+              </option>
+              <option
+                value="livrée,{{ item.LignId }}"
+                *ngIf="!item.isPayed"
+              >
+                Livrée
+              </option>
+              <option value="payée,{{ item.LignId }}" *ngIf="!item.isPayed">
+                Payée
+              </option>
+            </select>
+          </div>
+        </li>
+      </ul>
+      <hr />
+    </div>
+  </article>
+  <div class="d-flex justify-content-end">
+    <button href="#" class="btn btn-warning mt-3" (click)="valide()">
+      <i class="fa fa-chevron-right"></i> Valider
+    </button>
+  </div>
+</div>

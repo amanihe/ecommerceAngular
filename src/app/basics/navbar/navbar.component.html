@@ -15,9 +15,9 @@
             <div class="down" *ngIf="isAdmin">
               <button class="btn">...</button>
               <div class="down-content">
-                <a type="button" class="list" (click)="deleteClick(c.Categ_Id)"
+               <!-- <a type="button" class="list" (click)="deleteClick(c.Categ_Id)"
                   >effacer</a
-                >
+                >-->
 
                 <div style="display: flex" class="list">
                   <input type="text" [(ngModel)]="Categ_Namee" />
@@ -40,9 +40,9 @@
           <div *ngFor="let x of CategList" style="display: flex" cdkDrag>
             <div *ngIf="x.Categ_Parent == c.Categ_Id">
               <a style="width: 60%" href="#">{{ x.Categ_Name }}</a>
-              <a type="button" (click)="deleteClick(x.Categ_Id)" *ngIf="isAdmin"
+             <!-- <a type="button" (click)="deleteClick(x.Categ_Id)" *ngIf="isAdmin"
                 >effacer</a
-              >
+              >-->
 
               <div style="display: flex" class="" *ngIf="isAdmin">
                 <input type="text" [(ngModel)]="Categ_Namee" />

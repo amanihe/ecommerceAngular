@@ -17,6 +17,7 @@ export class ProductComponent implements OnInit {
   ) {}
   isAuthentificated!: boolean;
   isAdmin!: boolean;
+  isFnx: boolean=false;
   categProduct: any = [];
   products: any = [];
   liste: any = [];
@@ -24,6 +25,7 @@ export class ProductComponent implements OnInit {
   orders: any = [];
   ngOnInit(): void {
     this.refresh();
+    this.isFnx=this.authService.isFnx();
   }
   @Output() emitter: EventEmitter<string> = new EventEmitter<string>();
   refresh() {
@@ -63,6 +65,7 @@ export class ProductComponent implements OnInit {
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/auth/login']);
     }
+   // console.log(l)
     this.authService.loadUser();
     var userId = this.authService.authenticatedUser.U_Id;
     this.service.getOrder(userId).subscribe((data: any) => {
@@ -73,18 +76,17 @@ export class ProductComponent implements OnInit {
         if (this.authService.isAdmin()) {
           val1 = {
             User: userId,
-            Supplier: 1,
             Ord_Type: 'admin',
-            Ord_Status: 'created',
+            Ord_Status: 'créée',
           };
         } else {
           val1 = {
             User: userId,
-            Supplier: 1,
             Ord_Type: 'customer',
-            Ord_Status: 'created',
+            Ord_Status: 'créée',
           };
         }
+        console.log(val1)
         this.service.addOrder(val1).subscribe((res: any) => {
           console.log(res.Ord_Id);
 
@@ -92,6 +94,8 @@ export class ProductComponent implements OnInit {
             Order: res.Ord_Id,
             Product: l,
             Ord_Qte: 1,
+            Supplier:null,
+            OrdLign_Status:"créée"
           };
           this.service.addOrderLign(val2).subscribe((result: any) => {
             console.log(result);
@@ -100,7 +104,7 @@ export class ProductComponent implements OnInit {
         });
       } else {
         this.orders.forEach((o: any) => {
-          if (o.Ord_Status === 'created') {
+          if (o.Ord_Status === 'créée') {
             var val = {
               Order: o.Ord_Id,
               Product: l,
@@ -115,16 +119,14 @@ export class ProductComponent implements OnInit {
             if(this.authService.isAdmin()){
               val1 = {
                 User: userId,
-                Supplier: 1,
                 Ord_Type: 'admin',
-                Ord_Status: 'created',
+                Ord_Status: 'créée',
               };
             }else{
              val1 = {
               User: userId,
-              Supplier: 1,
               Ord_Type: 'customer',
-              Ord_Status: 'created',
+              Ord_Status: 'créée',
             };
           }
             this.service.addOrder(val1).subscribe((res: any) => {
@@ -134,6 +136,8 @@ export class ProductComponent implements OnInit {
                 Order: res.Ord_Id,
                 Product: l,
                 Ord_Qte: 16,
+                Supplier:null,
+               OrdLign_Status:"créée"
               };
               this.service.addOrderLign(val2).subscribe((result: any) => {
                 console.log(result);

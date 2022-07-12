@@ -20,9 +20,10 @@ export class RequestComponent implements OnInit {
   nbFnx: any = 0;
   ngOnInit(): void {
     if(!this.authService.isAdmin()){
-      this.router.navigate(['/P_Home']);
+      this.router.navigate(['/auth/login']);
     }
-    this.getRequest();
+   else{
+    this.getRequest();}
   }
   getRequest() {
     this.authService.getAllRequest().subscribe((data) => {
@@ -35,6 +36,7 @@ export class RequestComponent implements OnInit {
             });
           } else {
             this.authService.getUserById(x.User).subscribe((data: any) => {
+              
               console.log(data);
               this.reqFnx.push(data);
               this.nbFnx = data.length;
@@ -52,7 +54,7 @@ export class RequestComponent implements OnInit {
           Req_Type: 'admin',
           Req_Result: 2,
         };
-        this.authService.updateRequest(val1, id).subscribe((res: any) => {
+       this.authService.updateRequest(val1, id).subscribe((res: any) => {
           console.log(res);
         });
         var val = {
@@ -61,14 +63,17 @@ export class RequestComponent implements OnInit {
           U_LastName: res[0].U_LastName,
           U_Email: res[0].U_Email,
           U_Tel: res[0].U_Tel,
+          U_Statut: res[0].U_Statut,
           U_Pwd: res[0].U_Pwd,
           U_Admin: true,
           U_Client: false,
           U_Supplier: false,
         };
+        console.log(val)
+
         this.authService.updateUser(val).subscribe((res: any) => {
           console.log(res);
-        });
+       });
         window.location.reload();
       } else {
         var val3 = {
@@ -84,11 +89,13 @@ export class RequestComponent implements OnInit {
           U_LastName: res[0].U_LastName,
           U_Email: res[0].U_Email,
           U_Tel: res[0].U_Tel,
+          U_Statut: res[0].U_Statut,
           U_Pwd: res[0].U_Pwd,
           U_Admin: false,
           U_Client: false,
           U_Supplier: true,
         };
+        console.log(val2)
         this.authService.updateUser(val2).subscribe((res: any) => {
           console.log(res);
         });

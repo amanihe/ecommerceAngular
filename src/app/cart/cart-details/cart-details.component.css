@@ -1,3 +1,7 @@
+.qte{
+  border:1px solid grey;
+  padding:  3px 30px;
+}
 .textSection{
   margin: 3%;
 display: flex;

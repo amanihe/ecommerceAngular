@@ -94,6 +94,12 @@ export class AuthService {
     }
     else return false;
   }
+  isFnx(){
+    if(this.authenticatedUser){
+      return this.authenticatedUser.U_Supplier==true;
+    }
+    else return false;
+  }
 
   isAuthenticated(){
     return this.authenticated;
@@ -102,7 +108,7 @@ export class AuthService {
     this.authenticated=false;
     this.authenticatedUser=undefined;
     localStorage.removeItem('authenticatedUser');
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('/P_Home');
 
   }
 

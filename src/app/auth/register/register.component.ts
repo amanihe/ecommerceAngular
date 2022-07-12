@@ -52,9 +52,11 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.Add_Category();
+
+    this.Add_User();
   }
-  Add_Category() {
+
+  Add_User() {
     var val = {
       U_FirstName: this.U_nom,
       U_LastName: this.U_prenom,
@@ -66,6 +68,9 @@ export class RegisterComponent implements OnInit {
       U_Client: true,
       U_Supplier: false,
     };
+    this.submitted = true;
+    // stop here if form is invalid
+
     this.authService.addUser(val).subscribe((res: any) => {
       console.log(res);
       if (typeof res === 'string') {

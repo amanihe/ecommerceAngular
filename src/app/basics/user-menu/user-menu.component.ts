@@ -12,18 +12,20 @@ export class UserMenuComponent implements OnInit {
   name: string = '';
   isAuthentificated!: boolean;
   isAdmin!:boolean;
+  isFnx!:boolean;
   ngOnInit(): void {
     this.authService.loadUser();
     this.name = this.authService.authenticatedUser.U_FirstName;
     this.isAuthentificated=this.authService.isAuthenticated();
     this.isAdmin=this.authService.isAdmin()
+    this.isFnx=this.authService.isFnx()
   }
 
   logout() {
     this.authService.logout();
-    this.router.navigateByUrl('/P_Home');
+    window.location.reload;
+    this.router.navigateByUrl('');
     this.showMePartially = false;
-    window.location.reload();
   }
 
   @Input() showMePartially: boolean | undefined;

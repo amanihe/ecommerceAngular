@@ -18,8 +18,14 @@ export class OrderHistoryComponent implements OnInit {
   orderUser: any = [];
   ordersAdmin: any = [];
   orderAdmin: any = [];
+  isAdmin: any = [];
+  isFnx: any = [];
   ordertest: any = [];
-  total=0
+  total = 0;
+  isLivred: any = false;
+  isInshipping: any = false;
+  isCreated: any = false;
+  isPaid: any = false;
   ngOnInit(): void {
     this.getCart();
   }
@@ -27,28 +33,66 @@ export class OrderHistoryComponent implements OnInit {
     this.isOpen = !this.isOpen;
   }
   getCart() {
-    this.authService.loadUser();
-    var userId = this.authService.authenticatedUser.U_Id;
-    this.CartService.getOrderByUser(userId).subscribe((data: any) => {
-      console.log(data);
-      this.orders=[]
-      data.forEach((x: any) => {
-        this.CartService.getHistory(x.Ord_Id).subscribe((order: any) => {
-          console.log(order[0])
-          order[1].forEach((i:any)=>{
-            console.log(i)
-            this.total+=parseInt(i.Prod_Price)*i.Ord_Qte
-           // order.push(this.total)
-           // console.log(order)
+    this.isAdmin = this.authService.isAdmin();
+    this.isFnx = this.authService.isFnx();
+    if (  !this.isFnx) {
+      this.authService.loadUser();
+      var userId = this.authService.authenticatedUser.U_Id;
+
+      this.CartService.getOrderByUser(userId).subscribe((data: any) => {
+        console.log(data);
+        this.orders = [];
+
+        data.forEach((x: any) => {
+          this.CartService.getHistory(x.Ord_Id).subscribe((order: any) => {
+            console.log(order[0]);
+            order[1].forEach((i: any) => {
+              
+              console.log(i);
+              this.total += parseInt(i.Prod_Price) * i.Ord_Qte;
+              // order.push(this.total)
+              // console.log(order)
+            });
+            this.isLivred = false;
+            this.isInshipping = false;
+            this.isCreated = false;
+            this.isPaid = false;
+            if (order[0].Ord_Status == 'livrée') {
+              this.isLivred = true;
+            }
+            if (
+              order[0].Ord_Status == 'en livraison' ||
+              order[0].Ord_Status == 'livrée'
+            ) {
+              this.isInshipping = true;
+            }
+            if (
+              order[0].Ord_Status == 'payée' ||
+              order[0].Ord_Status == 'en livraison' ||
+              order[0].Ord_Status == 'livrée'
+            ) {
+              this.isPaid = true;
+            }
+            if (
+              order[0].Ord_Status == 'créée' ||
+              order[0].Ord_Status == 'payée' ||
+              order[0].Ord_Status == 'en livraison' ||
+              order[0].Ord_Status == 'livrée'
+            ) {
+              this.isCreated = true;
+            }
+            order['isCreated'] = this.isCreated;
+            order['isPaid'] = this.isPaid;
+            order['isInshipping'] = this.isInshipping;
+            order['islivred'] = this.isLivred;
+            order['total'] = this.total;
+            this.orders.push(order);
+            console.log(this.orders);
+
+            // this.total+=parseInt(prod[0].Prod_Price)*element.Ord_Qte
           });
-          order['total']=this.total
-          this.orders.push(order)
-          console.log(this.orders)
 
-         // this.total+=parseInt(prod[0].Prod_Price)*element.Ord_Qte
-        });
-
-        /*
+          /*
          if(x.Ord_Type==='customer'){
           this.ordertest=[];
           console.log('tttttttttt');
@@ -117,7 +161,11 @@ export class OrderHistoryComponent implements OnInit {
         });
 
       }*/
+        });
       });
-    });
+    }
+    //else if (this.isAdmin){
+
+    //}
   }
 }

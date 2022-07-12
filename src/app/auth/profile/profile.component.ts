@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
   UserPrenom: string = '';
   UserEmail: string = '';
   UserTel: string = '';
+  UserStatus: string = '';
   UserPwd: string = '';
   isClient: boolean = false;
   isAdmin: boolean = false;
@@ -48,6 +49,7 @@ export class ProfileComponent implements OnInit {
     this.UserPrenom = this.authService.authenticatedUser.U_LastName;
     this.UserEmail = this.authService.authenticatedUser.U_Email;
     this.UserTel = this.authService.authenticatedUser.U_Tel;
+    this.UserStatus = this.authService.authenticatedUser.U_Statut;
     this.UserPwd = this.authService.authenticatedUser.U_Pwd;
     this.isAdmin = this.authService.authenticatedUser.U_Admin;
     this.isClient = this.authService.authenticatedUser.U_Client;
@@ -67,6 +69,11 @@ export class ProfileComponent implements OnInit {
     return this.edit.controls;
   }
   onSubmit() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.edit.invalid) {
+      return;
+    }
     //changer mot de pass si saisir sinon rester le meme
     if (this.edit.value.pwd == '') {
       this.pwd = this.UserPwd;
@@ -80,19 +87,22 @@ export class ProfileComponent implements OnInit {
       U_LastName: this.edit.value.prenom,
       U_Email: this.edit.value.email,
       U_Tel: this.edit.value.tel,
+      U_Statut: this.UserStatus,
       U_Pwd: this.pwd,
       U_Admin: this.isAdmin,
       U_Client: this.isClient,
       U_Supplier: this.isFnx,
     };
+    console.log(val);
     this.authService.updateUser(val).subscribe((res: any) => {
       console.log(res);
       this.authService.update(val);
       console.log(this.authService.authenticatedUser);
       this.authService.loadUser();
     });
+    window.location.reload;
     document.getElementById('exampleModal')?.click();
-    //window.location.reload();
+    window.location.reload();
   }
   Demande(req: any) {
     console.log(req);
@@ -102,9 +112,8 @@ export class ProfileComponent implements OnInit {
       Req_Type: req,
       Req_Result: 1,
     };
-    this.authService.demande(val).subscribe((result: any) => {
-    });
-    window.location.reload()
+    this.authService.demande(val).subscribe((result: any) => {});
+    window.location.reload();
   }
   getRequest() {
     this.authService.loadUser();
@@ -116,7 +125,8 @@ export class ProfileComponent implements OnInit {
         console.log(this.adminRefus);
         console.log(this.fnxRefus);
         console.log(this.fnxAccept);
-
+        this.hideFnx = false;
+        this.hideAdmin = false;
         if (x.Req_Type == 'admin') {
           this.hideFnx = true;
           if (x.Req_Result == 1) {

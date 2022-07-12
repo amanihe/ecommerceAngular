@@ -24,6 +24,7 @@
           </div>-->
           <p class="product-description">{{product[0].Prod_Description}}</p>
           <h4 class="price">${{product[0].Prod_Price}} </h4>
+          <h4 class="price" *ngIf="isAdmin">Quantité: {{product[0].Prod_Quantity}} </h4>
          <!-- <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
           <h5 class="sizes">sizes:
             <span class="size" data-toggle="tooltip" title="small">s</span>
@@ -32,13 +33,13 @@
             <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
           </h5>-->
           <div class="ligne" style=" border-bottom: solid;border-width: 2px;"></div>
-          <h5 class="colors">colors:<br>
+         <!-- <h5 class="colors">colors:<br>
             <span class="color orange " data-toggle="tooltip" title="Not In store"></span>
             <span class="color green not-available"></span>
             <span class="color blue"></span>
-          </h5>
-          <div class="action">
-            <button class="add-to-cart btn btn-default" type="button" (click)="Add_Order(product[0].Prod_Id)">add to cart</button>
+          </h5>-->
+          <div class="action d-flex justify-content-center">
+            <button class="add-to-cart btn btn-default mt-5 " type="button" (click)="Add_Order(product[0].Prod_Id)">Ajouter au panier</button>
            <!-- <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>-->
           </div>
         </div>

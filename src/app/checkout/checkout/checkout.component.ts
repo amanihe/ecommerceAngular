@@ -25,11 +25,24 @@ export class CheckoutComponent implements OnInit {
     payement:boolean=false;
     total:any=0;
     tax:any=0;
+    ordId:any;
   ngOnInit(): void {
     this.getAddress();
     this.getCart();
     this.Email=this.authService.authenticatedUser.U_Email;
     this.Tel=this.authService.authenticatedUser.U_Tel;
+  }
+  confirmer(){
+    var val2={
+      Ord_Id:this.ordId,
+      User: this.authService.authenticatedUser.U_Id,
+      Ord_Type: 'customer',
+      Ord_Status: 'payée',
+     }
+     this.CartService.updateOrder(val2).subscribe((res:any)=>{
+      console.log(res)
+    })
+    this.router.navigateByUrl('/checkout/finish');
   }
   getAddress() {
 
@@ -56,6 +69,7 @@ export class CheckoutComponent implements OnInit {
     this.authService.loadUser();
     var userId = this.authService.authenticatedUser.U_Id;
     this.CartService.getOrder(userId).subscribe((data: any) => {
+      this.ordId=data[0].Ord_Id
       this.CartService.getOrderItem(data[0].Ord_Id).subscribe((items: any) => {
         if(items.length==0){
           this.router.navigateByUrl('/cart');
@@ -66,6 +80,7 @@ export class CheckoutComponent implements OnInit {
             (prod: any) => {
               this.total+=parseInt(prod[0].Prod_Price)*element.Ord_Qte
               this.tax=this.total*0.04;
+              console.log(this.total)
             }
           );
         });

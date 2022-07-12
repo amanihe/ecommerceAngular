@@ -17,6 +17,12 @@ export class CartService {
   getOrder(id: any) {
     return this.http.get(this.APIUrl + '/cart/' + id);
   }
+  getAllOrder() {
+    return this.http.get(this.APIUrl + '/orderCustomer/');
+  }
+  getAllOrderFnx(id:any) {
+    return this.http.get(this.APIUrl + '/orderAdmin/'+id);
+  }
   getOrderByUser(id: any) {
     return this.http.get(this.APIUrl + '/orderByUser/' + id);
   }
@@ -32,11 +38,23 @@ export class CartService {
   editQte(id: any, val: any) {
     return this.http.put(this.APIUrl + '/editcartItem/' + id, val);
   }
+  editStatus(id: any, val: any) {
+    return this.http.put(this.APIUrl + '/editOrderStatus/' + id, val);
+  }
   getProduct(id: any) {
     return this.http.get(this.APIUrl + '/ProductById/' + id);
   }
   getBest() {
     return this.http.get(this.APIUrl + '/bestProduct' );
   }
-
+  updateOrderLigne(val: any): Observable<any> {
+    return this.http.put(this.APIUrl + '/orderLigne/' + val.OrdLign_Id, val);
+  }
+  updateOrder(val: any): Observable<any> {
+    return this.http.put(this.APIUrl + '/order/' + val.Ord_Id, val);
+  }
+  sendEmail(val:any) {
+   // alert("check mail");
+    return this.http.post(this.APIUrl + '/sendMail', val);
+  }
 }

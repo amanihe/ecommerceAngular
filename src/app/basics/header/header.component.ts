@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/authservice';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(
+    private authService: AuthService,) { }
+isFnx:any=false
+authentificated:any=false
   ngOnInit(): void {
+this.isFnx=this.authService.isFnx();
+this.authentificated=this.authService.isAuthenticated();
   }
 
   showVar: boolean = false;
@@ -18,4 +23,5 @@ export class HeaderComponent implements OnInit {
         this.showVar = !this.showVar;
         console.log(this.showVar )
     }
+
 }

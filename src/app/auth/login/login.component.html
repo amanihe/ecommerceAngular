@@ -1,31 +1,50 @@
 <div class="pagecontainer">
   <div class="formcontainer">
-      <h3>Se connecter</h3>
-      <div class="carrecontainer">
-        <form [formGroup]="log" (ngSubmit)="onSubmit()">
-              <div class="formItem">
-                <label>  login</label>
-                <input type="text" required placehoder="unter login" [(ngModel)]="U_login"
-                    formControlName="login" [ngClass]="{ 'is-invalid': submitted && f.login.errors }">
-                <div *ngIf="submitted && f.login.errors">
-                    <div *ngIf="f.login.errors.required" class="error">login is required</div>
-                </div>
-              </div>
+    <h3>Se connecter</h3>
+    <div class="carrecontainer">
+      <form [formGroup]="log" (ngSubmit)="onSubmit()">
+        <div class="formItem">
+          <label> Email</label>
+          <input
+            type="text"
+            required
+            placehoder="unter login"
+            [(ngModel)]="U_login"
+            formControlName="login"
+            [ngClass]="{ 'is-invalid': submitted && f.login.errors }"
+          />
+          <div *ngIf="submitted && f.login.errors">
+            <div *ngIf="f.login.errors.required" class="error">
+              Email est obligatoire
+            </div>
+          </div>
+        </div>
 
-              <div class="formItem">
-                <label> password</label>
-                <input type="password" required placehoder="unter password" [(ngModel)]="U_pwd"
-                    formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-                <div *ngIf="submitted && f.password.errors">
-                    <div *ngIf="f.password.errors.required" class="error">password is required</div>
-                </div>
-              </div>
-              <p><a href="">Forgot Password?</a>
-              <div class="buttonsection">
-                <input type="submit" class="buttonText">
-                <a style="color:white ;" href="auth/register">create new account</a>
-              </div>
-          </form>
-      </div>
+        <div class="formItem">
+          <label> Mot de passe</label>
+          <input
+            type="password"
+            required
+            placehoder="unter password"
+            [(ngModel)]="U_pwd"
+            formControlName="password"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          />
+          <div *ngIf="submitted && f.password.errors">
+            <div *ngIf="f.password.errors.required" class="error">
+              Mot de passe est obligatoire
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="buttonsection">
+          <input type="submit" value="Connecter" class="buttonText" />
+          <a style="color: white" href="auth/register"
+            >s'inscrire</a
+          >
+        </div>
+      </form>
+    </div>
   </div>
 </div>

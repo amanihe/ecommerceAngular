@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CartDetailsComponent } from './cart-details/cart-details.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import {routes} from './cart-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,6 +14,8 @@ import {routes} from './cart-routing.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes),
   ]
 })

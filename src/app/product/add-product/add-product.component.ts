@@ -19,7 +19,7 @@ export class AddProductComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
-  
+
   ) {}
   PhotoFileName!: string;
   PhotoFilePath!: string;
@@ -35,12 +35,12 @@ export class AddProductComponent implements OnInit {
   P_fnx: string = '';
   ngOnInit(): void {
     if(!this.authService.isAdmin()){
-      this.router.navigate(['/P_Home']);
+      this.router.navigate(['/auth/login']);
     }
     this.refreshList();
     this.addP = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      description: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(150)]],
       marque: ['', [Validators.required, Validators.maxLength(50)]],
       price: ['', [Validators.required, Validators.maxLength(50)]],
       image: ['', [Validators.required, Validators.maxLength(50)]],
@@ -73,7 +73,9 @@ export class AddProductComponent implements OnInit {
     formData.append('uploadedFile', file, file.name);
 
     this.service.UploadPhoto(formData).subscribe((data: any) => {
+
       this.PhotoFileName = data.toString();
+      
       this.PhotoFilePath = this.service.PhotoUrl + this.PhotoFileName;
     });
   }
@@ -85,7 +87,7 @@ export class AddProductComponent implements OnInit {
       Prod_Marque: this.P_marque,
       Prod_Price: this.P_price,
       Prod_Quantity: 0,
-      Prod_Img: this.PhotoFileName,
+      Prod_Img: this.PhotoFileName.substring(0, this.PhotoFileName.length - 12)+".jpg",
     };
     var img = {
       product: 2,

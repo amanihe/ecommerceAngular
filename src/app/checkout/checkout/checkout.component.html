@@ -154,6 +154,6 @@
 
 </div>
 <div class="d-flex justify-content-center">
-  <button type="button" class="btn btn-outline-info"*ngIf="payement==true" routerLink="/checkout/finish">Confirmer la commande</button>
+  <button type="button" class="btn btn-outline-info"*ngIf="payement==true" (click)="confirmer()">Confirmer la commande</button>
   </div>
 </div>

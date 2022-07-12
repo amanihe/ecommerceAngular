@@ -8,7 +8,7 @@
                 <div class="formItem">
                   <label>Adresse</label>
                   <input type="text" required placehoder="unter Address" [(ngModel)]="U_adresse"
-                      formControlName="adresse" [ngClass]="{ 'is-invalid': submitted && f.adresse.errors }">
+                      formControlName="adresse" [ngClass]="{ 'is-invalid': submitted && f.adresse.errors }" >
                   <div *ngIf="submitted && f.adresse.errors">
                       <div *ngIf="f.adresse.errors.required" class="error">Address is required</div>
                   </div>
@@ -16,7 +16,7 @@
                 <div class="formItem">
                   <label>Ville</label>
                   <input type="text" required placehoder="unter ville" [(ngModel)]="U_ville"
-                      formControlName="ville" [ngClass]="{ 'is-invalid': submitted && f.ville.errors }">
+                      formControlName="ville" [ngClass]="{ 'is-invalid': submitted && f.ville.errors }" required>
                   <div *ngIf="submitted && f.ville.errors">
                       <div *ngIf="f.ville.errors.required" class="error">ville is required</div>
                   </div>
@@ -27,7 +27,7 @@
                 <div class="formItem">
                   <label>Province</label>
                   <input type="text" required placehoder="unter province" [(ngModel)]="U_province"
-                      formControlName="province" [ngClass]="{ 'is-invalid': submitted && f.province.errors }">
+                      formControlName="province" [ngClass]="{ 'is-invalid': submitted && f.province.errors }" required>
                   <div *ngIf="submitted && f.province.errors">
                       <div *ngIf="f.province.errors.required" class="error">province is required</div>
                   </div>
@@ -35,7 +35,7 @@
                 <div class="formItem">
                   <label> Pays</label>
                   <select style="max-width:100%" required placehoder="unter pays " [(ngModel)]="U_pays"
-                  formControlName="pays" [ngClass]="{ 'is-invalid': submitted && f.pays.errors }">
+                  formControlName="pays" [ngClass]="{ 'is-invalid': submitted && f.pays.errors }" required>
                       <option value="Canada" selected="selected">Canada </option>
 
                       <option value="Afghanistan">Afghanistan </option>

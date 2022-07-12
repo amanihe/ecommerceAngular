@@ -6,12 +6,12 @@
   style="width: 40%; margin: auto"
 >
   <h4>Admin</h4>
-  <tr>
+  <!--<tr>
     <td>Nom et Prenom</td>
     <td>Statut</td>
     <td>Email</td>
     <td>Resultat</td>
-  </tr>
+  </tr>-->
   <p *ngIf="nbAdmin == 0">aucunes demandes d'être admin</p>
   <tbody *ngFor="let item of reqAdmin">
 
@@ -20,8 +20,67 @@
       <td>
         <p class="fw-normal mb-1">{{ i.U_FirstName }} {{ i.U_LastName }}</p>
       </td>
-      <td>{{ i.U_Statut }}</td>
+      <!--<td>{{ i.U_Statut }}</td>-->
       <td>{{ i.U_Email }}</td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          data-toggle="modal" data-target="#exampleModal2"
+        >
+          Plus de details
+
+        </button>
+
+
+        <div class="controle">
+
+
+          <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Plus de details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Nom: {{ i.U_FirstName }}</label>
+
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Prenom: {{ i.U_LastName }}</label>
+
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Email: {{ i.U_Email }}</label>
+
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Telphone: {{ i.U_Tel }}</label>
+
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Statut: {{ i.U_Statut }}</label>
+
+                    </div>
+
+
+
+
+
+            </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </td>
       <td>
         <button
           type="button"
@@ -51,20 +110,65 @@
   style="width: 40%; margin: auto"
 >
   <h4>Fournisseur</h4>
-  <tr>
-    <td>Nom et Prenom</td>
-    <td>Statut</td>
-    <td>Email</td>
-    <td>Resultat</td>
-  </tr>
+
   <p *ngIf="nbFnx == 0">aucunes demandes d'être fournisseur</p>
   <tbody *ngFor="let item of reqFnx">
     <tr *ngFor="let i of item">
       <td>
         <p class="fw-normal mb-1">{{ i.U_FirstName }} {{ i.U_LastName }}</p>
       </td>
-      <td>{{ i.U_Statut }}</td>
       <td>{{ i.U_Email }}</td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          data-toggle="modal" data-target="#exampleModal"
+        >
+          Plus de details
+        </button>
+      </td>
+      <div class="controle">
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modifier l'adresse</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Nom: {{ i.U_FirstName }}</label>
+
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Prenom: {{ i.U_LastName }}</label>
+
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Email: {{ i.U_Email }}</label>
+
+                  </div>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Telphone: {{ i.U_Tel }}</label>
+
+                  </div>
+
+
+
+
+
+          </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
       <td>
         <button
           type="button"

@@ -35,8 +35,8 @@
                 <select style="max-width:100%" required placehoder="unter statut " [(ngModel)]="U_statut"
                 formControlName="statut" [ngClass]="{ 'is-invalid': submitted && f.statut.errors }">
                     <option value="autre" selected="selected">Autre </option>
-                    <option value="pro">Professionnel(le) </option>
-                    <option value="pers">Personnel(le) </option>
+                    <option value="pro">professionnel(le)</option>
+                    <option value="pers">personnel(le)</option>
 
                 </select>
                 <div *ngIf="submitted && f.statut.errors">

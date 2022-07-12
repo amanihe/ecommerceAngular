@@ -36,6 +36,11 @@ export class AddAddressComponent implements OnInit {
     return this.log.controls;
   }
   onSubmit() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.log.invalid) {
+      return;
+    }
     this.AddAddrss();
   }
   AddAddrss() {
@@ -51,7 +56,9 @@ export class AddAddressComponent implements OnInit {
     };
     this.addresServices.addAddress(val2).subscribe((result: any) => {
       alert(result.toString());
+      window.location.reload();
     });
+
     this.router.navigate(['/address/book']);
   }
 }

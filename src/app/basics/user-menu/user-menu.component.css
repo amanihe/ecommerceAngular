@@ -5,6 +5,7 @@
   font-family: "Poppins", sans-serif;
 }
 .container {
+  z-index: 1;
   background-color: #ffccbc;
 }
 .action {

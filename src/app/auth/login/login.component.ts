@@ -30,9 +30,12 @@ export class LoginComponent implements OnInit {
   Signin(user:any){
     this.authService.login(user.username,user.password);
     if(this.authService.isAuthenticated()){
-      alert("connected");
+      alert("vous êtes connecté");
       this.router.navigateByUrl('');
       window.location.reload();
+    }
+    else{
+      alert("mot de passe ou email incorrect")
     }
 
   }

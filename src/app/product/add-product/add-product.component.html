@@ -1,19 +1,20 @@
 <div class="pagecontainer">
+  <h3>Ajouter produit</h3> <br>
   <div class="formcontainer">
-      <h3>Add product</h3>
+
       <div class="">
           <form [formGroup]="addP" (ngSubmit)="onSubmit()">
               <div class="formItem">
-                  <label> Product name</label>
+                  <label> Nom</label>
                   <input type="text" required placehoder="unter product name" [(ngModel)]="P_name"
                       formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
                   <div *ngIf="submitted && f.name.errors">
-                      <div *ngIf="f.name.errors.required" class="error">name is required</div>
+                      <div *ngIf="f.name.errors.required" class="error">nom est obligatoire </div>
                   </div>
               </div>
 
               <div class="formItem">
-                  <label> category</label>
+                  <label> Categorie</label>
                   <select style="width:auto" required [(ngModel)]="P_categ" formControlName="category"
                       [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
 
@@ -22,7 +23,7 @@
                       </option>
                   </select>
                   <div *ngIf="submitted && f.category.errors" class="error">
-                      <div *ngIf="f.category.errors.required">category is required</div>
+                      <div *ngIf="f.category.errors.required">categorie est obligatoire</div>
                   </div>
               </div>
               <div class="formItem">
@@ -30,7 +31,7 @@
                   <input type="text" required placehoder="unter description" [(ngModel)]="P_desc"
                       formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
                   <div *ngIf="submitted && f.description.errors" class="error">
-                      <div *ngIf="f.description.errors.required">description is required</div>
+                      <div *ngIf="f.description.errors.required">description est obligatoire</div>
                   </div>
               </div>
               <div class="formItem">
@@ -38,29 +39,30 @@
                   <input type="text" required placehoder="unter marque" [(ngModel)]="P_marque"
                       formControlName="marque" [ngClass]="{ 'is-invalid': submitted && f.marque.errors }">
                   <div *ngIf="submitted && f.marque.errors" class="error">
-                      <div *ngIf="f.marque.errors.required">marque is required</div>
+                      <div *ngIf="f.marque.errors.required">marque  est obligatoire</div>
                   </div>
               </div>
               <div class="formItem">
-                  <label> price</label>
-                  <input type="number" required placehoder="unter price" [(ngModel)]="P_price" formControlName="price"
+                  <label> Prix</label>
+                  <input type="number" [min]="0" required placehoder="unter price" [(ngModel)]="P_price" formControlName="price"
                       [ngClass]="{ 'is-invalid': submitted && f.price.errors }">
                   <div *ngIf="submitted && f.price.errors" class="error">
-                      <div *ngIf="f.price.errors.required">price is required</div>
+                      <div *ngIf="f.price.errors.required" style="color:red; font-style:bold;">price is required</div>
                   </div>
               </div>
+
               <div class="formItem">
                   <label> Image</label>
-                  <input type="file" (change)="uploadPhoto($event)" placehoder="unter image" [(ngModel)]="P_image"
+                  <input type="file" required (change)="uploadPhoto($event)" placehoder="unter image" [(ngModel)]="P_image"
                       formControlName="image" [ngClass]="{ 'is-invalid': submitted && f.img.errors }">
                   <div *ngIf="submitted && f.img.errors" class="error">
-                      <div *ngIf="f.img.errors.required">image is required</div>
+                      <div *ngIf="f.img.errors.required" >image est important</div>
                   </div>
               </div>
 
               <div class="buttonsection">
-                  <input type="submit" class="buttonText">
-                  <input type="reset" class="buttonText" [routerLink]="'/P_All_Product'">
+                  <input type="submit" value="Ajouter"class="buttonText">
+                  <input type="reset"value="Annuler" class="buttonText" [routerLink]="'/P_All_Product'">
               </div>
           </form>
       </div>

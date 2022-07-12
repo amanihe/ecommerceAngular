@@ -18,9 +18,13 @@ export class ProductDetailsComponent implements OnInit {
     liste: any = [];
     listImg: any = [];
     orders:any=[];
+    userId:any=0
+    isAdmin:any=false;
 
   ngOnInit(): void {
+this.isAdmin=this.authService.isAdmin();
     this.refresh();
+    this.userId = this.authService.authenticatedUser.U_Id;
   }
 
   Add_Order(l:any) {
@@ -33,9 +37,8 @@ export class ProductDetailsComponent implements OnInit {
       console.log(this.orders.length)
       var val1 = {
         User: userId,
-        Supplier: 1,
         Ord_Type: "customer",
-        Ord_Status: "created",
+        Ord_Status: "créée",
 
       };
       this.service.addOrder(val1).subscribe((res:any) => {
@@ -45,6 +48,8 @@ export class ProductDetailsComponent implements OnInit {
           Order: res.Ord_Id,
           Product: l,
           Ord_Qte: 16,
+          Supplier:null,
+          OrdLign_Status:"créée"
         };
         this.service.addOrderLign(val2).subscribe((result:any) => {
           console.log(result);
@@ -57,13 +62,15 @@ export class ProductDetailsComponent implements OnInit {
 else{
     this.orders.forEach((o:any)=>{
 
-      if(o.Ord_Status==="created" ){
+      if(o.Ord_Status==="créée" ){
 
 
           var val = {
             Order: o.Ord_Id,
             Product: l,
             Ord_Qte: 1,
+            Supplier:null,
+            OrdLign_Status:"créée"
           };
           this.service.addOrderLign(val).subscribe((result:any) => {
             alert(result.toString());
@@ -74,9 +81,8 @@ else{
       else{
         var val1 = {
           User: userId,
-          Supplier: 1,
           Ord_Type: "customer",
-          Ord_Status: "created",
+          Ord_Status: "créée",
 
         };
         this.service.addOrder(val1).subscribe((res:any) => {
@@ -86,6 +92,8 @@ else{
             Order: res.Ord_Id,
             Product: l,
             Ord_Qte: 16,
+            Supplier:null,
+            OrdLign_Status:"créée"
           };
           this.service.addOrderLign(val2).subscribe((result:any) => {
             console.log(result);
