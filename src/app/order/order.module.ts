@@ -7,6 +7,13 @@ import { OrderHistoryComponent } from './order-history/order-history.component';
 import { OrderLigneComponent } from './order-ligne/order-ligne.component';
 
 
+//drag and drop modules
+import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
+//icone
+import {MatIconModule} from '@angular/material/icon'
+
 @NgModule({
   declarations: [
     OrderComponent,
@@ -15,7 +22,10 @@ import { OrderLigneComponent } from './order-ligne/order-ligne.component';
   ],
   imports: [
     CommonModule,
-    OrderRoutingModule
+    OrderRoutingModule,
+    FormsModule,
+    DragDropModule,
+    MatIconModule
   ]
 })
 export class OrderModule { }

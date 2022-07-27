@@ -38,6 +38,9 @@ export class CartService {
   editQte(id: any, val: any) {
     return this.http.put(this.APIUrl + '/editcartItem/' + id, val);
   }
+  editProductQte(id : any ,val : any){
+    return this.http.put(this.APIUrl + '/editProduct/' + id, val);
+  }
   editStatus(id: any, val: any) {
     return this.http.put(this.APIUrl + '/editOrderStatus/' + id, val);
   }
@@ -57,4 +60,33 @@ export class CartService {
    // alert("check mail");
     return this.http.post(this.APIUrl + '/sendMail', val);
   }
+
+
+
+  //Sous-Ordre service
+  getsousOrder(Id:any){
+    return this.http.get(this.APIUrl+'/sousOrder/'+Id);
+  }
+  creatsousOrder(val:any){
+    return this.http.post(this.APIUrl+'/CreatSousOrdre/',val);
+  }
+  updateSousOrdStatus(id : any ,val : any){
+    return this.http.put(this.APIUrl+'/editSousOrderStatus/'+id,val);
+  }
+
+  //get and update order by id
+  updateOrderbyId(Id:any,val:any){
+    return this.http.put(this.APIUrl+'/ordrebyid/'+Id,val);
+  }
+  getOrderbyId(Id:any){
+    return this.http.get(this.APIUrl+'/ordrebyid/'+Id);
+  }
+
+  //update sousOrd in ordLinge
+  updateOrdLingeSousOrdId(Id:any,val:any){
+    return this.http.put(this.APIUrl+'/editOrderligne/'+Id,val);
+  }
+
+
+
 }
