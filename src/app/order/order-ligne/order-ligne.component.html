@@ -2,14 +2,43 @@
 <div class="container" style="width: 60%">
   <article class="card">
     <header class="card-header">Mes commandes</header>
-    <button class="btn btn-warning mt-3 filter" (click)="filter()">filter by date</button>
+    <select [(ngModel)]="filterCondition"
+    aria-label=".form-select-lg example"
+    (change)="filter()"
+    class="filter">
+      <option value="">no filter</option>
+      <option value="date">date</option>
+      <option value="order">order</option>
+    </select>
+    <select [(ngModel)]="statusToFind"
+    aria-label=".form-select-lg example"
+    (change)="filterStatus()"
+    class="filter">
+     <option value="">non status</option>
+     <option value="envoyée">indetermine</option>
+     <option value="en livraison">en livraison</option>
+     <option value="livrée">livrée</option>
+     <option value="payée">payée</option>
+    </select>
+    <select
+    *ngIf="isAdmin"
+    [(ngModel)]="fnxOrClient"
+    aria-label=".form-select-lg example"
+    (change)="fnxOrClientSearch()"
+    class="filter">
+    <option value="">no filter</option>
+    <option value="customer">customer</option>
+    <option value="admin">admin</option>
+    </select>
 
     <div class="search">
       <input type="text" [(ngModel)]="searchedId" class="searchTerm" placeholder="order Id">
       <button (click)="search()" class="searchButton">
         <i class="fa fa-search"></i>
      </button>
+     
    </div> 
+   <p class="notFound" *ngIf="notFound==true">pas de solution</p>
     <div class="card-body" >
     
       <hr />
@@ -65,7 +94,6 @@
               <th>Num_SousCmd</th>
               <th>Item</th>
               <th>Quantité</th>
-              <th>Unité</th>
               <th >Statut par cmd</th>
               <th>Statut par Sous_Cmd</th>
               <th>Statut par Item</th>
@@ -120,7 +148,6 @@
               <td><p *ngIf="first">null</p></td>
               <td>{{prod.Prod_Name}}</td>
               <td>{{prod.Qte}}</td>
-              <td>Boite</td>
               <td></td>
               <td><p *ngIf="first">null</p></td>
               <td><select
@@ -163,7 +190,6 @@
                   <td><p *ngIf="first">{{sousOrd.SousOrd_Id}}</p></td>
                   <td>{{prod.Prod_Name}}</td>
                   <td>{{prod.Qte}}</td>
-                  <td>Boite</td>
                   <td></td>
                   <td><select
                     *ngIf="first"
@@ -227,7 +253,7 @@
                     </option>
                   </select></td>
                   <td><input *ngIf="first" type="date" [(ngModel)]="sousOrd.expected_delivery_date"></td>
-                  <td><input *ngIf="first" type="date"></td>
+                  <td><input *ngIf="first" type="date" [(ngModel)]="sousOrd.real_delivery_date"></td>
                 </tr>
                 </tbody>
             </div>

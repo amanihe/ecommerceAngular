@@ -73,6 +73,10 @@ export class CartService {
   updateSousOrdStatus(id : any ,val : any){
     return this.http.put(this.APIUrl+'/editSousOrderStatus/'+id,val);
   }
+  edit_realDateDelivery(id:any){
+    var val={}
+    return this.http.put(this.APIUrl+'/sousOrderDeliveryDate/'+id,val);
+  }
 
   //get and update order by id
   updateOrderbyId(Id:any,val:any){
@@ -82,9 +86,10 @@ export class CartService {
     return this.http.get(this.APIUrl+'/ordrebyid/'+Id);
   }
 
-  //update sousOrd in ordLinge
-  updateOrdLingeSousOrdId(Id:any,val:any){
-    return this.http.put(this.APIUrl+'/editOrderligne/'+Id,val);
+
+
+  getAllOrderLigne(){
+    return this.http.get(this.APIUrl+'/orderLigne/');
   }
 
 
