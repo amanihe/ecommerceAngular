@@ -190,6 +190,16 @@ if((ord.status=='payée')||(ord.status=='livrée')||(ord.status=='en livraison')
     this.CartService.editStatus(prod.LignId,valP).subscribe((res:any)=>{
       prod.status=ord.status
     })
+    if((prod.status=="payée")&&(prod.isPayed==false))
+    {
+      var val_qte={
+        Prod_Quantity:prod.Qte,
+      }
+      console.log(val_qte);
+      this.CartService.editProductQte(prod.Prod_Id,val_qte).subscribe((res:any)=>{
+      console.log('res='+res) 
+      })
+    }
   })
   ord.sousOrders.forEach((sousOrd:any)=>{
     var valSO={
@@ -227,6 +237,16 @@ if((ord.status=='payée')||(ord.status=='livrée')||(ord.status=='en livraison')
         this.CartService.editStatus(prod.LignId,valP).subscribe((res:any)=>{
           prod.status=sousOrd.SousOrd_status
         })
+        if((prod.status=="payée")&&(prod.isPayed==false))
+        {
+          var val_qte={
+            Prod_Quantity:prod.Qte,
+          }
+          console.log(val_qte);
+          this.CartService.editProductQte(prod.Prod_Id,val_qte).subscribe((res:any)=>{
+          console.log('res='+res) 
+          })
+        }
       })
     }
     else{
