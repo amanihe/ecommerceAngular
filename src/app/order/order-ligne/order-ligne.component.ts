@@ -632,7 +632,7 @@ this.orders[index].sousOrders.forEach((sousOrd:any)=>{
     this.isAdmin=false}
 
     if(this.authService.isAdmin()){
-      this.CartService.getAllOrder().subscribe((data:any)=>{
+      this.CartService.getAllOrderLigne().subscribe((data:any)=>{
         console.log("data=",data);
         this.dataOrganization(data);
       })
