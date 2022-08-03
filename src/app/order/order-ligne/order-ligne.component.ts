@@ -83,17 +83,6 @@ export class OrderLigneComponent implements OnInit {
     this.ngOnInit()
   }
 
-  fnxOrClientSearch(){
-    if(this.fnxOrClient!='')  {
-
-      this.orders=this.orders.filter((e:any)=> e.orderType==this.fnxOrClient )
-      if (this.orders.length==0) this.notFound=true
-      else this.notFound=false
-      }
-    else this.orders=[];
-    this.ngOnInit()
-   
-  }
   getNewSousOrdDate(){
     this.DateFormeIsOpen=!this.DateFormeIsOpen
   }
@@ -595,7 +584,12 @@ this.orders[index].sousOrders.forEach((sousOrd:any)=>{
         this.ordersNum=this.orders.length
         if(this.statusToFind!=''){
           this.orders=this.orders.filter((e:any)=> e.status==this.statusToFind )
-          if(this.orders.length==0) this.notFound=true}}
+          if(this.orders.length==0) this.notFound=true}
+          if(this.fnxOrClient!='')  {
+
+            this.orders=this.orders.filter((e:any)=> e.orderType==this.fnxOrClient )
+            if (this.orders.length==0) this.notFound=true
+            }}
          
         })
   
