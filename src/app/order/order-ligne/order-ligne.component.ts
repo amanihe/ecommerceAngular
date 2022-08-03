@@ -18,6 +18,7 @@ import {
   styleUrls: ['./order-ligne.component.css']
 })
 export class OrderLigneComponent implements OnInit {
+ 
   
 
   constructor(private CartService: CartService,
@@ -40,7 +41,10 @@ export class OrderLigneComponent implements OnInit {
   statusToFind:any=''
   notFound:boolean=false
   isAdmin: boolean=false;
+  DateFormeIsOpen:boolean=false
   fnxOrClient:any=''
+  ordersNum:any=-1;
+  newSousOrdData:any=''
   ngOnInit(): void {
   if (this.orders.length==0) this.getCart();
    
@@ -64,24 +68,18 @@ export class OrderLigneComponent implements OnInit {
     
     this.ngOnInit() 
   }
-  filterStatus(){
-   if(this.statusToFind!=''){
-    this.orders=this.orders.filter((e:any)=> e.status==this.statusToFind )
-    if(this.orders.length==0) this.notFound=true
-    else this.notFound=false}
-    
-    this.ngOnInit()
-  }
+ 
   
   search(){
-
+   
     if(this.searchedId)  {
       
       this.orders=this.orders.filter((e:any)=> e.ord_id==Number(this.searchedId) )
       if (this.orders.length==0) this.notFound=true
       else this.notFound=false
       }
-    else this.orders=[];
+    else {this.notFound=false
+      this.orders=[]};
     this.ngOnInit()
   }
 
@@ -96,76 +94,135 @@ export class OrderLigneComponent implements OnInit {
     this.ngOnInit()
    
   }
+  getNewSousOrdDate(){
+    this.DateFormeIsOpen=!this.DateFormeIsOpen
+  }
+
+  addNewSousOrd(ord_id:any){
+    let index=this.orders.findIndex((e:any)=> e.ord_id==ord_id);
+    var val2={
+      Ord_Id:ord_id,
+      expected_delivery_date:this.newSousOrdData,
+      SousOrd_status:'envoyée',
+      real_delivery_date:null
+    }
+   if(this.orders[index].sousOrders.findIndex((sousOrd:any)=> sousOrd.expected_delivery_date==this.newSousOrdData)==-1){
+    this.CartService.creatsousOrder(val2).subscribe((res:any)=>{
+     
+      res['isDeliverd']=false;
+      res['isPayed']=false;
+
+      res['prods']=[];
+    
+      this.orders[index].sousOrders.push(res)
+      console.log(this.orders)
+    })
+    this.DateFormeIsOpen=false}
+  }
+
+//gere changement des dates dans les prod 
+  verifierSousOrders(ord_id:any,OrdLign_Id:any,sousOrd_id:any){
+    let index=this.orders.findIndex((e:any)=> e.ord_id==ord_id);
+    //cas des prods sans date estime
+    if(sousOrd_id==-1){
+      let indexInProds=this.orders[index].prods.findIndex((e:any)=> e.LignId==OrdLign_Id)
+      let indexSousOrd=this.orders[index].sousOrders.findIndex((e:any)=> {var date1=new Date(e.expected_delivery_date),date2=new Date(this.orders[index].prods[indexInProds].expected_delivery_date)
+        return date1.getTime()==date2.getTime()})
+      if(indexSousOrd!=-1){
+        this.orders[index].sousOrders[indexSousOrd].prods.push(this.orders[index].prods[indexInProds])
+        this.orders[index].prods.splice(indexInProds,1);
+      }
+      else{
+        var val2={
+          Ord_Id:ord_id,
+          expected_delivery_date:this.orders[index].prods[indexInProds].expected_delivery_date,
+          SousOrd_status:'envoyée',
+          real_delivery_date:null
+        }
+     
+        this.CartService.creatsousOrder(val2).subscribe((res:any)=>{
+         
+          res['isDeliverd']=false;
+          res['isPayed']=false;
+    
+          res['prods']=[];
+          res.prods.push(this.orders[index].prods[indexInProds])
+          this.orders[index].prods.splice(indexInProds,1);
+        
+          this.orders[index].sousOrders.push(res)
+        })}
+      }
+      //cas de changement du date l'un des produits d'un sousOrder
+      else{
+        let indexSousOrd=this.orders[index].sousOrders.findIndex((e:any)=> e.SousOrd_Id==sousOrd_id)
+        let indexInProds=this.orders[index].sousOrders[indexSousOrd].prods.findIndex((e:any)=> e.LignId==OrdLign_Id)
+        let testToFind=false
+        console.log(this.orders[index].sousOrders[indexSousOrd].prods)
+        this.orders[index].sousOrders.forEach((sousOrd:any)=>{
+          if(sousOrd.expected_delivery_date==this.orders[index].sousOrders[indexSousOrd].prods[indexInProds].expected_delivery_date){
+            sousOrd.prods.push(this.orders[index].sousOrders[indexSousOrd].prods[indexInProds])
+            this.orders[index].sousOrders[indexSousOrd].prods.splice(indexInProds,1);
+            testToFind=true
+          }
+        })
+        if(!testToFind){
+          var val2={
+            Ord_Id:ord_id,
+            expected_delivery_date:this.orders[index].sousOrders[indexSousOrd].prods[indexInProds].expected_delivery_date,
+            SousOrd_status:'envoyée',
+            real_delivery_date:null
+          }
+       
+          this.CartService.creatsousOrder(val2).subscribe((res:any)=>{
+           
+            res['isDeliverd']=false;
+            res['isPayed']=false;
+      
+            res['prods']=[];
+            res.prods.push(this.orders[index].sousOrders[indexSousOrd].prods[indexInProds])
+            this.orders[index].sousOrders[indexSousOrd].prods.splice(indexInProds,1);
+          
+            this.orders[index].sousOrders.push(res)
+          })
+        }
+      }
+    
+  }
+
+
+
+
+
+
 
   valide(){
   this.orders.forEach((ord:any)=>{
     ord.prods.forEach((prod:any)=>{
-      if((prod.status=='payée')||(prod.status=='livrée')||(prod.status=='en livraison')){
-        var val={
-          OrdLign_Status: prod.status,
-         }
-         console.log(val)
-         this.CartService.editStatus(prod.LignId,val).subscribe((res:any)=>{
-          console.log(res)
-          
-        })
-      }
-      //creation ou update sousOrder
-      if(prod.expected_delivery_date!=''){
-        console.log(this.orders)
-        let index=ord.sousOrders.findIndex((x:any)=>{
-          var d1=new Date(x.expected_delivery_date);
-          var d2=new Date(prod.expected_delivery_date);
-          return d1.getTime()==d2.getTime();
-        });
-        console.log("index=",index)
-        //update sousOrder
-        if(index!=-1){
-
-          var updatedOrdLigne={
-            OrdLign_Id: prod.LignId,
-            Order:ord.ord_id,
-            Product: prod.Prod_Id,
-            Ord_Qte: prod.Qte,
-            Supplier:prod.Supplier,
-            OrdLign_Status:prod.status,
-            sousOrder:ord.sousOrders[index].SousOrd_Id
-          }
-          this.CartService.updateOrderLigne(updatedOrdLigne).subscribe((res:any)=>{})
-        }
-        //creation sousOrder
-        else{
-          var val2={
-            Ord_Id:ord.ord_id,
-            expected_delivery_date:prod.expected_delivery_date,
-            SousOrd_status:prod.status,
-            real_delivery_date:''
-          }
-          console.log("val2=",val2)
-          this.CartService.creatsousOrder(val2).subscribe((res:any)=>{
-            
-           console.log("res=",res)
-           
-           var updatedOrdLigne={
-            OrdLign_Id: prod.LignId,
-            Order:ord.ord_id,
-            Product: prod.Prod_Id,
-            Ord_Qte: prod.Qte,
-            Supplier:prod.Supplier,
-            OrdLign_Status:prod.status,
-            sousOrder:res.SousOrd_Id
-          }
-           this.CartService.updateOrderLigne(updatedOrdLigne).subscribe((res2:any)=>{
-          
-           })
-          
       
-          })
-          
+
+           // qte update
+        if((prod.status=='payée')&&(prod.isPayed==false)){
+                if(ord.orderType=='admin') {
+            var val_qte={
+            Prod_Quantity:prod.Qte,
+          }
+
+          this.CartService.editProductQte(prod.Prod_Id,val_qte).subscribe((res:any)=>{})}
+          else if((ord.orderType=='customer')){
+                if(prod.Prod_Quantity>=prod.Qte){
+                  val_qte={
+                    Prod_Quantity:-prod.Qte,
+                  }
+        
+                  this.CartService.editProductQte(prod.Prod_Id,val_qte).subscribe((res:any)=>{}) 
+                }
+                else{
+                  prod.status='envoyée';
+                  alert("stock insuffisant!!")
+                }
+          }
         }
-      }
-      else{
-        updatedOrdLigne={
+        var updatedOrdLigne={
           OrdLign_Id: prod.LignId,
           Order:ord.ord_id,
           Product: prod.Prod_Id,
@@ -175,124 +232,89 @@ export class OrderLigneComponent implements OnInit {
           sousOrder:null
         }
         this.CartService.updateOrderLigne(updatedOrdLigne).subscribe((res2:any)=>{})
-      }
+      
     })
-//update status
-if((ord.status=='payée')||(ord.status=='livrée')||(ord.status=='en livraison')){
-  var valO={
-    Ord_Status:ord.status
-  }
-  this.CartService.updateOrderbyId(ord.ord_id,valO).subscribe((res:any)=>{})
-  ord.prods.forEach((prod:any)=>{
-    var valP={
-      OrdLign_Status:ord.status
+
+    ord.sousOrders.forEach((sousOrd:any)=>{
+      if(sousOrd.prods.length==0){
+        this.CartService.delete_sousOrd(sousOrd.SousOrd_Id).subscribe((res:any)=>{})
+      }else{
+
+     
+        let RealDateDelivery=sousOrd.prods[0].real_delivery_date
+        let testDate=true
+      sousOrd.prods.forEach((prod:any)=>{  
+      
+      //qte update
+      if((prod.status=='payée')&&(prod.isPayed==false)){
+          if(ord.orderType=='admin') {
+      var val_qte={
+      Prod_Quantity:prod.Qte,
     }
-    this.CartService.editStatus(prod.LignId,valP).subscribe((res:any)=>{
-      prod.status=ord.status
-    })
-    if((prod.status=="payée")&&(prod.isPayed==false))
-    {
-      if (ord.orderType=='admin'){var val_qte={
-        Prod_Quantity:prod.Qte,
-      }
-      console.log(val_qte);
-      this.CartService.editProductQte(prod.Prod_Id,val_qte).subscribe((res:any)=>{
-      console.log('res='+res) 
-      })}
-      else if(ord.orderType=='customer'){
-        if(prod.Prod_Quantity>prod.Qte){
-          val_qte={
-            Prod_Quantity:-prod.Qte,
-          }
-          console.log(val_qte);
-          this.CartService.editProductQte(prod.Prod_Id,val_qte).subscribe((res:any)=>{
-          console.log('res='+res) 
-          })
-        }
-      }
-    }
-  })
-  ord.sousOrders.forEach((sousOrd:any)=>{
-    var valSO={
-      SousOrd_status:ord.status
-    }
-    this.CartService.updateSousOrdStatus(sousOrd.SousOrd_Id,valSO).subscribe((res:any)=>{
-      sousOrd.SousOrd_status=ord.status;
-    })
-    if((ord.status=='livrée')&&(!sousOrd.isDeliverd)) this.CartService.edit_realDateDelivery(sousOrd.SousOrd_Id).subscribe((res:any)=>{})
-    sousOrd.prods.forEach((prod:any)=>{
-      var valP={
-        OrdLign_Status:ord.status
-      }
-      this.CartService.editStatus(prod.LignId,valP).subscribe((res:any)=>{
-        prod.status=ord.status
-      })
-    })
-  })
-}else{
-  valO={
-    Ord_Status:'envoyée'
-  }
-  this.CartService.updateOrderbyId(ord.ord_id,valO).subscribe((res:any)=>{})
-  ord.sousOrders.forEach((sousOrd:any)=>{
-    if((sousOrd.SousOrd_status=='payée')||(sousOrd.SousOrd_status=='livrée')||(sousOrd.SousOrd_status=='en livraison')){
-      var valSO={
-        SousOrd_status:sousOrd.SousOrd_status
-      }
-      this.CartService.updateSousOrdStatus(sousOrd.SousOrd_Id,valSO).subscribe((res:any)=>{})
-      if((sousOrd.SousOrd_status=='livrée')&&(!sousOrd.isDeliverd)) this.CartService.edit_realDateDelivery(sousOrd.SousOrd_Id).subscribe((res:any)=>{})
-      sousOrd.prods.forEach((prod:any)=>{
-        var valP={
-          OrdLign_Status:sousOrd.SousOrd_status
-        }
-        this.CartService.editStatus(prod.LignId,valP).subscribe((res:any)=>{
-          prod.status=sousOrd.SousOrd_status
-        })
-        if((prod.status=="payée")&&(prod.isPayed==false))
-        {
-          if (ord.orderType=='admin'){var val_qte={
-            Prod_Quantity:prod.Qte,
-          }
-          console.log(val_qte);
-          this.CartService.editProductQte(prod.Prod_Id,val_qte).subscribe((res:any)=>{
-          console.log('res='+res) 
-          })}
-          else if(ord.orderType=='customer'){
-            if(prod.Prod_Quantity>prod.Qte){
-              val_qte={
-                Prod_Quantity:-prod.Qte,
-              }
-              console.log(val_qte);
-              this.CartService.editProductQte(prod.Prod_Id,val_qte).subscribe((res:any)=>{
-              console.log('res='+res) 
-              })
+
+    this.CartService.editProductQte(prod.Prod_Id,val_qte).subscribe((res:any)=>{})}
+    else if((ord.orderType=='customer')){
+          if(prod.Prod_Quantity>=prod.Qte){
+            val_qte={
+              Prod_Quantity:-prod.Qte,
             }
+  
+            this.CartService.editProductQte(prod.Prod_Id,val_qte).subscribe((res:any)=>{}) 
           }
-        }
-      })
+          else{
+            prod.status='envoyée';
+            alert("stock insuffisant!!")
+          }
     }
-    else{
-      valSO={
-        SousOrd_status:'envoyée'
+  }
+
+
+        var date1=new Date(RealDateDelivery)
+        var date2=new Date(prod.real_delivery_date)
+        if(date1.getTime()!=date2.getTime()) testDate=false    
+        var updatedOrdLigne={
+        OrdLign_Id: prod.LignId,
+        Order:ord.ord_id,
+        Product: prod.Prod_Id,
+        Ord_Qte: prod.Qte,
+        Supplier:prod.Supplier,
+        OrdLign_Status:prod.status,
+        real_delivery_date:prod.real_delivery_date,
+        sousOrder:sousOrd.SousOrd_Id
       }
-      this.CartService.updateSousOrdStatus(sousOrd.SousOrd_Id,valSO).subscribe((res:any)=>{})
-      sousOrd.prods.forEach((prod:any)=>{
-        var valP={
-          OrdLign_Status:prod.status
-        }
-        this.CartService.editStatus(prod.LignId,valP).subscribe((res:any)=>{})
-      })
-    }
-  })
-}
+      this.CartService.updateOrderLigne(updatedOrdLigne).subscribe((res:any)=>{})})
+        var resultRealDate=null
+        if(testDate) resultRealDate=RealDateDelivery
+         var updatedSousOrd={
+          SousOrd_Id:sousOrd.SousOrd_Id,
+          Ord_Id:ord.ord_id,
+          SousOrd_status:sousOrd.status,
+          expected_delivery_date:sousOrd.expected_delivery_date,
+          real_delivery_date:resultRealDate
+        } 
+        this.CartService.update_sousOrder(sousOrd.SousOrd_Id,updatedSousOrd).subscribe((res:any)=>{})
+      }
+    })
 
   })
-  this.orders=[]
+
 this.getCart()
+
   }
 
   drop(event: CdkDragDrop<any>,id:any) {
-    if (event.previousContainer === event.container) {
+    var previousContainerId=event.previousContainer.id;
+    var containerId=event.container.id;
+    var previousContainerSplited=previousContainerId.split(",") 
+    var containerSplited=containerId.split(",")
+    var index=this.orders.findIndex((x:any)=> x.ord_id==id);
+    let numberOfSatatus=0
+    this.orders[index].statusTable.forEach((status:any)=>{
+      if(status.info.includes(0)) numberOfSatatus++
+     })
+//condition pour avoir des transaction uniquement dans le meme ordre et meme fonctionalite
+ if((previousContainerSplited[1]==containerSplited[1])&&(previousContainerSplited[0].length==containerSplited[0].length)&&(numberOfSatatus<=1)){   
+  if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
@@ -305,15 +327,10 @@ this.getCart()
         event.previousIndex,
         event.currentIndex
       );
-    }
-    var index=this.orders.findIndex((x:any)=> x.ord_id==id);
+    }}
 
-console.log(event)
-let numberOfSatatus=0
-        
-this.orders[index].statusTable.forEach((status:any)=>{
- if(status.info.includes(0)) numberOfSatatus++
-})
+
+//configuration des status drag and drop lors du changement si il ya une seule etat d'order
 
 if(numberOfSatatus==1) {this.orders[index].statusTable.forEach((status:any)=>{
    if(status.info.includes(0)) {
@@ -323,6 +340,22 @@ if(numberOfSatatus==1) {this.orders[index].statusTable.forEach((status:any)=>{
  }})
 
 };
+
+//gere les changement des produit
+
+this.orders[index].prods.forEach((pord:any)=>{
+    pord.expected_delivery_date=null
+  })
+this.orders[index].sousOrders.forEach((sousOrd:any)=>{
+    sousOrd.prods.forEach((pord:any)=>{
+      pord.expected_delivery_date=sousOrd.expected_delivery_date
+    })
+  })
+
+
+
+
+
    
   }
 
@@ -381,7 +414,7 @@ if(numberOfSatatus==1) {this.orders[index].statusTable.forEach((status:any)=>{
             default:
               break;
           }
-          //configurer le drag and drop(collection des donnee)
+          //configurer le drag and drop(collection des donnee/le 0 est consider comme trouve)
           switch (y.SousOrd_status) {
             case 'en livraison':ele.statusTable[1].info.push(0) ;break;
             case 'livrée':ele.statusTable[2].info.push(0) ;break;
@@ -437,9 +470,8 @@ if(numberOfSatatus==1) {this.orders[index].statusTable.forEach((status:any)=>{
         case 1: ele.statusTable.forEach((status:any)=>{
           if(status.info.includes(0)) {status.info=[];
           status.info.push(0);
-          status.info.push(1);
         }
-          else status.info=[1]; 
+          else status.info=[]; 
         });break
         case 2: ele.statusTable.forEach((status:any)=>{
           if(status.info.includes(0)) status.info=[0];
@@ -451,7 +483,6 @@ if(numberOfSatatus==1) {this.orders[index].statusTable.forEach((status:any)=>{
         ele.statusTable[3].info=[]
           break;
       }
-console.log(ele.statusTable)
      
       });
     }
@@ -489,7 +520,8 @@ console.log(ele.statusTable)
           prod[0]['LignId']=x.OrdLign_Id
           prod[0]['date']=x.Create_at
           prod[0]['status']=x.OrdLign_Status
-          prod[0]['expected_delivery_date']='';
+          prod[0]['expected_delivery_date']=null;
+          prod[0]['real_delivery_date']=null;
           prod[0]['Supplier']=x.Supplier
           
 
@@ -502,7 +534,7 @@ console.log(ele.statusTable)
             }
             cmd.ord_id=x.Order;
             sousOrder.forEach((sousOrd:any)=>{
-              //pour l'ajout de la date reel du delivration
+            //pour l'ajout de la date reel du delivration
               var isDeliverd=false
               if(sousOrd.SousOrd_status=='livrée'){
                 isDeliverd=true
@@ -553,7 +585,17 @@ console.log(ele.statusTable)
           //probleme au subscribe et on veut que la fonction ne soit appeller qu'a la fin
            i++
           if(i==data.length) {this.refrechStatus()
-          console.log('1',this.orders)}
+          this.orders.forEach((ord:any)=>{
+            ord.sousOrders.forEach((sousOrd:any)=>{
+              if(sousOrd.prods.length==0){
+                  this.CartService.delete_sousOrd(sousOrd.SousOrd_Id).subscribe((res:any)=>{})}
+              
+            })
+          })
+        this.ordersNum=this.orders.length
+        if(this.statusToFind!=''){
+          this.orders=this.orders.filter((e:any)=> e.status==this.statusToFind )
+          if(this.orders.length==0) this.notFound=true}}
          
         })
   
@@ -582,7 +624,7 @@ console.log(ele.statusTable)
     let userId = this.authService.authenticatedUser.U_Id;
  
     console.log('user=',this.authService.isAdmin());
-    
+    this.orders=[]
     if(this.authService.isFnx()){ this.CartService.getAllOrderFnx(userId).subscribe((data: any) => {
       console.log("data=",data);
       this.dataOrganization(data);

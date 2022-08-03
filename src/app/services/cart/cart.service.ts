@@ -65,10 +65,10 @@ export class CartService {
 
   //Sous-Ordre service
   getsousOrder(Id:any){
-    return this.http.get(this.APIUrl+'/sousOrder/'+Id);
+    return this.http.get(this.APIUrl+'/getSousOrder/'+Id);
   }
   creatsousOrder(val:any){
-    return this.http.post(this.APIUrl+'/CreatSousOrdre/',val);
+    return this.http.post(this.APIUrl+'/sousOrdre/',val);
   }
   updateSousOrdStatus(id : any ,val : any){
     return this.http.put(this.APIUrl+'/editSousOrderStatus/'+id,val);
@@ -76,6 +76,13 @@ export class CartService {
   edit_realDateDelivery(id:any){
     var val={}
     return this.http.put(this.APIUrl+'/sousOrderDeliveryDate/'+id,val);
+  }
+  delete_sousOrd(id:any){
+    return this.http.delete(this.APIUrl+'/sousOrdre/'+id)
+  }
+
+  update_sousOrder(id:any,val:any){
+    return this.http.put(this.APIUrl+'/sousOrdre/',val)
   }
 
   //get and update order by id

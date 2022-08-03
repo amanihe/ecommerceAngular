@@ -95,7 +95,9 @@ export class ProductComponent implements OnInit {
             Product: l,
             Ord_Qte: 1,
             Supplier:null,
-            OrdLign_Status:"créée"
+            sousOrder:null,
+            OrdLign_Status:"créée",
+            real_delivery_date:null
           };
           this.service.addOrderLign(val2).subscribe((result: any) => {
             console.log(result);
@@ -109,6 +111,8 @@ export class ProductComponent implements OnInit {
               Order: o.Ord_Id,
               Product: l,
               Ord_Qte: 1,
+              sousOrder:null,
+              real_delivery_date:null
             };
             this.service.addOrderLign(val).subscribe((result: any) => {
               alert(result.toString());
@@ -137,7 +141,9 @@ export class ProductComponent implements OnInit {
                 Product: l,
                 Ord_Qte: 16,
                 Supplier:null,
-               OrdLign_Status:"créée"
+               OrdLign_Status:"créée",
+               sousOrder:null,
+               real_delivery_date:null
               };
               this.service.addOrderLign(val2).subscribe((result: any) => {
                 console.log(result);

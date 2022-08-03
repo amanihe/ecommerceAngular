@@ -49,7 +49,9 @@ this.isAdmin=this.authService.isAdmin();
           Product: l,
           Ord_Qte: 16,
           Supplier:null,
-          OrdLign_Status:"créée"
+          OrdLign_Status:"créée",
+          sousOrder:null,
+          real_delivery_date:null
         };
         this.service.addOrderLign(val2).subscribe((result:any) => {
           console.log(result);
@@ -70,7 +72,9 @@ else{
             Product: l,
             Ord_Qte: 1,
             Supplier:null,
-            OrdLign_Status:"créée"
+            OrdLign_Status:"créée",
+            sousOrder:null,
+            real_delivery_date:null
           };
           this.service.addOrderLign(val).subscribe((result:any) => {
             alert(result.toString());
@@ -93,7 +97,9 @@ else{
             Product: l,
             Ord_Qte: 16,
             Supplier:null,
-            OrdLign_Status:"créée"
+            OrdLign_Status:"créée",
+            sousOrder:null,
+            real_delivery_date:null
           };
           this.service.addOrderLign(val2).subscribe((result:any) => {
             console.log(result);

@@ -12,7 +12,7 @@
     </select>
     <select [(ngModel)]="statusToFind"
     aria-label=".form-select-lg example"
-    (change)="filterStatus()"
+    (change)="getCart()"
     class="filter">
      <option value="">non status</option>
      <option value="envoyée">indetermine</option>
@@ -60,17 +60,18 @@
           <ng-container>
           <div
          
-          id="{{stat.status}},{{ord.ord_id}}"
+          id="statusTable,{{ord.ord_id}}"
           cdkDropList
           [cdkDropListData]="stat.info"
           (cdkDropListDropped)="drop($event,ord.ord_id)">
-          <div cdkDrag *ngFor="let i of stat.info" >
+          <div *ngIf="stat.info.length==0" ><p class="hide">.</p></div>
+          <div cdkDrag class="grab" *ngFor="let i of stat.info" >
             <i *ngIf="i==0" class="material-icons grab">done_outline</i>
             <p class="hide">{{i}}</p>
           </div>
         </div>
         </ng-container>
-      </td>
+         </td>
         <td> <a class="d-flex justify-content-end" (click)="open(ord.ord_id)">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -91,24 +92,67 @@
               <thead>
               <tr>
               <th>Num_Cmd</th>
+              <th>Statut par cmd</th>
               <th>Num_SousCmd</th>
-              <th>Item</th>
-              <th>Quantité</th>
-              <th >Statut par cmd</th>
               <th>Statut par Sous_Cmd</th>
-              <th>Statut par Item</th>
+              <th>Item </th>
               <th>Date Livraison estimé</th>
+              <th >Statut par Item</th>
+              <th>Quantité</th>
               <th>Date Livraison Réelle</th>
+
               </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>{{ord.ord_id}}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+              <tbody
+              cdkDropList
+              [cdkDropListData]="ord.prods"
+              id="P,{{ord.ord_id}}"
+              (cdkDropListDropped)="drop($event,ord.ord_id)">
+              <tr *ngIf="ord.prods.length==0" >
+                <td>{{ord.ord_id}}</td>
+                <td><select
+                  (change)="changeOnSelectOrd(ord.ord_id)"
+                  [(ngModel)]="ord.status"
+                  aria-label=".form-select-lg example"
+                  id="A{{ ord.ord_id }}"
+                >
+                <option value="envoyée" *ngIf="!ord.isPayed">
+                  Changer l'état de la commande
+                </option>
+                  <option selected class="d-flex  text-center" value="payée" *ngIf="ord.isPayed">
+                    <p  >
+                    le produit est livré et payé
+                  </p>
+                  </option>
+                  <option
+                    value="en livraison"
+                    *ngIf="!ord.isPayed"
+                  >
+                    en livraison
+                  </option>
+                  <option
+                    value="livrée"
+                    *ngIf="!ord.isPayed"
+                  >
+                    livrée
+                  </option>
+                  <option value="payée" *ngIf="!ord.isPayed">
+                    payée
+                  </option>
+                </select></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+                <tr *ngFor="let prod of ord.prods;let first=first"
+                cdkDrag class="grab">
+                  <td><p *ngIf="first">{{ord.ord_id}}</p></td>
                   <td><select
+                    *ngIf="first"
                     (change)="changeOnSelectOrd(ord.ord_id)"
                     [(ngModel)]="ord.status"
                     aria-label=".form-select-lg example"
@@ -137,60 +181,112 @@
                     <option value="payée" *ngIf="!ord.isPayed">
                       payée
                     </option>
+                  </select>
+                </td>
+                  <td></td>
+                  <td></td>
+                  <td>{{prod.Prod_Name}}</td>
+                  <td><input type="date" (change)="verifierSousOrders(ord.ord_id,prod.LignId,-1)" [(ngModel)]="prod.expected_delivery_date"></td>
+                  <td><select
+                    (change)="refrechStatus()"
+                    [(ngModel)]="prod.status"
+                    aria-label=".form-select-lg example"
+                    id="C{{ prod.Prod_Id }}"
+                  >
+                  <option value="envoyée" *ngIf="!prod.isPayed">
+                    Changer l'état de la commande
+                  </option>
+                    <option selected class="d-flex  text-center" value="payée" *ngIf="prod.isPayed">
+                      <p  >
+                      le produit est livré et payé
+                    </p>
+                    </option>
+                    <option
+                      value="en livraison"
+                      *ngIf="!prod.isPayed"
+                    >
+                      en livraison
+                    </option>
+                    <option
+                      value="livrée"
+                      *ngIf="!prod.isPayed"
+                    >
+                      livrée
+                    </option>
+                    <option value="payée" *ngIf="!prod.isPayed">
+                      payée
+                    </option>
                   </select></td>
+                  <td>{{prod.Qte}}</td>
+                  <td><input type="date" [(ngModel)]="prod.real_delivery_date"></td>
+                  
+                  
+                </tr>
+                <tr *ngIf="ord.sousOrders.length==0">
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <a *ngIf="!DateFormeIsOpen" class="myButton" (click)="getNewSousOrdDate()">+</a>
+                    <input *ngIf="DateFormeIsOpen" type="date" [(ngModel)]="newSousOrdData">
+                    <a *ngIf="DateFormeIsOpen" class="myButton" (click)="addNewSousOrd(ord.ord_id)">confirme</a>
+                  </td>
+                  <td></td>
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
                 </tr>
-              <tr *ngFor="let prod of ord.prods;let first=first">
-              <td></td>
-              <td><p *ngIf="first">null</p></td>
-              <td>{{prod.Prod_Name}}</td>
-              <td>{{prod.Qte}}</td>
-              <td></td>
-              <td><p *ngIf="first">null</p></td>
-              <td><select
-                (change)="refrechStatus()"
-                [(ngModel)]="prod.status"
-                aria-label=".form-select-lg example"
-                id="C{{ prod.Prod_Id }}"
-              >
-              <option value="envoyée" *ngIf="!prod.isPayed">
-                Changer l'état de la commande
-              </option>
-                <option selected class="d-flex  text-center" value="payée" *ngIf="prod.isPayed">
-                  <p  >
-                  le produit est livré et payé
-                </p>
-                </option>
-                <option
-                  value="en livraison"
-                  *ngIf="!prod.isPayed"
-                >
-                  en livraison
-                </option>
-                <option
-                  value="livrée"
-                  *ngIf="!prod.isPayed"
-                >
-                  livrée
-                </option>
-                <option value="payée" *ngIf="!prod.isPayed">
-                  payée
-                </option>
-              </select></td>
-              <td><input  type="date" [(ngModel)]="prod.expected_delivery_date"></td>
-              <td><input  type="date"></td>
-              </tr>
               </tbody>
-              <tbody *ngFor="let sousOrd of ord.sousOrders">
-                <tr *ngFor="let prod of sousOrd.prods;let first=first">
+              <tbody *ngFor="let sousOrd of ord.sousOrders; let last = last"
+              cdkDropList
+              id="S,{{ord.ord_id}}"
+              [cdkDropListData]="sousOrd.prods"
+              (cdkDropListDropped)="drop($event,ord.ord_id)">
+              <tr *ngIf="sousOrd.prods.length==0">
+                <td></td>
+                <td></td>
+                <td>{{sousOrd.SousOrd_Id}}</td>
+                <td><select
+                  (change)="changeOnSelectSousOrd(ord.ord_id,sousOrd.SousOrd_Id)"
+                  [(ngModel)]="sousOrd.SousOrd_status"
+                  aria-label=".form-select-lg example"
+                  id="B{{ sousOrd.SousOrd_Id }}"
+                >
+                <option value="envoyée" *ngIf="!sousOrd.isPayed">
+                  Changer l'état de la commande
+                </option>
+                  <option selected class="d-flex  text-center" value="payée" *ngIf="sousOrd.isPayed">
+                    <p  >
+                    le produit est livré et payé
+                  </p>
+                  </option>
+                  <option
+                    value="en livraison"
+                    *ngIf="!sousOrd.isPayed"
+                  >
+                    en livraison
+                  </option>
+                  <option
+                    value="livrée"
+                    *ngIf="!sousOrd.isPayed"
+                  >
+                    livrée
+                  </option>
+                  <option value="payée" *ngIf="!sousOrd.isPayed">
+                    payée
+                  </option>
+                </select></td>
+                <td></td>
+                <td></td>
+                <td><input type="date" [(ngModel)]="sousOrd.expected_delivery_date"></td>
+                <td></td>
+                <td></td>
+              </tr>
+                <tr cdkDrag class="grab" *ngFor="let prod of sousOrd.prods;let first=first">
+                  <td></td>
                   <td></td>
                   <td><p *ngIf="first">{{sousOrd.SousOrd_Id}}</p></td>
-                  <td>{{prod.Prod_Name}}</td>
-                  <td>{{prod.Qte}}</td>
-                  <td></td>
                   <td><select
                     *ngIf="first"
                     (change)="changeOnSelectSousOrd(ord.ord_id,sousOrd.SousOrd_Id)"
@@ -222,6 +318,8 @@
                       payée
                     </option>
                   </select></td>
+                  <td>{{prod.Prod_Name}}</td>
+                  <td><input type="date" (change)="verifierSousOrders(ord.ord_id,prod.LignId,sousOrd.SousOrd_Id)" [(ngModel)]="prod.expected_delivery_date"></td>
                   <td><select
                     (change)="refrechStatus()"
                     [(ngModel)]="prod.status"
@@ -252,10 +350,27 @@
                       payée
                     </option>
                   </select></td>
-                  <td><input *ngIf="first" type="date" [(ngModel)]="sousOrd.expected_delivery_date"></td>
-                  <td><input *ngIf="first" type="date" [(ngModel)]="sousOrd.real_delivery_date"></td>
+                  <td>{{prod.Qte}}</td>
+                  <td> <input type="date" [(ngModel)]="prod.real_delivery_date"></td>
+
+              </tr>
+                <tr *ngIf="last">
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <a *ngIf="!DateFormeIsOpen" class="myButton" (click)="getNewSousOrdDate()">+</a>
+                    <input *ngIf="DateFormeIsOpen" type="date" [(ngModel)]="newSousOrdData">
+                    <a *ngIf="DateFormeIsOpen" class="myButton" (click)="addNewSousOrd(ord.ord_id)">confirme</a>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
                 </tbody>
+
             </div>
         </tr>
         </tbody>
