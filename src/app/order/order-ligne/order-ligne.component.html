@@ -2,6 +2,7 @@
 <div class="container" style="width: 60%">
   <article class="card">
     <header class="card-header">Mes commandes</header>
+    <!--les filters -->
     <select [(ngModel)]="filterCondition"
     aria-label=".form-select-lg example"
     (change)="filter()"
@@ -39,7 +40,7 @@
      
    </div> 
    <p class="notFound" *ngIf="notFound==true">pas de solution</p>
-    <div class="card-body" >
+    <div class="card-body" style="border-radius: 100px;">
     
       <hr />
       <table class="blueTable" cdkDropListGroup>
@@ -58,6 +59,7 @@
         <td>{{ord.ord_id}}</td>
         <td *ngFor="let stat of ord.statusTable" >
           <ng-container>
+            <!--first drag and drop-->
           <div
          
           id="statusTable,{{ord.ord_id}}"
@@ -67,7 +69,6 @@
           <div *ngIf="stat.info.length==0" ><p class="hide">.</p></div>
           <div cdkDrag class="grab" *ngFor="let i of stat.info" >
             <i *ngIf="i==0" class="material-icons grab">done_outline</i>
-            <p class="hide">{{i}}</p>
           </div>
         </div>
         </ng-container>
@@ -87,16 +88,17 @@
           </svg>
         </a></td>
         </tr>
-        <tr>
-          <div *ngIf="ord.isOpen">
+        <tr *ngIf="ord.isOpen">
+          <td colspan="6" style="padding: 0px;">
+          <div class="opendiv">
               <thead>
               <tr>
               <th>Num_Cmd</th>
               <th>Statut par cmd</th>
               <th>Num_SousCmd</th>
               <th>Statut par Sous_Cmd</th>
-              <th>Item </th>
               <th>Date Livraison estimé</th>
+              <th>Item </th>
               <th >Statut par Item</th>
               <th>Quantité</th>
               <th>Date Livraison Réelle</th>
@@ -108,6 +110,7 @@
               [cdkDropListData]="ord.prods"
               id="P,{{ord.ord_id}}"
               (cdkDropListDropped)="drop($event,ord.ord_id)">
+              <!--cas d'absences de prods sans sousOrder-->
               <tr *ngIf="ord.prods.length==0" >
                 <td>{{ord.ord_id}}</td>
                 <td><select
@@ -148,6 +151,7 @@
                 <td></td>
                 <td></td>
               </tr>
+              <!--presentation des prod sans sousOrder-->
                 <tr *ngFor="let prod of ord.prods;let first=first"
                 cdkDrag class="grab">
                   <td><p *ngIf="first">{{ord.ord_id}}</p></td>
@@ -185,8 +189,8 @@
                 </td>
                   <td></td>
                   <td></td>
-                  <td>{{prod.Prod_Name}}</td>
                   <td><input type="date" (change)="verifierSousOrders(ord.ord_id,prod.LignId,-1)" [(ngModel)]="prod.expected_delivery_date"></td>
+                  <td>{{prod.Prod_Name}}</td>
                   <td><select
                     (change)="refrechStatus()"
                     [(ngModel)]="prod.status"
@@ -222,6 +226,7 @@
                   
                   
                 </tr>
+                <!--ajout d'un sousOrder lors d'absense des sousOrder-->
                 <tr *ngIf="ord.sousOrders.length==0">
                   <td></td>
                   <td></td>
@@ -238,11 +243,14 @@
                   <td></td>
                 </tr>
               </tbody>
+              <!-- les sousOrders-->
               <tbody *ngFor="let sousOrd of ord.sousOrders; let last = last"
               cdkDropList
               id="S,{{ord.ord_id}}"
               [cdkDropListData]="sousOrd.prods"
               (cdkDropListDropped)="drop($event,ord.ord_id)">
+              <!-- les prod des sousOrders-->
+              <!-- cas d'absence de prods dans sousOrder ou l'apparition d'un nouveau sousOrder-->
               <tr *ngIf="sousOrd.prods.length==0">
                 <td></td>
                 <td></td>
@@ -283,6 +291,7 @@
                 <td></td>
                 <td></td>
               </tr>
+              <!--la presantation normale des prods dans sousOrder -->
                 <tr cdkDrag class="grab" *ngFor="let prod of sousOrd.prods;let first=first">
                   <td></td>
                   <td></td>
@@ -318,8 +327,8 @@
                       payée
                     </option>
                   </select></td>
-                  <td>{{prod.Prod_Name}}</td>
-                  <td><input type="date" (change)="verifierSousOrders(ord.ord_id,prod.LignId,sousOrd.SousOrd_Id)" [(ngModel)]="prod.expected_delivery_date"></td>
+                  <td><input *ngIf="first" type="date" (change)="verifierSousOrders(ord.ord_id,prod.LignId,sousOrd.SousOrd_Id)" [(ngModel)]="prod.expected_delivery_date"></td>
+                  <td>{{prod.Prod_Name}}</td> 
                   <td><select
                     (change)="refrechStatus()"
                     [(ngModel)]="prod.status"
@@ -354,6 +363,7 @@
                   <td> <input type="date" [(ngModel)]="prod.real_delivery_date"></td>
 
               </tr>
+              <!--option ajouter sousOrder-->
                 <tr *ngIf="last">
                   <td></td>
                   <td></td>
@@ -372,6 +382,7 @@
                 </tbody>
 
             </div>
+            </td>
         </tr>
         </tbody>
         </table>

@@ -95,7 +95,9 @@ export class OrderLigneComponent implements OnInit {
       SousOrd_status:'envoyée',
       real_delivery_date:null
     }
-   if(this.orders[index].sousOrders.findIndex((sousOrd:any)=> sousOrd.expected_delivery_date==this.newSousOrdData)==-1){
+    let dateOrder=new Date(this.orders[index].date)
+    let dateNewSousOrd=new Date(this.newSousOrdData)
+   if((this.orders[index].sousOrders.findIndex((sousOrd:any)=> sousOrd.expected_delivery_date==this.newSousOrdData)==-1)&&(dateOrder.getTime()<dateNewSousOrd.getTime())){
     this.CartService.creatsousOrder(val2).subscribe((res:any)=>{
      
       res['isDeliverd']=false;
@@ -207,6 +209,7 @@ export class OrderLigneComponent implements OnInit {
                 }
                 else{
                   prod.status='envoyée';
+                  this.changeOnSelectOrd(ord.ord_id)
                   alert("stock insuffisant!!")
                 }
           }

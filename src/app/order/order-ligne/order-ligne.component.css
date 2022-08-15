@@ -2,38 +2,12 @@
 body {
   background: #eee;
 }
-
 .card {
   box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
-}
-
-.card {
-  position: relative;
-  display: flex;
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
   background-clip: border-box;
-  border: 0 solid rgba(0, 0, 0, 0.125);
-  border-radius: 1rem;
-}
-
-.card-body {
-  -webkit-box-flex: 1;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  padding: 1.5rem 1.5rem;
-}
-body {
-  background-color: #eeeeee;
-  font-family: "Open Sans", serif;
-}
-.container {
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-.card {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -45,9 +19,28 @@ body {
   min-width: 0;
   word-wrap: break-word;
   background-color: #fff;
-  background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.1rem;
+}
+.card-body {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.5rem 1.5rem;
+  
+}
+body {
+  background-color: #eeeeee;
+  font-family: "Open Sans", serif;
+}
+.container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  position:relative;
+  margin:auto;
+  padding:0px;
+  text-align:center;
+
 }
 .card-header:first-child {
   border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0;
@@ -149,6 +142,7 @@ p {
   background-color: #286da8;
   border-color: #286da8;
   border-radius: 1px;
+  margin: 20px;
 }
 .btn-warning:hover {
   color: #ffffff;
@@ -172,9 +166,9 @@ p {
 
 
 
-/* styles of table*/
+/* styles of table
 table.blueTable {
-  border: 1px solid #1C6EA4;
+  border: 1px solid #6E85B7;
   background-color: #EEEEEE;
   width: 100%;
   text-align: left;
@@ -182,7 +176,7 @@ table.blueTable {
   table-layout:fixed;
 }
 table.blueTable td, table.blueTable th {
-  border: 1px solid #AAAAAA;
+  border: none ;
   padding: 3px 2px;
 }
 table.blueTable tbody td {
@@ -222,7 +216,41 @@ table.blueTable tfoot .links a{
   border-radius: 5px;
 }
 
+*/
+table{
+  width: 100%; 
+  border-collapse: collapse;
+  border-spacing: 0;
+  box-shadow: 0 2px 15px rgba(64,64,64,.7);
+  border-radius: 100px;
 
+ 
+ }
+ td , th{
+  padding: 15px 20px;
+  text-align: center;
+  width: 25% ;
+  
+ 
+ }
+ th{
+  background-color: #286da8;
+  color: #fafafa;
+  font-family: 'Open Sans',Sans-serif;
+  font-weight: 200;
+  text-transform: uppercase;
+  word-wrap:break-word
+ 
+ }
+ tr{
+  width: 100%;
+  background-color: #fafafa;
+  font-family: 'Montserrat', sans-serif;
+  border-radius: 100px;
+ }
+ tr:nth-child(even){
+  background-color: #eeeeee;
+ }
 
 .grab {
   cursor: -webkit-grab;
@@ -235,6 +263,23 @@ table.blueTable tfoot .links a{
   overflow: hidden;
   padding: 0;
   margin: 0;
+}
+.opendiv{
+  width: inherit ;
+}
+.chance{
+  padding: 2px 0;
+  width: 10%;
+  text-align: center;
+  font-size: 10px;
+  border:#000 10px;
+}
+.chance{
+  padding: 2px 0;
+  width: 10%;
+  text-align: center;
+  font-size: 10px;
+  border:#000 10px;
 }
 
 /*search bar*/
@@ -290,30 +335,91 @@ table.blueTable tfoot .links a{
 .cell-all{
 width: 500px;  
 }
-
-
-
 .myButton {
-	box-shadow: 0px 10px 14px -7px #276873;
-	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
-	background-color:#599bb3;
-	border-radius:8px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:20px;
-	font-weight:bold;
-	padding:13px 32px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #3d768a;
+  padding: 0.5em 0.7em;
+  background: #B2C8DF;
+  border: none;
+  border-radius: 1000px;
+  color: #002B5B;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .2rem;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  transition: .2s ease-in-out;
+  margin: 10px;
+  
 }
-.myButton:hover {
-	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
-	background-color:#408c99;
+.myButton:hover{
+  background:#6E85B7
 }
-.myButton:active {
-	position:relative;
-	top:1px;
+
+
+
+
+
+
+.listItems{
+  height:auto;
+  width: 75%;
+  position:fixed;
+  border-style: groove;
+  top:25%;
+  right: 100px;
+  left: 100px;
+  bottom: 20px;
+  z-index:100;
+  text-align:center;
+  font-family: "Lato", sans-serif;
+  background-color: #599bb3;
+  overflow:hidden;
+  overflow-y:scroll;
+}
+
+.main {
+  margin: 10%; /* Same as the width of the sidenav */
+}
+.card-prod {
+  max-width: 200px;
+  margin: auto;
+  padding:50px ;
+  text-align: center;
+  font-family: arial;
+  margin: 2%;
+}
+
+.price {
+  color:#286DA8;
+  font-size: 14px;
+}
+
+.allcard{
+  display: flex;
+  flex-wrap: wrap;
+}
+.cardimg{
+    border-radius: 15px ;
+    height: 50%;
+}
+.card a ,p,h3 {
+    color:#286DA8;
+}
+
+.close{
+  position:fixed;
+  right: 90%;
+}
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 20;
+  position: relative;
+  left: 75%;
+}
+.inputdate{
+  margin-bottom: 25px;
 }
 
