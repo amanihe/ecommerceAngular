@@ -26,6 +26,9 @@ export class CartService {
   getOrderByUser(id: any) {
     return this.http.get(this.APIUrl + '/orderByUser/' + id);
   }
+  getOrderById(id:any){
+    return this.http.get(this.APIUrl + '/get_Order_ById/' + id);
+  }
   getHistory(ord: any) {
     return this.http.get(this.APIUrl + '/orderHistory/' + ord);
   }

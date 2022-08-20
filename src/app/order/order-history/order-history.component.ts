@@ -8,10 +8,11 @@ import { CartService } from 'src/app/services/cart/cart.service';
   styleUrls: ['./order-history.component.css'],
 })
 export class OrderHistoryComponent implements OnInit {
+  
   constructor(
     private CartService: CartService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    ) { }
   orders: any = [];
   isOpen: boolean = false;
   ordersUser: any = [];
@@ -26,6 +27,7 @@ export class OrderHistoryComponent implements OnInit {
   isInshipping: any = false;
   isCreated: any = false;
   isPaid: any = false;
+
   ngOnInit(): void {
     this.getCart();
   }
@@ -168,4 +170,6 @@ export class OrderHistoryComponent implements OnInit {
 
     //}
   }
+ 
 }
+  

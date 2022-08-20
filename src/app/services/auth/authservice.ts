@@ -20,6 +20,7 @@ export class AuthService {
   public host:string="https://localhost:8443";
   public authenticated!: boolean;
   public authenticatedUser: any;
+  public user :any;
   private users: any = [];
   readonly APIUrl = 'http://127.0.0.1:8000';
   constructor(private http:HttpClient,private router: Router) {
@@ -53,7 +54,7 @@ export class AuthService {
   }
 
 
-  login(username:string,password:string){
+  /*login(username:string,password:string){
     this.getUser().subscribe((data: any) => {
       this.users = data;
     });
@@ -71,6 +72,26 @@ export class AuthService {
     else{
       this.authenticated=false;
     }
+  }*/
+  login(username:string,password:string,users:any){
+    console.log('start')
+     console.log('staaaaaaaart100',users)
+      users.forEach((u:any)=>{
+      if(u.U_Email===username && u.U_Pwd===password){
+        this.user=u;
+        console.log('user',this.user)
+        this.authenticated=true;
+        console.log('autttthhhh',this.authenticated)
+        console.log('authuser',this.authenticatedUser)
+
+        this.authenticatedUser=this.user;
+        console.log('autttthhhhuserrr222222',this.authenticatedUser)
+        localStorage.setItem("authenticatedUser",JSON.stringify(this.authenticatedUser));}
+        
+        console.log('authservice',this.authenticated)
+      
+    })
+    
   }
   loadUser(){
     let user=localStorage.getItem('authenticatedUser');
@@ -100,15 +121,26 @@ export class AuthService {
     }
     else return false;
   }
+  isClient(){
+    if(this.authenticatedUser){
+      return this.authenticatedUser.U_Client==true;
+    }
+    else return false;
+  }
 
   isAuthenticated(){
     return this.authenticated;
+    
   }
   logout(){
+    console.log('logout')
     this.authenticated=false;
     this.authenticatedUser=undefined;
+    console.log('this.auth',this.authenticated)
+    console.log('thisuser',this.authenticatedUser)
     localStorage.removeItem('authenticatedUser');
     this.router.navigateByUrl('/P_Home');
+    
 
   }
 

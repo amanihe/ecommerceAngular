@@ -94,7 +94,7 @@ export class ProductComponent implements OnInit {
             Order: res.Ord_Id,
             Product: l,
             Ord_Qte: 1,
-            Supplier:null,
+            Supplier:'Entreprise',
             OrdLign_Status:"créée"
           };
           this.service.addOrderLign(val2).subscribe((result: any) => {

@@ -23,9 +23,11 @@ export class UserMenuComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    window.location.reload;
+    window.location.reload();
     this.router.navigateByUrl('');
     this.showMePartially = false;
+    window.location.reload();
+
   }
 
   @Input() showMePartially: boolean | undefined;

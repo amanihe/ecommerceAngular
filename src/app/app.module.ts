@@ -19,7 +19,12 @@ import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
 import { AuthModule } from './auth/auth.module';
 import { AddressModule } from './address/address.module';
-import { NgChartsModule } from 'ng2-charts';
+import { DatePipe } from '@angular/common';
+
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -45,12 +50,13 @@ import { NgChartsModule } from 'ng2-charts';
     AuthModule,
     AddressModule,
     ReactiveFormsModule,
-    NgChartsModule
+   
   ],
   providers: [
     SharedService,
     CartService,
-    AuthService
+    AuthService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
