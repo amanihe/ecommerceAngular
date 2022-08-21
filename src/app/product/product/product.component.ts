@@ -23,7 +23,9 @@ export class ProductComponent implements OnInit {
   liste: any = [];
   listImg: any = [];
   orders: any = [];
+ 
   ngOnInit(): void {
+  
     this.refresh();
     this.isFnx=this.authService.isFnx();
   }
@@ -148,5 +150,9 @@ export class ProductComponent implements OnInit {
         });
       }
     });
+  }
+  addProduct()
+  {
+    this.router.navigate(['/add']);
   }
 }

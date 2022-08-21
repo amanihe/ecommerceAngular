@@ -10,12 +10,18 @@
 }
 .card {
   max-width: 200px;
-  margin: auto;
+ 
   text-align: center;
   font-family: arial;
-  margin: 2%;
+ 
 }
-
+.cardp {
+  background-color: red;
+  width: 70px;
+  height: 20px;
+  margin-left: 65px;
+  margin-bottom: 10px;
+}
 .price {
   color:#286DA8;
   font-size: 14px;

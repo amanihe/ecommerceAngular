@@ -1,69 +1,97 @@
 <div class="pagecontainer">
-  <h3>Ajouter produit</h3> <br>
-  <div class="formcontainer">
-
-      <div class="">
-          <form [formGroup]="addP" (ngSubmit)="onSubmit()">
-              <div class="formItem">
-                  <label> Nom</label>
-                  <input type="text" required placehoder="unter product name" [(ngModel)]="P_name"
-                      formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
-                  <div *ngIf="submitted && f.name.errors">
-                      <div *ngIf="f.name.errors.required" class="error">nom est obligatoire </div>
-                  </div>
-              </div>
-
-              <div class="formItem">
-                  <label> Categorie</label>
-                  <select style="width:auto" required [(ngModel)]="P_categ" formControlName="category"
-                      [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
-
-                      <option *ngFor="let c of CategList" value="{{c.Categ_Id}}">{{c.Categ_Name}}
-                          <!--<input type="hidden" id="categid" value="{{c.Categ_Id}}">-->
-                      </option>
-                  </select>
-                  <div *ngIf="submitted && f.category.errors" class="error">
-                      <div *ngIf="f.category.errors.required">categorie est obligatoire</div>
-                  </div>
-              </div>
-              <div class="formItem">
-                  <label> Description</label>
-                  <input type="text" required placehoder="unter description" [(ngModel)]="P_desc"
-                      formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
-                  <div *ngIf="submitted && f.description.errors" class="error">
-                      <div *ngIf="f.description.errors.required">description est obligatoire</div>
-                  </div>
-              </div>
-              <div class="formItem">
-                  <label> Marque</label>
-                  <input type="text" required placehoder="unter marque" [(ngModel)]="P_marque"
-                      formControlName="marque" [ngClass]="{ 'is-invalid': submitted && f.marque.errors }">
-                  <div *ngIf="submitted && f.marque.errors" class="error">
-                      <div *ngIf="f.marque.errors.required">marque  est obligatoire</div>
-                  </div>
-              </div>
-              <div class="formItem">
-                  <label> Prix</label>
-                  <input type="number" [min]="0" required placehoder="unter price" [(ngModel)]="P_price" formControlName="price"
-                      [ngClass]="{ 'is-invalid': submitted && f.price.errors }">
-                  <div *ngIf="submitted && f.price.errors" class="error">
-                      <div *ngIf="f.price.errors.required" style="color:red; font-style:bold;">price is required</div>
-                  </div>
-              </div>
-
-              <div class="formItem">
-                  <label> Image</label>
-                  <input type="file" required (change)="uploadPhoto($event)" placehoder="unter image" [(ngModel)]="P_image"
-                      formControlName="image" [ngClass]="{ 'is-invalid': submitted && f.img.errors }">
-                  <div *ngIf="submitted && f.img.errors" class="error">
-                      <div *ngIf="f.img.errors.required" >image est important</div>
-                  </div>
-              </div>
-
-              <div class="buttonsection">
-                  <input type="submit" value="Ajouter"class="buttonText">
-                  <input type="reset"value="Annuler" class="buttonText" [routerLink]="'/P_All_Product'">
-              </div>
-          </form>
-      </div>
-  </div>
+    <h3>Ajouter produit</h3> <br>
+    <div class="formcontainer">
+  
+        <div class="container">
+            <form [formGroup]="addP" (ngSubmit)="onSubmit()" class="containerform">
+                <div class="formItem">
+                    <label class="label-input"> Nom</label>
+                    <input class="input100 has-val" type="text" required placehoder="unter product name" [(ngModel)]="P_name"
+                        formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" >
+                    <div *ngIf="submitted && f.name.errors">
+                        <div *ngIf="f.name.errors.required" class="error">nom est obligatoire </div>
+                    </div>
+                    <span class="focus-input100"></span>
+                </div>
+  
+                <div class="formItem">
+                    <label class="label-input" (click)="open()">Categories :<svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-caret-down"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"
+                        />
+                      </svg></label>
+                     <div class="formItem" *ngIf="hide">
+                        <input  class="input100 has-val" type="text"  placehoder="unter category" [(ngModel)]="P_categ2"
+                        formControlName="category2">
+                        <span class="focus-input100"></span>
+                    </div> 
+                  
+                    <select class="selection"  required [(ngModel)]="P_categ" formControlName="category"
+                        [ngClass]="{ 'is-invalid': submitted && f.category.errors }" >
+                        <option>--</option>
+                        <option *ngFor="let c of CategList" value="{{c.Categ_Id}}">{{c.Categ_Name}}
+                            <!--<input type="hidden" id="categid" value="{{c.Categ_Id}}">-->
+                        </option>
+                    </select>
+               
+                    <span class="focus-input100"></span>
+                    <div *ngIf="submitted && f.category.errors" class="error">
+                        <div *ngIf="f.category.errors.required">categorie est obligatoire</div>
+                    </div>
+                </div>
+                <div class="formItem">
+                    <label class="label-input"> Description</label>
+                    <input class="input100 has-val" type="text" required placehoder="unter description" [(ngModel)]="P_desc"
+                        formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+                    <div *ngIf="submitted && f.description.errors" class="error">
+                        <div *ngIf="f.description.errors.required">description est obligatoire</div>
+                    </div>
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="formItem">
+                    <label class="label-input"> Marque</label>
+                    <input class="input100 has-val" type="text" required placehoder="unter marque" [(ngModel)]="P_marque"
+                        formControlName="marque" [ngClass]="{ 'is-invalid': submitted && f.marque.errors }">
+                    <div *ngIf="submitted && f.marque.errors" class="error">
+                        <div *ngIf="f.marque.errors.required">marque  est obligatoire</div>
+                    </div>
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="formItem">
+                    <label class="label-input"> Prix</label>
+                    <input  class="input100 has-val" type="number" [min]="0" required placehoder="unter price" [(ngModel)]="P_price" formControlName="price"
+                        [ngClass]="{ 'is-invalid': submitted && f.price.errors }">
+                        <span class="focus-input100"></span>
+                    <div *ngIf="submitted && f.price.errors" class="error">
+                        <div *ngIf="f.price.errors.required" style="color:red; font-style:bold;">price is required</div>
+                    </div>
+                    <span class="focus-input100"></span>
+                </div>
+  
+                <div class="formItem">
+                    <label class="label-input"> Image</label>
+                    <input  type="file" required class="photo"(change)="uploadPhoto($event)" placehoder="unter image" [(ngModel)]="P_image"
+                        formControlName="image" [ngClass]="{ 'is-invalid': submitted && f.img.errors }">
+                    <div *ngIf="submitted && f.img.errors" class="error">
+                        <div *ngIf="f.img.errors.required" >image est important</div>
+                    </div>
+                </div>
+  
+                <div class="buttonsection">
+                   
+                         <input type="submit" value="Ajouter"class="buttonText">
+                    <input type="reset" value="Annuler" class="buttonText" [routerLink]="'/P_All_Product'">
+                    
+                   
+                </div>
+            </form>
+        </div>
+    </div>
+  
