@@ -7,7 +7,6 @@ import { DatePipe } from '@angular/common'
 const pdfMake = require('pdfmake/build/pdfmake.js');
 import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { AuthService } from 'src/app/services/auth/authservice';
-import { ThisReceiver } from '@angular/compiler';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
@@ -54,7 +53,6 @@ export class DetailsComponent implements OnInit {
     this.refresh();
   }
   
-
   refresh(){
     this.route.params.forEach((params: Params) => {
       if (params['id'] !== undefined) {
@@ -63,104 +61,48 @@ export class DetailsComponent implements OnInit {
         this.pdfservice.getFactureById(id).subscribe((data: any) => {
           this.facture = data;
           this.OrdId = data.order;
-          console.log('ordid',this.OrdId)
           this.pdfservice.getHistory(data.order).subscribe((res:any)=>{
             res[1].forEach((i: any) => {
-             this.total += parseInt(i.Prod_Price) * i.Ord_Qte;
-             this.discount=this.total*0.1 ;
-             this.TotalFinal=this.total-this.discount ;
-             // order.push(this.total)
-             // console.log(order)
-             });
-          res['total'] = this.total;
-          this.orders.push(res);
-          console.log('farah',this.orders[0][1]);
-          console.log('test',this.orders[0][0].User);
-          this.var=this.orders[0][1];
-          this.auth.getUserById(this.orders[0][0].User).subscribe((resultat: any)=>{
-              this.user=resultat[0];
-              this.isClient=this.user.U_Client;
-              
-             console.log('useeeer',this.user)
-             //
-             this.isAuthentificated = this.auth.isAuthenticated();
-             this.isAdmin = this.auth.isAdmin();
-             console.log('statclient',this.isClient)
-             console.log('statadmin',this.isAdmin)
-
-
-             if((this.isAdmin==false)||(this.isAdmin==true&&this.isClient==true)){
-              this.supplierName='Entreprise : TECH+';
-              this.supplierEmail='contact@ic-canada.com';
-              this.supplierTel='438-992-5560'}
-             else{
-           
-                this.pdfservice.getOrderLigneByOrderId(this.OrdId).subscribe((supp : any )=>{
-                 this.SupplierId=supp[0].Supplier ;
-                 console.log('suppId',this.SupplierId)
-                 console.log('supplier',supp);
-                 this.auth.getUserById(this.SupplierId).subscribe((resultat: any)=>{
-                 this.supplier=resultat[0];
-                 this.supplierName="Fournisseur :"+this.supplier.U_FirstName;
-                 this.supplierEmail=this.supplier.U_Email;
-                 this.supplierTel=this.supplier.U_Tel;
-                 console.log('resss',resultat);
-                 console.log('supp',this.supplier)
-               })
-              
-  
-          })
-             }
-            
-    
-
+              this.total += parseInt(i.Prod_Price) * i.Ord_Qte;
+              this.discount=this.total*0.1 ;
+              this.TotalFinal=this.total-this.discount ;
             })
-          console.log('order',this.orders)
+            res['total'] = this.total;
+            this.orders.push(res);
+            this.var=this.orders[0][1];
+            this.auth.getUserById(this.orders[0][0].User).subscribe((resultat: any)=>{
+              this.user=resultat[0];
+             //user status
+              this.isClient=this.user.U_Client;
+              this.isAuthentificated = this.auth.isAuthenticated();
+              this.isAdmin = this.auth.isAdmin();
+              if((this.isAdmin==false)||(this.isAdmin==true&&this.isClient==true)){
+                  this.supplierName='Entreprise : TECH+';
+                  this.supplierEmail='contact@ic-canada.com';
+                  this.supplierTel='438-992-5560'
+                }
+              else{
+                  this.pdfservice.getOrderLigneByOrderId(this.OrdId).subscribe((supp : any )=>{
+                    this.SupplierId=supp[0].Supplier ;
+                    this.auth.getUserById(this.SupplierId).subscribe((resultat: any)=>{
+                         this.supplier=resultat[0];
+                         this.supplierName="Fournisseur :"+this.supplier.U_FirstName;
+                         this.supplierEmail=this.supplier.U_Email;
+                         this.supplierTel=this.supplier.U_Tel;
+                    })
+                  })
+              }
+            })
           })
-          console.log("facture",this.facture)
-          this.date = this.datePipe.transform(this.facture.Create_at, 'dd/MM/yyyy');
-          console.log('date',this.date)
-          
-          //
-          
-          /*if((this.isAdmin==false)||(this.isAdmin==true&&this.user.U_Client==true)){
-          this.supplierName='Entreprise : TECH+';
-          this.supplierEmail='contact@ic-canada.com';
-          this.supplierTel='438-992-5560'}
-
-          else{
-           
-              this.pdfservice.getOrderLigneByOrderId(this.OrdId).subscribe((supp : any )=>{
-               this.SupplierId=supp[0].Supplier ;
-               console.log('suppId',this.SupplierId)
-               console.log('supplier',supp);
-               this.auth.getUserById(this.SupplierId).subscribe((resultat: any)=>{
-               this.supplier=resultat[0];
-               this.supplierName="Fournisseur :"+this.supplier.U_FirstName;
-               this.supplierEmail=this.supplier.U_Email;
-               this.supplierTel=this.supplier.U_Tel;
-               console.log('resss',resultat);
-               console.log('supp',this.supplier)
-             })
-            
-
+          this.date = this.datePipe.transform(this.facture.Create_at, 'dd/MM/yyyy');    
         })
-           }*/
-           console.log('status',this.isClient)
+      }
+    })  
+}
 
-            
-        })}
-    
-    });
-    
-  }
-
- 
- generatePDF(){  
-     console.log('test')  
+ generatePDF(){   
   let docDefinition = {  
-    content: [  
-                
+    content: [              
       {  
         text: 'FACTURE',  
         fontSize: 24,  
@@ -170,7 +112,8 @@ export class DetailsComponent implements OnInit {
       [ {  
         text: `Date: ${new Date().toLocaleString()}`,  
         alignment: 'right'  
-    },  ],
+        },  
+      ],
     {columns:[
       {text:'DE',margin :[ 0, 70, 10, 0 ],color:'grey'},
       {text:'A`',margin :[ 0, 70, 30,0],color:'grey' }
@@ -202,9 +145,7 @@ export class DetailsComponent implements OnInit {
       {text: 'Date de la commande :' + this.date},  
       
       {text:'',margin: [ 5, 30, 10, 20 ] },
-    
-      //table2
-      
+      //table des produits
        {
           table: {
             widths: ['*', '*', '*'],
@@ -231,23 +172,6 @@ export class DetailsComponent implements OnInit {
       {text : 'Montant total :'+this.total , bold:true,margin:[400,10,5,5]},
       {text : 'Réduction en %:'+this.facture.Fact_Discount , bold:true,margin:[400,3,5,5]},
       {text : 'Total :'+this.TotalFinal , bold:true,margin:[400,3,5,5],color:'red',fontSize:17},
-    
-      /*//cost
-      {text: 'Coût de la facture avant la réduction :',
-       margin: [ 5, 70,10,10],
-       color :'darkblue'
-      },
-      { text: this.facture.Fact_OrderCost },  
-      //discount
-      {text: 'Pourcentage de la réduction :'},
-      { text: this.facture.Fact_Discount }, 
-      // final cost
-      {text:  'Coût final :'},
-      { text: this.facture.Fact_CostFinal }, 
-      //type 
-      {text: 'Type de la facture :'},
-      { text: this.facture.Fact_Type },*/
-
             ],  
     styles: {  
                 sectionHeader: {  
@@ -263,7 +187,6 @@ export class DetailsComponent implements OnInit {
                 },
             }  
     }; 
-   console.log("fiiiiiiiiiiiin")
    pdfMake.createPdf(docDefinition).open();
   } 
   

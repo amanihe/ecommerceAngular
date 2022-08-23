@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { GuardGuard } from '../guard.guard';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
+import { PwdComponent } from './pwd/pwd.component';
 import { RegisterComponent } from './register/register.component';
 import { RequestComponent } from './request/request.component';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'pwd', component:PwdComponent },
     ],
   },
 ];

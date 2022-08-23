@@ -39,6 +39,10 @@ export class AuthService {
   {
     return this.http.get(this.APIUrl + '/userById/' + id);
   }
+  getUserByEmail(val:any)
+  {
+    return this.http.get(this.APIUrl + '/userByEmail/' ,val);
+  }
   updateUser(val: any): Observable<any> {
     return this.http.put(this.APIUrl + '/user/' + val.U_Id, val);
   }
@@ -53,46 +57,17 @@ export class AuthService {
 
   }
 
-
-  /*login(username:string,password:string){
-    this.getUser().subscribe((data: any) => {
-      this.users = data;
-    });
-    let user;
-    this.users.forEach((u:any)=>{
-      if(u.U_Email===username && u.U_Pwd===password){
-        user=u;
-      }
-    })
-    if(user){
-      this.authenticated=true;
-      this.authenticatedUser=user;
-      localStorage.setItem("authenticatedUser",JSON.stringify(this.authenticatedUser));
-    }
-    else{
-      this.authenticated=false;
-    }
-  }*/
   login(username:string,password:string,users:any){
-    console.log('start')
-     console.log('staaaaaaaart100',users)
       users.forEach((u:any)=>{
       if(u.U_Email===username && u.U_Pwd===password){
         this.user=u;
-        console.log('user',this.user)
         this.authenticated=true;
-        console.log('autttthhhh',this.authenticated)
-        console.log('authuser',this.authenticatedUser)
-
         this.authenticatedUser=this.user;
-        console.log('autttthhhhuserrr222222',this.authenticatedUser)
         localStorage.setItem("authenticatedUser",JSON.stringify(this.authenticatedUser));}
-        
-        console.log('authservice',this.authenticated)
-      
     })
     
   }
+
   loadUser(){
     let user=localStorage.getItem('authenticatedUser');
     if(user){
@@ -133,11 +108,8 @@ export class AuthService {
     
   }
   logout(){
-    console.log('logout')
     this.authenticated=false;
     this.authenticatedUser=undefined;
-    console.log('this.auth',this.authenticated)
-    console.log('thisuser',this.authenticatedUser)
     localStorage.removeItem('authenticatedUser');
     this.router.navigateByUrl('/P_Home');
     

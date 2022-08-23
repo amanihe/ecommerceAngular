@@ -60,4 +60,8 @@ export class CartService {
    // alert("check mail");
     return this.http.post(this.APIUrl + '/sendMail', val);
   }
+  sendEmailForMdp(val:any) {
+    // alert("check mail");
+     return this.http.post(this.APIUrl + '/sendMailForMdp', val);
+   }
 }
