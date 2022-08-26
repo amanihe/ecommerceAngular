@@ -112,9 +112,24 @@ img {
   border-radius: 2px; }
   .color:first-of-type {
     margin-left: 20px; }
-
+    .formItem {
+      width: 100%;
+      position: relative;
+     
+      padding-bottom: 13px;
+      margin-bottom: 27px;
+    }
+    .selection {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 5px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
 .add-to-cart, .like {
-  background: #286DA8;
+  background: rgb(247, 155, 80);
   padding: 0.8em 1em;
   border: none;
   text-transform: UPPERCASE;
@@ -166,15 +181,7 @@ img {
     -webkit-transform: scale(1);
             transform: scale(1); } }
 
-.card0{
-  display: inline;
-  width: 400px;
- border:solid blue;
-  height: 500px;
-  
- 
-  
-}
+
 .card1{
  width: 80px;
   margin-top: 5px;
@@ -207,4 +214,8 @@ img {
 .ajouter{
   margin-top: 5px;
   margin-bottom: 5px;
+}
+.container{
+ 
+  margin-bottom: 80px;
 }

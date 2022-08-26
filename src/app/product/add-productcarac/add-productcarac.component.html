@@ -20,27 +20,29 @@
                         />
                       </svg></label>
                      <div class="formItem" *ngIf="hide">
-                        <input  class="input100 has-val" type="text"  placehoder="unter category" [(ngModel)]="P_newcarac"
+                        <input  class="input100 has-val" type="text"  placehoder="nouvelle caracteristique" [(ngModel)]="P_newcarac"
                         formControlName="newcarac">
                         <span class="focus-input100"></span>
                     </div> 
-                    <div class="formItem" *ngIf="hide">
-                        <select id="select" class="selection"  >
-                        <option>--</option>
-                        <option *ngFor="let c of CategList" value="{{c.Categ_Id}}"  >{{c.Categ_Name}}
-                            <!--<input type="hidden" id="categid" value="{{c.Categ_Id}}">-->
-                        </option>
-                    </select>
+                    <div class="formItem" *ngIf="hide ">
+                       <div *ngFor="let c of categbox"><input type="checkbox" name="{{c.name}}" (change)="onchange(c.id)" >
+                       <label  >{{c.name}}</label> 
                     </div>
-                    <input class="form-btn" *ngIf="hide" (click)="Add_Productcarac(product[0].Prod_Id)" value="Ajouter" class="buttonText">
+                        
+                          
+                       
+                    </div>
+                    <input class="form-btn" *ngIf="hide" (click)="Add_Carac()" value="Ajouter" class="buttonText">
                 </div>
               
-                <div class="formItem">
+                <div class="formItem" >
+                  
+                      
                     <label class="label-input">choisir les caracteristiques :</label>
                     <select class="selection" (click)="option()" required [(ngModel)]="P_carac" formControlName="carac"
-                     >
-                    <option>--</option>
-                    <option *ngFor="let c of caraclist" value="{{c.Carec_Id}}"  >{{c.Carecteristique}}
+                    >
+                    <option selected disabled>-----</option>
+                    <option *ngFor="let c of caraclist "  value="{{c.Carec_Id}}"  >{{c.Carecteristique}}
                      
                     </option>
                 </select>
@@ -50,8 +52,11 @@
                     <select class="selection"  required [(ngModel)]="P_caracdetail" formControlName="caracdetail"
                     >
                    <option>--</option>
-                   <option *ngFor="let c of detaillist" value="{{c.Carac_Detail_Id}}">{{c.Carac_Detail}}
-                       <!--<input type="hidden" id="categid" value="{{c.Categ_Id}}">-->
+                   <option *ngFor="let c of detaillist" value="{{c.Carac_Detail_Id}}" >
+                    
+                        {{c.Carac_Detail}}
+                    
+                       
                    </option>
                </select>
                    <span class="focus-input100"></span>
@@ -62,6 +67,8 @@
                     <input class="form-btn"type="reset"value="Annuler" class="buttonText" [routerLink]="'/P_All_Product'">
                     
                 </div>
+         
+
             </form>
         </div>
        

@@ -29,6 +29,7 @@ export class ProductDetailsComponent implements OnInit {
  hide2=false;
  hide3=false;
  hide=false;
+ hide4=false;
   constructor(private authService: AuthService,private router: Router,
     private service: SharedService,
     private route: ActivatedRoute,
@@ -45,8 +46,8 @@ export class ProductDetailsComponent implements OnInit {
     P_Quantity:any=0;
     P_Description:string='';
     P_Name:string='';
-  
-    
+    detaillist:any=[];
+    P_caracdetail:any=0;
   ngOnInit(): void {
 this.isAdmin=this.authService.isAdmin();
     this.refresh();
@@ -57,7 +58,7 @@ this.isAdmin=this.authService.isAdmin();
       quantite: ['', [ Validators.maxLength(50)]],
       price: ['', [ Validators.maxLength(100)]],
       description: ['', [ Validators.maxLength(100)]],
-
+      caracdetail:['', [ Validators.maxLength(100)]],
       
     });
    }
@@ -77,6 +78,14 @@ this.isAdmin=this.authService.isAdmin();
   {
     this.hide3=!this.hide3;
   }
+  caracoption(id:any){
+    this.hide4=!this.hide4;
+    this.service.getdetailByCarac(id).subscribe((data:any)=>{
+     this.detaillist=data;
+     console.log(data);
+    })
+   
+}
   modifier()
   { if(this.P_Name=='')
   {
@@ -257,6 +266,24 @@ else{
   }
  Add_carac(id:any){
   this.router.navigate(['/product/addProductcarac/',id]);
+ }
+ modifiercarac(p:any){
+  this.route.params.forEach((params: Params) => {
+    if (params['id'] !== undefined) {
+      let id = +params['id'];
+  var val={
+    Carac_Detail:this.P_caracdetail,
+    Carec_Prod_Id:p,
+    Prod_Id:id
+  }
+this.service.updateCarac(val).subscribe((result:any) => {
+  console.log(result);
+
+  
+  
+
+})
+}})
  }
 
   refresh(){

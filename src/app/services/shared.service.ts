@@ -30,7 +30,10 @@ export class SharedService {
     return this.http.post(this.APIUrl + '/orderLigne/', val);
 
   }
-
+  addCarac(val:any){
+    
+    return this.http.post(this.APIUrl + '/caracteristic/', val);
+  }
 
   readonly APIUrl = 'http://127.0.0.1:8000';
   readonly PhotoUrl = "http://127.0.0.1:8000/media/";
@@ -48,6 +51,10 @@ export class SharedService {
   updateCateg(val: any): Observable<any> {
     return this.http.put(this.APIUrl + '/category/' + val.Categ_Id, val);
   }
+  updateCarac(val: any): Observable<any> {
+    return this.http.put(this.APIUrl + '/caracProduct/' , val);
+  }
+  
   deleteCateg(val: any) {
     return this.http.delete(this.APIUrl + '/category/' + val);
   }
@@ -60,6 +67,7 @@ export class SharedService {
     return this.http.get<any[]>(this.APIUrl + '/caracProduct/'+id);
 
   }
+
   addcaracproduct(val:any):Observable<any>{
     return this.http.post(this.APIUrl + '/caracProduct/', val);
   }

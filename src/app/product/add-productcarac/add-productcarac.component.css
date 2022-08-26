@@ -1,5 +1,5 @@
 .pagecontainer{
-    padding-top: 4%;
+    padding-top: 3%;
     padding-bottom: 12%;
     display: flex;
     align-items: center;
@@ -97,7 +97,7 @@
   }
   .formcontainer {
     width: 100%;  
-    min-height: 100vh;
+   
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -106,7 +106,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 15px;
+    padding: 1px;
     background: rgb(223, 223, 223);
     
   

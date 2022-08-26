@@ -2,66 +2,52 @@
   font-family: "Lato", sans-serif;
 
   width: 100%;
-  height: auto;
+ 
   display: flex;
 }
 .main {
   margin: 10%; /* Same as the width of the sidenav */
+  
 }
-.card {
-  max-width: 200px;
+.card1 {
+ border: 1px ridge;
  
-  text-align: center;
-  font-family: arial;
- 
-}
-.cardp {
-  background-color: red;
-  width: 70px;
-  height: 20px;
-  margin-left: 65px;
-  margin-bottom: 10px;
-}
-.price {
-  color:#286DA8;
-  font-size: 14px;
-}
-
-/*.card button {
-  border: none;
-  outline: 0;
-  padding: 10px;
-  color: white;
-  background-color: #286DA8;
-  text-align: center;
-  cursor: pointer;
-  width: 80%;
-  font-size: 14px;
-}*/
-
-/*.card button:hover {
-  opacity: 0.7;
-}*/
-.allcard{
+ height: 300px;
+ width: 1000px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   display: flex;
+ 
   flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: stretch;
+  padding: 15px;
+ 
 }
-.cardimg{
-    border-radius: 15px ;
-    height: 50%;
+.image{
+  display: block;
+  width: calc(.25 * (150vw - 28px));
+  min-width: 249px;
+  max-width: 530px;
+  
 }
-.card a ,p,h3 {
-    color:#286DA8;
+.info{
+  display: block;
+  margin-left: -250px;
+  margin-top: 15px;
 }
-/*button{
-  border: none;
-  border-radius: 15px;
-  outline: 0;
-  padding: 10px;
-  color: white;
-  background-color: #286DA8;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 14px;
-}*/
+.info h4:hover{
+  color: rgb(171, 13, 13);
+}
+.card2 {
+  border: 1px ridge;
+  
+  height: 300px;
+  width: 1000px;
+  
+  display: flex;
+align-items: center;
+justify-content: center;
+  
+   padding: 20px;
+  
+ }

@@ -25,6 +25,8 @@ import { AddProductcaracComponent } from './add-productcarac/add-productcarac.co
     ProductRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+  
+ 
    
   ]
 })

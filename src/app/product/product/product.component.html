@@ -5,18 +5,20 @@
 
   <div class="main" >
     <div class="allcard">
-      <div class="card" *ngFor="let l of products">
-          <img  src="../../assets/photos/{{l.Prod_Img}}" style="width:70%;cursor:pointer;" class="cardimg justify-content-center m-auto" (click)="details(l.Prod_Id)">
-          <div class="cardp">
-          <p class="price">{{l.Prod_Price}} $</p>
+        <div class="card1" *ngFor="let l of products">
+          <div class="image">
+          
+           <img src="../../assets/photos/{{l.Prod_Img}}" style="width:50%;cursor:pointer;"(click)="details(l.Prod_Id)">
+          </div>
+          <div class="info">
+            <h4 (click)="details(l.Prod_Id)">{{ l.Prod_Name }}</h4>
+            <h6>{{l.Prod_Description }}</h6>
+            <p class="price">{{l.Prod_Price}} $</p>
+        
+             <p><button class="btn btn-outline-secondary"  (click)="Add_Order(l.Prod_Id) " *ngIf="!isFnx" >Ajouter au panier</button></p>
+          </div>
         </div>
-        <h5>{{ l.Prod_Name }}</h5>
-        
-        
-        <p><button class="btn btn-outline-secondary"  (click)="Add_Order(l.Prod_Id) " *ngIf="!isFnx" >Ajouter au panier</button></p>
-
-      </div>
-      <div class="card" *ngIf="isAdmin"><img src="../../assets/plusicon.png" style="width: 50%;"  class="cardimg justify-content-center m-auto" (click)="addProduct()"></div>
+        <div class="card2" *ngIf="isAdmin"><img src="../../assets/add.png" style="width: 5%;"   (click)="addProduct()"></div>
       
     </div>
   </div>

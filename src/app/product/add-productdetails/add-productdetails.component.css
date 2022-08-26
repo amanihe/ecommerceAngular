@@ -1,11 +1,12 @@
 .pagecontainer{
-  padding-top: 4%;
-  padding-bottom: 12%;
+  padding-top: 7%;
+  padding-bottom: 7%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   background: rgb(223, 223, 223);
+  height: 650px;
 }
 
 
@@ -97,7 +98,7 @@ iframe {
 }
 .formcontainer {
   width: 100%;  
-  min-height: 100vh;
+
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;

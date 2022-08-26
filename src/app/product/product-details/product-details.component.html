@@ -67,7 +67,7 @@
          <button (click)="modifier()">modifier</button>
          
         </div>
-      </form>
+     
           <div class="ligne" style=" border-bottom: solid;border-width: 2px;"></div>
           <div class="colorsimg0">
             <h6>color : {{couleur}}</h6>
@@ -94,12 +94,23 @@
           <h5>Caracteristiques: <img src="../../assets/84380.png" style="width: 5%;" (click)="Add_carac(listimgcolor[0].product)" *ngIf="isAdmin"></h5>
          <div class="carac" *ngFor="let i of len">
          
-             <h6>{{listcarac[i-1][0].Carecteristique}}:{{listcaracD[i-1][0].Carac_Detail}} </h6>
-             
+             <h6>{{listcarac[i-1][0].Carecteristique}}:{{listcaracD[i-1][0].Carac_Detail}}<img src="../../assets/84380.png" style="width: 5%;" (click)="caracoption(listcarac[i-1][0].Carec_Id)" *ngIf="isAdmin"> </h6>
+             <div class="formItem" *ngIf="hide4">
+              <select class="selection"   [(ngModel)]="P_caracdetail" formControlName="caracdetail"
+              >
+             <option>--</option>
+             <option *ngFor="let c of detaillist" value="{{c.Carac_Detail_Id}}">{{c.Carac_Detail}}
+                 
+             </option>
+
+         </select>
+              <button (click)="modifiercarac(listcaracP[i-1][0].Carec_Prod_Id)" style="width:100px;height:40px;">modifer</button>
             </div>
-            
+         
          </div>
+        
       </div>
+    </form> 
     </div>
   </div>
 </div>

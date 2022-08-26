@@ -6,13 +6,14 @@ import { AuthService } from 'src/app/services/auth/authservice';
 import { SharedService } from 'src/app/services/shared.service';
 
 
+
 @Component({
   selector: 'app-add-productcarac',
   templateUrl: './add-productcarac.component.html',
   styleUrls: ['./add-productcarac.component.css']
 })
 export class AddProductcaracComponent implements OnInit {
-
+ 
   constructor(
     private service: SharedService,
     private fb: FormBuilder,
@@ -26,10 +27,13 @@ export class AddProductcaracComponent implements OnInit {
   addP: FormGroup | any;
  caraclist:any=[];
  detaillist:any=[];
- CategList:any=[]
+ CategList:any=[];
+ categbox: box[] = [];
+ category:number[]=[];
  product:any=[];
  P_categ:any=[];
  P_carac:any=0;
+
  P_caracdetail:string='';
  hide:boolean=false;
  P_newcarac:string='';
@@ -38,7 +42,9 @@ export class AddProductcaracComponent implements OnInit {
     if(!this.authService.isAdmin()){
       this.router.navigate(['/auth/login']);
     }
+    
     this.refreshList();
+
     this.addP = this.fb.group({
       newcarac: ['', [Validators.required, Validators.maxLength(50)]],
       categ: ['', [Validators.required, Validators.maxLength(50)]],
@@ -88,10 +94,36 @@ export class AddProductcaracComponent implements OnInit {
       
       this.refreshList();})
   }
+  onchange(id:any){
+
+    this.category.push(id);
+
+  }
+ Add_Carac(){
+  var val={
+    Carecteristique:this.P_newcarac,
+    category:this.category
+  }
+  console.log(val)
+  this.service.addCarac(val).subscribe((res:any)=>{
+    alert(res.toString());
+
+  })
+ 
+ 
+ }
+  
   refreshList()
-  {   this.service.getCategList().subscribe((data) => {
+  {  
+     this.service.getCategList().subscribe((data) => {
     this.CategList = data;
+    for(let l of this.CategList)
+    {
+      this.categbox.push({id:l.Categ_Id,name:l.Categ_Name,isselected:false})
+    }
+   
   });
+
     
     this.route.params.forEach((params: Params) => {
    if (params['id'] !== undefined) {
@@ -112,4 +144,9 @@ export class AddProductcaracComponent implements OnInit {
 });
 
 }
+}
+class box{
+  id:number=0;
+  name:string='';
+  isselected:boolean=false;
 }
