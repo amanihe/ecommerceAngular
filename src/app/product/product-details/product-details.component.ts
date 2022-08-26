@@ -272,10 +272,14 @@ else{
     if (params['id'] !== undefined) {
       let id = +params['id'];
   var val={
-    Carac_Detail:this.P_caracdetail,
     Carec_Prod_Id:p,
-    Prod_Id:id
+    Prod_Id:id,
+    Carec_Id:this.P_caracdetail,
+    
+   
   }
+  
+  console.log(val)
 this.service.updateCarac(val).subscribe((result:any) => {
   console.log(result);
 
