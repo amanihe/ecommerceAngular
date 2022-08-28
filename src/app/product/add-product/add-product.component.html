@@ -14,7 +14,7 @@
                     <span class="focus-input100"></span>
                 </div>
   
-                <div class="formItem">
+                <div class="formItem" *ngIf="categtest">
                     <label class="label-input" (click)="open()">Categories :<svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -77,7 +77,7 @@
   
                 <div class="formItem">
                     <label class="label-input"> Image</label>
-                    <input  type="file" required class="photo"(change)="uploadPhoto($event)" placehoder="unter image" [(ngModel)]="P_image"
+                    <input  type="file" class="photo" (change)="uploadPhoto($event)" placehoder="unter image" [(ngModel)]="P_image"
                         formControlName="image" [ngClass]="{ 'is-invalid': submitted && f.img.errors }">
                     <div *ngIf="submitted && f.img.errors" class="error">
                         <div *ngIf="f.img.errors.required" >image est important</div>
@@ -86,7 +86,7 @@
   
                 <div class="buttonsection">
                    
-                         <input type="submit" value="Ajouter"class="buttonText">
+                     <input type="submit" value="Ajouter"class="buttonText">
                     <input type="reset" value="Annuler" class="buttonText" [routerLink]="'/P_All_Product'">
                     
                    

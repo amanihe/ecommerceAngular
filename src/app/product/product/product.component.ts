@@ -23,7 +23,7 @@ export class ProductComponent implements OnInit {
   liste: any = [];
   listImg: any = [];
   orders: any = [];
- 
+  categid:any;
   ngOnInit(): void {
   
     this.refresh();
@@ -36,12 +36,15 @@ export class ProductComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       if (params['id'] == -1) {
         this.refreshCategProductList();
+        this.categid=-1
       } else {
         if (params['id'] !== undefined) {
           let id = +params['id'];
+           this.categid=id
           this.service.getProductByCateg(id).subscribe((data: any) => {
             this.products = data;
             console.log(this.products);
+            
           });
         }
       }
@@ -152,7 +155,7 @@ export class ProductComponent implements OnInit {
     });
   }
   addProduct()
-  {
-    this.router.navigate(['/add']);
+  { console.log(this.categid)
+    this.router.navigate(['/add/',this.categid]);
   }
 }
