@@ -1,0 +1,77 @@
+
+<div class="pagecontainer">
+    <h3>caracteristiques du produit</h3> <br>
+    <div class="formcontainer">
+  
+        <div class="container">
+            <form [formGroup]="addP" >
+                
+                <div class="formItem">
+                    <label class="label-input" (click)="open()">Ajouter une caracteristique  :<svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-caret-down"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"
+                        />
+                      </svg></label>
+                     <div class="formItem" *ngIf="hide">
+                        <input  class="input100 has-val" type="text"  placehoder="nouvelle caracteristique" [(ngModel)]="P_newcarac"
+                        formControlName="newcarac">
+                        <span class="focus-input100"></span>
+                    </div> 
+                    <div class="formItem" *ngIf="hide ">
+                       <div *ngFor="let c of categbox"><input type="checkbox" name="{{c.name}}" (change)="onchange(c.id)" >
+                       <label  >{{c.name}}</label> 
+                    </div>
+                        
+                          
+                       
+                    </div>
+                    <input class="form-btn" *ngIf="hide" (click)="Add_Carac()" value="Ajouter" class="buttonText">
+                </div>
+              
+                <div class="formItem" >
+                  
+                      
+                    <label class="label-input">choisir les caracteristiques :</label>
+                    <select class="selection" (click)="option()" required [(ngModel)]="P_carac" formControlName="carac"
+                    >
+                    <option selected disabled>-----</option>
+                    <option *ngFor="let c of caraclist "  value="{{c.Carec_Id}}"  >{{c.Carecteristique}}
+                     
+                    </option>
+                </select>
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="formItem">
+                    <select class="selection"  required [(ngModel)]="P_caracdetail" formControlName="caracdetail"
+                    >
+                   <option>--</option>
+                   <option *ngFor="let c of detaillist" value="{{c.Carac_Detail_Id}}" >
+                    
+                        {{c.Carac_Detail}}
+                    
+                       
+                   </option>
+               </select>
+                   <span class="focus-input100"></span>
+                </div>
+  
+                <div class="buttonsection">
+                    <input class="form-btn" (click)="Add_Productcarac(product[0].Prod_Id)" value="Ajouter" class="buttonText">
+                    <input class="form-btn"type="reset"value="Annuler" class="buttonText" [routerLink]="'/P_All_Product'">
+                    
+                </div>
+         
+
+            </form>
+        </div>
+       
+       
+    </div>
+  

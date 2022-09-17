@@ -4,14 +4,37 @@
       <div class="wrapper row">
         <div class="preview col-md-6">
 
-          <div class="preview-pic tab-content">
-            <div class="tab-pane active" id="pic-1"><img src="../../assets/{{product[0].Prod_Img}}" /></div>
+          <div class="photo">
+            <div class="tab-pane active" id="pic-1"><img src="../../assets/photos/{{pic}}" style="border: 2px solid;" /></div>
+            
+            <div class="card1" *ngFor="let l of listImg ">
+              <img src="../../assets/photos/{{l.Pic_Url}}" style="width:100% ;cursor:pointer;border:2px solid;" (mouseover)="image(l.Pic_Url)"/>
+          
+             
+            </div>
+            <div class="ajouter" *ngIf="isAdmin">
+              <input type="file" required (change)="uploadPhoto($event)" placehoder="unter image" [(ngModel)]="P_image"
+              formControlName="image" >
+              <button (click)="Add_Photo(couleur,Id)" style="width:100px;height:40px;">Ajouter</button>
+            </div>
+            <div class="action d-flex justify-content-center mr-5 ng serve
+            ">
+              <button class="add-to-cart btn btn-default mt-5 " type="button" (click)="Add_Order(product[0].Prod_Id)">Ajouter au panier</button>
+             <!-- <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>-->
+            </div>
+           
           </div>
 
 
         </div>
         <div class="details col-md-6">
-          <h3 class="product-title">{{ product[0].Prod_Name }}</h3>
+          <form [formGroup]="addP" >
+          <h3 class="product-title">{{ product[0].Prod_Name }} <img src="../../assets/84380.png" style="width: 5%;" (click)="on()" *ngIf="isAdmin"></h3>
+          <div class="formItem2" *ngIf="hide">
+            <input type="text"  placehoder="unter name" [(ngModel)]="P_Name"
+            formControlName="name">
+        
+         </div> 
          <!-- <div class="rating">
             <div class="stars">
               <span class="fa fa-star checked"></span>
@@ -22,9 +45,39 @@
             </div>
             <span class="review-no">41 reviews</span>
           </div>-->
-          <p class="product-description">{{product[0].Prod_Description}}</p>
-          <h4 class="price">${{product[0].Prod_Price}} </h4>
-          <h4 class="price" *ngIf="isAdmin">Quantité: {{product[0].Prod_Quantity}} </h4>
+          <p class="product-description">{{product[0].Prod_Description}} -{{couleur}} <img src="../../assets/84380.png" style="width: 5%;" (click)="on1()" *ngIf="isAdmin"></p>
+          <div class="formItem2" *ngIf="hide1">
+            <input type="text"  placehoder="unter description" [(ngModel)]="P_Description"
+            formControlName="description">
+        
+         </div> 
+          <h4 class="price">{{product[0].Prod_Price}} $ <img src="../../assets/84380.png" style="width: 5%;" (click)="on2()" *ngIf="isAdmin"></h4>
+          <div class="formItem2" *ngIf="hide2">
+            <input type="number"  placehoder="unter price" [(ngModel)]="P_Price"
+            formControlName="price">
+        
+         </div> 
+          <h4 class="price" *ngIf="isAdmin">Quantité: {{product[0].Prod_Quantity}} <img src="../../assets/84380.png" style="width: 5%;" (click)="on3()" *ngIf="isAdmin"></h4>
+          <div class="formItem2" *ngIf="hide3">
+            <input type="number"  placehoder="unter quantity" [(ngModel)]="P_Quantity"
+            formControlName="quantite">
+        
+         </div> 
+         <div class="formItem2" *ngIf="hide3 || hide2 ||hide1 || hide">
+         <button (click)="modifier()">modifier</button>
+         
+        </div>
+     
+          <div class="ligne" style=" border-bottom: solid;border-width: 2px;"></div>
+          <div class="colorsimg0">
+            <h6>color : {{couleur}}</h6>
+          <div class="colorsimg" *ngFor="let image of listimgcolor">
+            <img src="../../assets/photos/{{image.url}}" style="width:13%; border:2px solid;" (click)="imagecolor(image.color,image.id)"/>
+          </div>
+          <div class="ajouter" *ngIf="isAdmin">
+           
+            <button (click)="Add_color(listimgcolor[0].product)" style="width:100px;height:40px;">Ajouter</button>
+          </div>
          <!-- <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
           <h5 class="sizes">sizes:
             <span class="size" data-toggle="tooltip" title="small">s</span>
@@ -38,12 +91,26 @@
             <span class="color green not-available"></span>
             <span class="color blue"></span>
           </h5>-->
-          <div class="action d-flex justify-content-center">
-            <button class="add-to-cart btn btn-default mt-5 " type="button" (click)="Add_Order(product[0].Prod_Id)">Ajouter au panier</button>
-           <!-- <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>-->
-          </div>
-        </div>
+          <h5>Caracteristiques: <img src="../../assets/84380.png" style="width: 5%;" (click)="Add_carac(listimgcolor[0].product)" *ngIf="isAdmin"></h5>
+         <div class="carac" *ngFor="let i of len">
+         
+             <h6>{{listcarac[i-1][0].Carecteristique}}:{{listcaracD[i-1][0].Carac_Detail}}<img src="../../assets/84380.png" style="width: 5%;" (click)="caracoption(listcarac[i-1][0].Carec_Id)" *ngIf="isAdmin"> </h6>
+             <div class="formItem" *ngIf="hide4">
+              <select class="selection"   [(ngModel)]="P_caracdetail" formControlName="caracdetail"
+              >
+             <option>--</option>
+             <option *ngFor="let c of detaillist" value="{{c.Carac_Detail_Id}}">{{c.Carac_Detail}}
+                 
+             </option>
+
+         </select>
+              <button (click)="modifiercarac(listcaracP[i-1].Carec_Prod_Id)" style="width:100px;height:40px;">modifer</button>
+            </div>
+           
+         </div>
+        
       </div>
+    </form> 
     </div>
   </div>
 </div>

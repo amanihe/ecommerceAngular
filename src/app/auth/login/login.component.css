@@ -6,7 +6,7 @@
   justify-content: space-around;
 }
 .carrecontainer{
-  background-color: #286DA8;
+ 
   width: 600px;
   height: 325px;
   padding: 5%;
@@ -14,9 +14,14 @@
   align-items: center;
   align-content: center;
   justify-content: center;
+  border-radius: 6px;
+  background-color: rgb(0, 32, 96);
+  box-shadow:20px 20px 50px grey; 
 }
 h3{
-  color: #286DA8;
+  color: rgb(0, 32, 96);
+
+  padding-left: 190px;
 }
 p a{color:#D7CEC7;}
 .formItem{

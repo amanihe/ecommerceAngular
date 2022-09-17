@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,10 @@ export class SharedService {
     return this.http.post(this.APIUrl + '/productImg/', val);
 
   }
+  addProductImgColor(val: any) {
+    return this.http.post(this.APIUrl + '/productImgColor/', val);
+
+  }
   addOrder(val: any) {
     return this.http.post(this.APIUrl + '/order/', val);
 
@@ -27,7 +31,10 @@ export class SharedService {
     return this.http.post(this.APIUrl + '/orderLigne/', val);
 
   }
-
+  addCarac(val:any){
+    
+    return this.http.post(this.APIUrl + '/caracteristic/', val);
+  }
 
   readonly APIUrl = 'http://127.0.0.1:8000';
   readonly PhotoUrl = "http://127.0.0.1:8000/media/";
@@ -45,12 +52,44 @@ export class SharedService {
   updateCateg(val: any): Observable<any> {
     return this.http.put(this.APIUrl + '/category/' + val.Categ_Id, val);
   }
+  updateCarac(val: any): Observable<any> {
+    return this.http.put(this.APIUrl + '/caracProduct/' , val);
+  }
+  
   deleteCateg(val: any) {
     return this.http.delete(this.APIUrl + '/category/' + val);
   }
 
   getProduct(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/product');
+
+  }
+  getcaracProduct(id:any): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/caracProduct/'+id);
+
+  }
+
+  addcaracproduct(val:any):Observable<any>{
+    return this.http.post(this.APIUrl + '/caracProduct/', val);
+  }
+  getdetailByCarac(id:any):Observable<any[]>{
+    return this.http.get<any[]>(this.APIUrl+'/get_detailByCarac/'+id)
+  }
+  getcaracDetail(id:any): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/caracDetail/'+id);
+
+  }
+  get_caracProductByCarac(id:any): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/get_caracProductByCarac/'+id);
+
+  }
+ 
+  getcarac(id:any): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/caracteristic/'+id);
+
+  }
+  getcaracByCateg(id:any): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/get_caracByCateg/'+id);
 
   }
   getProductById(id:any)
@@ -65,8 +104,16 @@ export class SharedService {
   {
     return this.http.get(this.APIUrl + '/cart/' + id);
   }
+  getProductImgById(id:any): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/productImg/'+id);
+
+  }
   getProductImg(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/productImg');
+
+  }
+  getProductImgColor(id:any): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/productImgColor/'+id);
 
   }
   addProductli(val: any): Observable<any> {
@@ -74,6 +121,9 @@ export class SharedService {
   }
   updateProduct(val: any): Observable<any> {
     return this.http.put(this.APIUrl + '/product/' + val.Categ_Id, val);
+  }
+  updateProduct2(id:any,val: any): Observable<any> {
+    return this.http.put(this.APIUrl + '/product/' +id, val);
   }
   deleteProduct(val: any) {
     return this.http.delete(this.APIUrl + '/product/' + val);

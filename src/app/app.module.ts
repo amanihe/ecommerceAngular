@@ -45,7 +45,8 @@ import { NgChartsModule } from 'ng2-charts';
     AuthModule,
     AddressModule,
     ReactiveFormsModule,
-    NgChartsModule
+    NgChartsModule,
+    
   ],
   providers: [
     SharedService,

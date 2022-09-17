@@ -1,0 +1,36 @@
+
+<div class="pagecontainer">
+    <h3>details du produit</h3> <br>
+    <div class="formcontainer">
+  
+        <div class="container">
+            <form [formGroup]="addP" (ngSubmit)="onSubmit()">
+                <div class="formItem">
+                    <label class="label-input">coleur:</label>
+                    <input class="input100 has-val" type="text" required  placehoder="unter product coleur" [(ngModel)]="P_color"
+                        formControlName="coleur" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                    <div *ngIf="submitted && f.name.errors">
+                        <div *ngIf="f.name.errors.required" class="error">coleur est obligatoire </div>
+                    </div>
+                    <span class="focus-input100"></span>
+                </div>
+  
+                <div class="formItem">
+                    <label class="label-input"> Image</label>
+                    <input  type="file" required (change)="uploadPhoto($event)" placehoder="unter image" [(ngModel)]="P_image"
+                        formControlName="image" [ngClass]="{ 'is-invalid': submitted && f.img.errors }">
+                    <div *ngIf="submitted && f.img.errors" class="error">
+                        <div *ngIf="f.img.errors.required" >image est important</div>
+                    </div>
+                    <span class="focus-input100"></span>
+                </div>
+  
+                <div class="buttonsection">
+                    <input class="form-btn"type="submit" value="Ajouter" class="buttonText">
+                    <input class="form-btn"type="reset"value="Annuler" class="buttonText" [routerLink]="'/P_All_Product'">
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+  

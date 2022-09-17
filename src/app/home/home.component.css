@@ -6,7 +6,7 @@
     align-items: center;
 }
 .homeHeader{
-    background-color: #286DA8;
+    background-color: rgb(237, 189, 150);
     width: 800px;
     height: 400px;
     display: flex;
