@@ -14,6 +14,7 @@ export class SharedService {
     return this.http.post(this.APIUrl + '/product/', val);
 
   }
+
   addProductImg(val: any) {
     return this.http.post(this.APIUrl + '/productImg/', val);
 

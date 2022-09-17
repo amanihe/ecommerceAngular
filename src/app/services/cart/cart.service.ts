@@ -38,6 +38,9 @@ export class CartService {
   editQte(id: any, val: any) {
     return this.http.put(this.APIUrl + '/editcartItem/' + id, val);
   }
+  editProductQte(id: any, val: any) {
+    return this.http.put(this.APIUrl + '/editProduct/' + id, val);
+  }
   editStatus(id: any, val: any) {
     return this.http.put(this.APIUrl + '/editOrderStatus/' + id, val);
   }

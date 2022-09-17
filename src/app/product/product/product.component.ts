@@ -79,6 +79,7 @@ export class ProductComponent implements OnInit {
             Ord_Type: 'admin',
             Ord_Status: 'créée',
           };
+
         } else {
           val1 = {
             User: userId,

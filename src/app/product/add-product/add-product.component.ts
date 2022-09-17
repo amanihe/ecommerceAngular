@@ -75,7 +75,7 @@ export class AddProductComponent implements OnInit {
     this.service.UploadPhoto(formData).subscribe((data: any) => {
 
       this.PhotoFileName = data.toString();
-      
+
       this.PhotoFilePath = this.service.PhotoUrl + this.PhotoFileName;
     });
   }
