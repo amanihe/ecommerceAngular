@@ -38,11 +38,15 @@
         </div>
         <br>
         <br>
-        <div class="buttonsection">
+        <div class="buttonsection" *ngIf="forget==false">
           <input type="submit" value="Connecter" class="buttonText" />
           <a style="color: white" href="auth/register"
             >s'inscrire</a
           >
+        </div>
+        <div class="buttonsection" *ngIf="forget">
+          <input type="submit" value="Connecter" class="buttonText" />
+          <button (click)="sendMail()" >mot de passe oublié? recevoir le par Email</button>
         </div>
       </form>
     </div>

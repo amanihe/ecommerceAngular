@@ -20,6 +20,7 @@ export class AuthService {
   public host:string="https://localhost:8443";
   public authenticated!: boolean;
   public authenticatedUser: any;
+  public user :any;
   private users: any = [];
   readonly APIUrl = 'http://127.0.0.1:8000';
   constructor(private http:HttpClient,private router: Router) {
@@ -38,6 +39,10 @@ export class AuthService {
   {
     return this.http.get(this.APIUrl + '/userById/' + id);
   }
+  getUserByEmail(val:any)
+  {
+    return this.http.get(this.APIUrl + '/userByEmail/' ,val);
+  }
   updateUser(val: any): Observable<any> {
     return this.http.put(this.APIUrl + '/user/' + val.U_Id, val);
   }
@@ -52,26 +57,17 @@ export class AuthService {
 
   }
 
-
-  login(username:string,password:string){
-    this.getUser().subscribe((data: any) => {
-      this.users = data;
-    });
-    let user;
-    this.users.forEach((u:any)=>{
+  login(username:string,password:string,users:any){
+      users.forEach((u:any)=>{
       if(u.U_Email===username && u.U_Pwd===password){
-        user=u;
-      }
+        this.user=u;
+        this.authenticated=true;
+        this.authenticatedUser=this.user;
+        localStorage.setItem("authenticatedUser",JSON.stringify(this.authenticatedUser));}
     })
-    if(user){
-      this.authenticated=true;
-      this.authenticatedUser=user;
-      localStorage.setItem("authenticatedUser",JSON.stringify(this.authenticatedUser));
-    }
-    else{
-      this.authenticated=false;
-    }
+    
   }
+
   loadUser(){
     let user=localStorage.getItem('authenticatedUser');
     if(user){
@@ -100,15 +96,23 @@ export class AuthService {
     }
     else return false;
   }
+  isClient(){
+    if(this.authenticatedUser){
+      return this.authenticatedUser.U_Client==true;
+    }
+    else return false;
+  }
 
   isAuthenticated(){
     return this.authenticated;
+    
   }
   logout(){
     this.authenticated=false;
     this.authenticatedUser=undefined;
     localStorage.removeItem('authenticatedUser');
     this.router.navigateByUrl('/P_Home');
+    
 
   }
 

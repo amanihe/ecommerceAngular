@@ -3,12 +3,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { UserMenuComponent } from './basics/user-menu/user-menu.component';
 import { GuardGuard } from './guard.guard';
+import { OrderHistoryComponent } from './order/order-history/order-history.component';
 
 const routes: Routes = [
   { path: 'P_Home', component: HomeComponent },
   { path: '', component: HomeComponent },
   { path: 'userMenu', component: UserMenuComponent },
-
   {
     path: 'cart',
     loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule),
@@ -47,6 +47,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./analyse/analyse.module').then((m) => m.AnalyseModule),
   },
+  { path: 'facture', loadChildren: () => import('./facture/facture.module').then(m => m.FactureModule) },
 ];
 
 @NgModule({

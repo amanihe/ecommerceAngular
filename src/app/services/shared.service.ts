@@ -32,9 +32,14 @@ export class SharedService {
 
   }
   addCarac(val:any){
-    
+
     return this.http.post(this.APIUrl + '/caracteristic/', val);
   }
+  CreateFacture(val: any) {
+    return this.http.post(this.APIUrl + '/facture/', val);
+
+  }
+
 
   readonly APIUrl = 'http://127.0.0.1:8000';
   readonly PhotoUrl = "http://127.0.0.1:8000/media/";
@@ -55,7 +60,7 @@ export class SharedService {
   updateCarac(val: any): Observable<any> {
     return this.http.put(this.APIUrl + '/caracProduct/' , val);
   }
-  
+
   deleteCateg(val: any) {
     return this.http.delete(this.APIUrl + '/category/' + val);
   }
@@ -83,7 +88,7 @@ export class SharedService {
     return this.http.get<any[]>(this.APIUrl + '/get_caracProductByCarac/'+id);
 
   }
- 
+
   getcarac(id:any): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/caracteristic/'+id);
 
@@ -140,5 +145,48 @@ export class SharedService {
     return this.http.get<any[]>(this.APIUrl + '/client');
 
   }
+  factureByIdUrl='http://127.0.0.1:8000/get_Facture_ById'
+  getFactureById(id:any)
+  {
+    return this.http.get<any>(`${this.factureByIdUrl}/${id}`)}
+  getFactureByOrder(id:any)
+  {
+    return this.http.get(this.APIUrl + '/get_Facture_ByOrder/' + id);
+   }
+   getFacture(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/facture/');
+
+  }
+  getFactureByUser(id:any){
+   return this.http.get(this.APIUrl + '/FactureByUser/' + id);
+  }
+  getOrderLigneByOrderId(id:any){
+    return this.http.get(this.APIUrl + '/OrderLigneByOrderId/' + id);
+  }
+  getHistory(ord: any) {
+    return this.http.get(this.APIUrl + '/orderHistory/' + ord);
+  }
+  filterFactureDate(facture:any[],key:any):any{
+    //console.log('keyyyy',key)
+    const regex = new RegExp(key,"i");
+    //console.log('regex',regex)
+    const facturesFiltred = facture.filter(element =>
+     (element.Create_at).match(key)
+    );
+    //console.log('filtre',facturesFiltred)
+    return(facturesFiltred);
+  }
+  filterFactureName(facture:any[],key:any):any{
+    //console.log('keyyyy',key)
+    const regex = new RegExp(key,"i");
+    //console.log('regex',regex)
+    const facturesFiltred = facture.filter(element =>
+     (element.U_FirstName).match(key)
+    );
+    //console.log('filtre',facturesFiltred)
+    return(facturesFiltred);
+  }
+
+
 
 }

@@ -31,7 +31,8 @@
               "src/styles.css"
             ],
             "scripts": [ "node_modules/jquery/dist/jquery.js",
-              "node_modules/bootstrap/dist/js/bootstrap.js"]
+              "node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -104,5 +105,8 @@
       }
     }
   },
-  "defaultProject": "ecommerceApp"
+  "defaultProject": "ecommerceApp",
+  "cli": {
+    "analytics": "89a1cd2c-943d-47ec-8aa1-c22f5d5084e2"
+  }
 }

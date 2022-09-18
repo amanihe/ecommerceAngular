@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RequestComponent } from './request/request.component';
+import { PwdComponent } from './pwd/pwd.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { RequestComponent } from './request/request.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    RequestComponent
+    RequestComponent,
+    PwdComponent
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/authservice';
+import { SharedService } from 'src/app/services/shared.service';
 import { CartService } from 'src/app/services/cart/cart.service';
 
 @Component({
@@ -39,11 +40,12 @@ export class CartDetailsComponent implements OnInit {
       ] ;
   vide: boolean=false;
   constructor(
-
+    private SharedService: SharedService,
     private CartService: CartService,
     private authService: AuthService,
     private router:Router
   ) { }
+  
   FnxList:any=[];
   cartItem: any = [];
   products: any = [];
@@ -109,6 +111,19 @@ export class CartDetailsComponent implements OnInit {
 
   }
   valider(){
+    var userId = this.authService.authenticatedUser.U_Id;
+    var val3 ={
+    order:this.ordId,
+    Fact_OrderCost :this.total,
+    Fact_Discount :10,
+    Fact_CostFinal :this.total*0.9,
+    Fact_Type :this.cart[0].Ord_Type,
+    User:userId
+    }
+    console.log('val',val3)
+    this.SharedService.CreateFacture(val3).subscribe((res:any)=>{
+      console.log(res)
+    })
     if(this.authService.isAdmin()){
       console.log(this.authService.authenticatedUser)
 //this.CartService.sendEmail(this.authService.authenticatedUser).subscribe(data => {
@@ -174,6 +189,8 @@ console.log(this.listToFnx);
     var userId = this.authService.authenticatedUser.U_Id;
     this.CartService.getOrder(userId).subscribe((data: any) => {
        console.log(data.length)
+       this.cart=data;
+       console.log('cart',this.cart[0].Ord_Type)
        if(data.length==0){
         this.vide=true;
       }

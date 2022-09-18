@@ -1,0 +1,68 @@
+<!-- filtres par clients ou fournisseurs-->
+<div *ngIf="isAdmin==true"  >
+  <br>
+   <div class="col">
+     <button (click)="statusClient()"  class="pull-right btn btn-outline-secondary ">Clients </button>
+    </div>
+    <div class="col">
+      <button (click)="statusAdmin()" class="pull-right btn btn-outline-secondary">Fournisseurs</button>
+    </div>
+</div>
+<div class="textSection">
+    <h1>Liste des factures</h1>
+</div>
+
+<!--les filters -->
+<br><br><br>
+<div class="d-flex  flex-column  flex-wrap">
+  <div class="justify-content-center mb-4 mx-4">   
+        <div class="d-flex justify-content-between align-items-center ">
+          <div class="d-flex align-items-center ">
+            <div class="ms-3">
+              <p class="fw-bold mb-1">Filtrer par Name</p>
+              <input type="text" [(ngModel)]="name" class="searchTerm btn btn-outline  bg-light text-muted mb-0" placeholder=" Entrer Nom">
+               <button (click)="searchByName()" class="searchButton btn btn-outline-secondary ">
+                  <i class="fa fa-search"></i>
+               </button>  
+            </div>
+            <div class="ms-5">
+              <p class="fw-bold mb-1">Filtrer par Date</p>
+              <input type="date" [(ngModel)]="date"  class="searchTerm btn btn-outline bg-light text-muted mb-0" placeholder=" Entrer Date"/>
+              <button (click)="searchByDate()" class="searchButton btn btn-outline-secondary">
+                  <i class="fa fa-search"></i>
+               </button>
+            </div>
+          </div>
+        </div>
+  </div>
+  <div> <p  class="fw-bold " *ngIf="notFound">pas de factures</p></div>
+</div>
+
+<!-- liste des factures-->
+<br><br>
+<div class="d-flex  flex-column  flex-wrap" *ngFor="let f of allFactures">
+  <div class="justify-content-center mb-4 mx-4">
+    <div class="card ">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center ">
+          <div class="d-flex align-items-center ">
+
+            <div class="ms-3">
+              <p class="fw-bold mb-1">Numero de la commande</p>
+              <p class="text-muted mb-0">{{ f.Fact_Id}}</p>
+            </div>
+            <div class="ms-5">
+              <p class="fw-bold mb-1">date commande</p>
+              <p class="text-muted mb-0">{{f.Create_at|date: 'dd-MM-yyyy'}}</p>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-secondary"  (click)="details(f.Fact_Id)">voir détails</button>
+        </div>
+      </div>
+      <div
+        class="card-footer border-0 bg-light p-2 d-flex justify-content-around">
+
+      </div>
+    </div>
+  </div>
+</div>

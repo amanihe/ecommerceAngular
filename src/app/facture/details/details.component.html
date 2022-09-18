@@ -1,0 +1,80 @@
+ 
+  <div class="card">
+    <div class="card-header bg-black"></div>
+    <div class="card-body">
+  
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+           
+          </div>
+        </div>
+  
+  
+        <div class="row">
+          <div class="col-xl-12">
+  
+            <ul class="list-unstyled float-end">
+              <li style="font-size: 30px; color: rgb(131, 48, 48);">Mes informations</li>
+              <li>  Nom : {{user.U_FirstName}}</li>
+              <li>  Téléphone : {{user.U_Tel}}</li>
+              <li>  Email :{{user.U_Email}}</li>
+            </ul>
+          </div>
+          <div class="row mt-2 mb-5">
+            <p class="fw-bold">Date de la commande: {{facture.Create_at| date: 'dd-MM-yyyy'}} <span class="text-muted"></span></p>
+          </div>
+        </div>
+        <div class="row text-center">
+          <h3 class="text-uppercase text-center mt-3" style="font-size: 40px;">Facture</h3>
+        </div>
+        <div class="row mx-3">
+          <p> Numéro de facture : {{ facture.Fact_Id }}</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">nom du produit </th>
+                <th scope="col">prix</th>
+                <th scope="col">quantité</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor = "let p of orders[0][1]" >
+                <td> {{p.Prod_Name}}</td>
+                <td><i class="fas fa-dollar-sign"></i> {{p.Prod_Price}}</td>
+                <td> {{p.Ord_Qte}}</td>
+              </tr>
+            </tbody>
+          </table>
+          
+  
+        </div>
+        <div class="row">
+          <div class="col-xl-8">
+            <ul class="list-unstyled float-end me-0">
+              <li><span class="me-3 float-start">le montant total:</span><i class="fas fa-dollar-sign"></i> {{total}}
+              </li>
+              <li> <span class="me-5">Réduction:</span><i class="fas fa-dollar-sign"></i> {{discount}}</li>
+            </ul>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-xl-8" style="margin-left:60px">
+            <p class="float-end"
+              style="font-size: 30px; color: rgb(189, 57, 57); font-weight: 400;font-family: Arial, Helvetica, sans-serif;">
+              Total:
+              <span><i class="fas fa-dollar-sign"></i> {{TotalFinal}}</span></p>
+          </div>
+  
+        </div>
+  
+      </div>
+  
+      <br><br>
+      <div><button type="button" class="btn btn-dark pull-right" (click)="generatePDF()">voir en PDF</button></div>
+    </div>
+    <div class="card-footer bg-black"></div>
+  </div>
+
+  
