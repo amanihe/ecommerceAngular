@@ -11,7 +11,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 
-  
+
 
 
 @Component({
@@ -48,11 +48,11 @@ export class DetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private datePipe: DatePipe
   ) { }
- 
+
   ngOnInit(): void {
     this.refresh();
   }
-  
+
   refresh(){
     this.route.params.forEach((params: Params) => {
       if (params['id'] !== undefined) {
@@ -94,31 +94,31 @@ export class DetailsComponent implements OnInit {
               }
             })
           })
-          this.date = this.datePipe.transform(this.facture.Create_at, 'dd/MM/yyyy');    
+          this.date = this.datePipe.transform(this.facture.Create_at, 'dd/MM/yyyy');
         })
       }
-    })  
+    })
 }
 
- generatePDF(){   
-  let docDefinition = {  
-    content: [              
-      {  
-        text: 'FACTURE',  
-        fontSize: 24,  
-        alignment: 'center',  
-        color: 'darkblue'  
-      },   
-      [ {  
-        text: `Date: ${new Date().toLocaleString()}`,  
-        alignment: 'right'  
-        },  
+ generatePDF(){
+  let docDefinition = {
+    content: [
+      {
+        text: 'FACTURE',
+        fontSize: 24,
+        alignment: 'center',
+        color: 'darkblue'
+      },
+      [ {
+        text: `Date: ${new Date().toLocaleString()}`,
+        alignment: 'right'
+        },
       ],
     {columns:[
       {text:'DE',margin :[ 0, 70, 10, 0 ],color:'grey'},
       {text:'A`',margin :[ 0, 70, 30,0],color:'grey' }
     ]},
-      
+
       { columns :[
         {
         ul:[
@@ -135,15 +135,15 @@ export class DetailsComponent implements OnInit {
         ]
       } ,]},
 
-      {  
-        text: 'Details de la facture', 
-        decoration: 'underline',  
+      {
+        text: 'Details de la facture',
+        decoration: 'underline',
         style: 'sectionHeader',
         margin :[ 0, 50, 10,10 ]  },
-      {text: 'Facture N° :'+ this.facture.Fact_Id},    
-      //date 
-      {text: 'Date de la commande :' + this.date},  
-      
+      {text: 'Facture N° :'+ this.facture.Fact_Id},
+      //date
+      {text: 'Date de la commande :' + this.date},
+
       {text:'',margin: [ 5, 30, 10, 20 ] },
       //table des produits
        {
@@ -172,27 +172,27 @@ export class DetailsComponent implements OnInit {
       {text : 'Montant total :'+this.total , bold:true,margin:[400,10,5,5]},
       {text : 'Réduction en %:'+this.facture.Fact_Discount , bold:true,margin:[400,3,5,5]},
       {text : 'Total :'+this.TotalFinal , bold:true,margin:[400,3,5,5],color:'red',fontSize:17},
-            ],  
-    styles: {  
-                sectionHeader: {  
-                    bold: true,  
-                    decoration: 'underline',  
-                    fontSize: 14,  
-                    margin: [0, 15, 0, 15]  
+            ],
+    styles: {
+                sectionHeader: {
+                    bold: true,
+                    decoration: 'underline',
+                    fontSize: 14,
+                    margin: [0, 15, 0, 15]
                 } ,
                 tableHeader: {
                   color:'grey',
                   bold: true,
                   decoration: 'underline'
                 },
-            }  
-    }; 
+            }
+    };
    pdfMake.createPdf(docDefinition).open();
-  } 
-  
- 
-   
-} 
- 
+  }
+
+
+
+}
+
 
 

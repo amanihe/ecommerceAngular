@@ -53,7 +53,6 @@ import { NgChartsModule } from 'ng2-charts';
     ReactiveFormsModule,
     NgChartsModule,
 
-
   ],
   providers: [
     SharedService,

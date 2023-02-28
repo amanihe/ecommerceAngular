@@ -43,6 +43,7 @@ export class CheckoutComponent implements OnInit {
       console.log(res)
     })
     this.router.navigateByUrl('/checkout/finish');
+   
   }
   getAddress() {
 
